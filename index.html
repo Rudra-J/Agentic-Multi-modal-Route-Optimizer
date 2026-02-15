@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobility Agent Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: stretch;
+            align-items: stretch;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            background: white;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .chat-section {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meetings-list {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .meeting-item {
+            background: white;
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            border-left: 3px solid #667eea;
+        }
+
+        .meeting-location {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .meeting-time {
+            font-size: 11px;
+            color: #999;
+        }
+
+        .state-info {
+            margin-top: 20px;
+            background: white;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .state-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 12px;
+            margin-top: 8px;
+            margin-bottom: 4px;
+        }
+
+        .state-value {
+            font-size: 12px;
+            color: #666;
+            background: #f5f5f5;
+            padding: 6px;
+            border-radius: 3px;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            background: #fafafa;
+            padding: 15px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 85%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            word-wrap: break-word;
+            overflow: visible;
+        }
+
+        .user .message-content {
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .agent .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-bottom-left-radius: 2px;
+        }
+
+        .message-label {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        input[type="text"],
+        input[type="time"],
+        select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="time"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .meetings-input {
+            background: white;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .meeting-input-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .meeting-input-row input {
+            flex: 1;
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+
+        .add-meeting-btn {
+            padding: 6px 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .add-meeting-btn:hover {
+            background: #5568d3;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .send-btn {
+            background: #667eea;
+            color: white;
+            flex: 0 0 auto;
+        }
+
+        .send-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .clear-btn {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .clear-btn:hover {
+            background: #d0d0d0;
+        }
+
+        .loading {
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #c33;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            background: #efe;
+            color: #3c3;
+            padding: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #3c3;
+            margin-bottom: 10px;
+        }
+
+        .response-details {
+            font-size: 12px;
+            color: #666;
+            margin-top: 8px;
+            padding: 8px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .response-details pre {
+            font-size: 11px;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 1200px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                min-height: 150px;
+                max-height: 200px;
+            }
+
+            .message-content {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚗 Mobility Agent</h1>
+            <p>Intelligent Route Planning & Travel Coordination</p>
+        </div>
+
+        <div class="content">
+            <div class="chat-section">
+                <div class="messages" id="messages"></div>
+
+                <div class="input-section">
+                    <div class="input-wrapper">
+                        <div>
+                            <label style="font-size: 12px; color: #666; display: block; margin-bottom: 5px;">
+                                Meetings (Location, Time, Duration)
+                            </label>
+                            <div class="meetings-input">
+                                <div class="meeting-input-row">
+                                    <select id="meetingLocation" style="flex: 1; padding: 6px 8px; font-size: 12px;">
+                                        <option value="">Select location...</option>
+                                    </select>
+                                    <input type="time" id="meetingTime" style="flex: 1; padding: 6px 8px; font-size: 12px;" />
+                                    <input type="number" id="meetingDuration" min="5" max="480" value="30" style="flex: 0.5; padding: 6px 8px; font-size: 12px;" placeholder="mins" />
+                                    <button class="add-meeting-btn" onclick="addMeeting()">+ Add</button>
+                                </div>
+                                <div id="meetingsList" style="font-size: 11px;"></div>
+                            </div>
+                        </div>
+
+                        <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px;">
+                            <label style="font-size: 12px; color: #666; display: block; margin-bottom: 5px;">
+                                📤 Or Upload CSV Itinerary
+                            </label>
+                            <div style="display: flex; gap: 6px;">
+                                <input type="file" id="csvFile" accept=".csv" style="flex: 1; padding: 6px 8px; font-size: 12px; border: 1px solid #ddd; border-radius: 4px;" />
+                                <button onclick="uploadCSV()" style="padding: 6px 12px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Upload</button>
+                            </div>
+                            <div id="csvStatus" style="font-size: 11px; color: #666; margin-top: 5px; display: none;"></div>
+                        </div>
+
+                        <div style="display: flex; gap: 8px; margin-top: 10px;">
+                            <input type="text" id="messageInput" placeholder="Ask me anything... (e.g., 'plan my day', 'use metro for next leg')" />
+                            <button class="send-btn" onclick="sendMessage()" id="sendBtn">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <h3>Meetings</h3>
+                <div id="sidebarMeetings" class="meetings-list"></div>
+
+                <div class="state-info">
+                    <div class="state-label">Avoid Modes:</div>
+                    <div class="state-value" id="avoidModes">None</div>
+
+                    <div class="state-label" style="margin-top: 12px;">Leg Avoid Modes:</div>
+                    <div class="state-value" id="legAvoidModes">None</div>
+                </div>
+
+                <button class="clear-btn" onclick="clearChat()" style="margin-top: 15px; width: 100%;">Clear Chat</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let meetings = [];
+        let state = { avoid_modes: [], leg_overrides: {}, leg_avoid_modes: {} };
+        let availableLocations = [];
+
+        const API_URL = "http://127.0.0.1:8001";
+
+        async function loadLocations() {
+            try {
+                const response = await fetch(`${API_URL}/locations`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                availableLocations = data.locations.map(l => l.name);
+                
+                // Populate dropdown
+                const select = document.getElementById("meetingLocation");
+                availableLocations.forEach(location => {
+                    const option = document.createElement("option");
+                    option.value = location;
+                    option.textContent = location;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error("Failed to load locations:", error);
+                addMessage("⚠️ Failed to load locations. Defaulting to manual entry.", "agent");
+            }
+        }
+
+        function setupLocationAutocomplete() {
+            // This is now handled by dropdown population in loadLocations()
+        }
+
+        function formatRouteHtml(route) {
+            console.log("formatRouteHtml called with:", route);
+            
+            // Check if we have sections (new format) or just route legs (old format)
+            const hasSections = route && route.sections && route.sections.length > 0;
+            const hasRoute = route && route.route && route.route.length > 0;
+            
+            if (!hasSections && !hasRoute) {
+                console.log("No route data available");
+                return "<p>No route details available</p>";
+            }
+
+            let html = `
+                <div style="background: #f0f4ff; border-radius: 8px; padding: 12px; margin-top: 10px; width: 100%; box-sizing: border-box;">
+                    <div style="font-weight: 600; color: #333; margin-bottom: 10px;">📋 Route Details:</div>
+            `;
+
+            // Display sections if available
+            if (hasSections) {
+                route.sections.forEach((section, sectionIdx) => {
+                    console.log(`Processing section ${sectionIdx}:`, section);
+                    
+                    html += `
+                        <div style="background: white; border-left: 5px solid #667eea; padding: 12px; margin-bottom: 12px; border-radius: 4px; width: 100%; box-sizing: border-box;">
+                            <div style="font-weight: 700; color: #333; font-size: 14px; margin-bottom: 8px;">
+                                📍 ${section.from} → ${section.to}
+                            </div>
+                            <div style="font-size: 12px; color: #666; margin-bottom: 8px; display: flex; gap: 16px; flex-wrap: wrap;">
+                                <span><strong>⏱️ Section Time:</strong> ${section.section_start} to ${section.section_end} (${section.section_time})</span>
+                                <span><strong>💰 Cost:</strong> ₹${section.section_cost}</span>
+                            </div>
+                    `;
+                    
+                    // List legs within this section
+                    section.legs.forEach((leg, legIdx) => {
+                        html += `
+                            <div style="background: #f9f9f9; padding: 10px; margin-bottom: 8px; border-radius: 3px; border-left: 2px solid #2ecc71;">
+                                <div style="font-size: 13px; color: #333; font-weight: 600; margin-bottom: 6px;">
+                                    <span style="background: #e8f0ff; padding: 3px 8px; border-radius: 3px; font-weight: 700; color: #667eea;">
+                                        ${leg.mode.toUpperCase()}
+                                    </span>
+                                    <span style="margin-left: 8px; color: #333;">
+                                        ${leg.from} → ${leg.to}
+                                    </span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; font-size: 12px; color: #666;">
+                                    <span>${leg.start_time} → ${leg.end_time}</span>
+                                    <span>⏱️ ${leg.time}m | 💰 ₹${leg.cost} | 📊 ${leg.reliability}</span>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `</div>`;
+                });
+            } else if (hasRoute) {
+                // Fallback to old format (flat list of legs)
+                route.route.forEach((leg, idx) => {
+                    console.log(`Processing leg ${idx}:`, leg);
+                    const timeInfo = leg.start_time && leg.end_time ? ` | ${leg.start_time} → ${leg.end_time}` : "";
+                    html += `
+                        <div style="background: white; border-left: 3px solid #667eea; padding: 12px; margin-bottom: 10px; border-radius: 4px; width: 100%; box-sizing: border-box;">
+                            <div style="font-weight: 700; color: #333; margin-bottom: 6px; font-size: 13px;">
+                                <span style="background: #e8f0ff; padding: 3px 8px; border-radius: 3px; color: #667eea; font-weight: 700;">
+                                    ${leg.mode.toUpperCase()}
+                                </span>
+                                <span style="margin-left: 8px; color: #333;">
+                                    ${leg.from} → ${leg.to}
+                                </span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; font-size: 12px; color: #666;">
+                                <span>${timeInfo.substring(3)}</span>
+                                <span>⏱️ ${leg.time}m | 💰 ₹${leg.cost} | 📊 ${leg.reliability}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // Summary
+            html += `
+                    <div style="border-top: 2px solid #ddd; padding-top: 10px; margin-top: 10px; width: 100%; box-sizing: border-box;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #333; margin-bottom: 6px;">
+                            <span>Total Cost:</span>
+                            <span style="color: #2ecc71;">₹${route.total_cost}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #333; margin-bottom: 6px;">
+                            <span>Total Time:</span>
+                            <span style="color: #667eea;">${route.total_time}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #333;">
+                            <span>Delay Risk:</span>
+                            <span style="color: #f39c12;">${route.delay_risk}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            console.log("Formatted HTML complete, length:", html.length);
+            return html;
+        }
+
+        function addMessage(content, role = "user", details = null) {
+            const messagesDiv = document.getElementById("messages");
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${role}`;
+
+            console.log("addMessage called:", { content, role, details });
+            console.log("details.route exists?", details && details.route);
+
+            let html = `<div class="message-content">`;
+            if (role === "user") {
+                html += `<div class="message-label">You</div>`;
+            } else {
+                html += `<div class="message-label">Agent</div>`;
+            }
+            html += `<div>${escapeHtml(content)}</div>`;
+
+            // Add formatted route display for plan/replan actions
+            if (details && role === "agent" && (details.route || details.sections)) {
+                console.log("Formatting route HTML...");
+                const routeHtml = formatRouteHtml(details);
+                console.log("Generated route HTML length:", routeHtml.length);
+                console.log("Generated route HTML:", routeHtml.substring(0, 200));
+                html += routeHtml;
+            } else {
+                console.log("Not adding route - details:", !!details, "role:", role, "details.route:", details ? !!details.route : false, "details.sections:", details ? !!details.sections : false);
+            }
+
+            html += `</div>`;
+            console.log("Final message HTML length:", html.length);
+            messageDiv.innerHTML = html;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addMeeting() {
+            const location = document.getElementById("meetingLocation").value.trim();
+            const time = document.getElementById("meetingTime").value;
+            const duration = parseInt(document.getElementById("meetingDuration").value) || 30;
+
+            if (!location || !time) {
+                addMessage("Please enter both location and time", "agent");
+                return;
+            }
+
+            meetings.push({ location, start_time: time, duration_minutes: duration });
+            document.getElementById("meetingLocation").value = "";
+            document.getElementById("meetingTime").value = "";
+            document.getElementById("meetingDuration").value = "30";
+
+            updateMeetingsList();
+            addMessage(`Added meeting at ${location} at ${time} (${duration} mins)`, "agent");
+        }
+
+        function updateMeetingsList() {
+            const sidebarMeetings = document.getElementById("sidebarMeetings");
+            const meetingsList = document.getElementById("meetingsList");
+            const duration = (m) => m.duration_minutes ? `${m.duration_minutes}m` : "30m";
+
+            sidebarMeetings.innerHTML = meetings.map((m, i) =>
+                `<div class="meeting-item">
+                    <div class="meeting-location">${m.location}</div>
+                    <div class="meeting-time">${m.start_time} (${duration(m)})</div>
+                </div>`
+            ).join("");
+
+            meetingsList.innerHTML = meetings.map((m, i) =>
+                `<div style="font-size: 11px; margin-bottom: 4px;">
+                    <span>${m.location}</span> <span style="color: #aaa;">@${m.start_time} ${duration(m)}</span>
+                    <button onclick="removeMeeting(${i})" style="padding: 2px 4px; font-size: 10px; background: #fee; color: #c33; border: none; cursor: pointer; border-radius: 2px; margin-left: 4px;">Remove</button>
+                </div>`
+            ).join("");
+        }
+
+        function removeMeeting(index) {
+            meetings.splice(index, 1);
+            updateMeetingsList();
+            addMessage(`Removed meeting ${index + 1}`, "agent");
+        }
+
+        async function uploadCSV() {
+            const fileInput = document.getElementById("csvFile");
+            const statusDiv = document.getElementById("csvStatus");
+            
+            if (!fileInput.files || !fileInput.files[0]) {
+                statusDiv.textContent = "⚠️ Please select a CSV file";
+                statusDiv.style.display = "block";
+                statusDiv.style.color = "#f39c12";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            try {
+                statusDiv.textContent = "Uploading...";
+                statusDiv.style.display = "block";
+                statusDiv.style.color = "#666";
+
+                const response = await fetch(`${API_URL}/upload_itinerary`, {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    statusDiv.textContent = `❌ ${data.error}`;
+                    statusDiv.style.color = "#c33";
+                    return;
+                }
+
+                // Clear existing meetings and add new ones from CSV
+                meetings = data.meetings;
+                updateMeetingsList();
+                
+                statusDiv.textContent = `✅ Loaded ${data.count} meetings from CSV`;
+                statusDiv.style.color = "#2ecc71";
+                
+                // Clear file input
+                fileInput.value = "";
+                
+                addMessage(`📋 Loaded ${data.count} meetings from CSV file`, "agent");
+
+                // Auto-run planning after successful CSV upload
+                // Small delay so the UI updates before starting the planning request
+                setTimeout(() => {
+                    sendMessage('plan my day');
+                }, 250);
+
+            } catch (error) {
+                console.error("CSV upload error:", error);
+                statusDiv.textContent = `❌ Upload failed: ${error.message}`;
+                statusDiv.style.color = "#c33";
+            }
+        }
+
+        async function sendMessage(messageOverride) {
+            const input = document.getElementById("messageInput");
+            const message = (typeof messageOverride === 'string' && messageOverride.length > 0) ? messageOverride : input.value.trim();
+
+            if (!message) {
+                addMessage("Please enter a message", "agent");
+                return;
+            }
+
+            if (meetings.length === 0) {
+                addMessage("Please add at least one meeting before sending a message", "agent");
+                return;
+            }
+
+            addMessage(message, "user");
+            if (!messageOverride) input.value = "";
+
+            const sendBtn = document.getElementById("sendBtn");
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="loading">⏳</span> Sending...';
+
+            try {
+                const response = await fetch(`${API_URL}/chat`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: message,
+                        meetings: meetings
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // Update state
+                if (data.memory) {
+                    state.avoid_modes = data.memory.avoid_modes || [];
+                    state.leg_avoid_modes = data.memory.leg_avoid_modes || {};
+                }
+                if (data.result && data.result.route) {
+                    updateStateDisplay();
+                }
+
+                // Format and display response
+                const action = data.decision?.action || "unknown";
+                const result = data.result || {};
+
+                console.log("========== DEBUG: API Response ==========");
+                console.log("Action:", action);
+                console.log("Result:", result);
+                console.log("Route object:", result.route);
+                console.log("Route is array?", Array.isArray(result.route));
+                console.log("Route length:", result.route ? result.route.length : 0);
+                console.log("========== END DEBUG ==========");
+
+                let responseText = "";
+                if (action === "plan" || action === "replan") {
+                    // If planner returned a failure, show an explicit failure message
+                    if (result && result.status === "failed") {
+                        const reason = result.reason || "No feasible route";
+                        responseText = `❌ Planning failed: ${reason}`;
+                        console.log("Planning failed:", reason, "result:", result);
+                        // If the failure was caused by a user leg override, show a special warning
+                        if (result.failed_override) {
+                            const fo = result.failed_override;
+                            addMessage(responseText, "agent", { error: reason });
+                            showOverrideWarning(fo);
+                        } else {
+                            // Pass an error-only details object so UI doesn't try to render a route
+                            addMessage(responseText, "agent", { error: reason });
+                        }
+                    } else {
+                        responseText = `✅ Your day is planned!`;
+                        console.log("Calling addMessage with result:", result);
+                        addMessage(responseText, "agent", result);
+                    }
+                } else if (action === "update_preferences") {
+                    responseText = `✓ Preferences updated\nAvoiding: ${result.avoid_modes.join(", ")}`;
+                    addMessage(responseText, "agent", result);
+                } else if (action === "edit_leg") {
+                    responseText = `✓ Leg override set\n${result.from} → ${result.to}: ${result.mode}`;
+                    addMessage(responseText, "agent", result);
+                } else if (action === "avoid_mode_on_leg") {
+                    responseText = `✓ Avoiding ${result.avoid.join(", ")} on ${result.from} → ${result.to}`;
+                    addMessage(responseText, "agent", result);
+                } else if (action === "explain") {
+                    responseText = "📋 Here's your planned route";
+                    addMessage(responseText, "agent", result);
+                } else {
+                    responseText = JSON.stringify(result, null, 2).substring(0, 200);
+                    addMessage(responseText, "agent", result);
+                }
+                updateStateDisplay();
+
+            } catch (error) {
+                addMessage(`❌ Error: ${error.message}`, "agent");
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = "Send";
+            }
+        }
+
+        // Show a warning card with a one-click revert for failed overrides
+        function showOverrideWarning(failedOverride) {
+            const messagesDiv = document.getElementById("messages");
+
+            const messageDiv = document.createElement("div");
+            messageDiv.className = "message agent";
+
+            const from = failedOverride.from;
+            const to = failedOverride.to;
+            const mode = failedOverride.mode || "(unspecified)";
+
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <div class="message-label">Agent</div>
+                    <div style="margin-bottom:8px;">⚠️ The override <strong>${escapeHtml(from)} → ${escapeHtml(to)}</strong> (mode: ${escapeHtml(mode)}) made the plan infeasible.</div>
+                    <div>
+                        <button id="revert-btn" style="padding:6px 10px; background:#f39c12; color:#fff; border:none; border-radius:4px; cursor:pointer;">Revert override and replan</button>
+                    </div>
+                </div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            document.getElementById('revert-btn').addEventListener('click', async () => {
+                try {
+                    const resp = await fetch(`${API_URL}/clear_leg_override`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ from: from, to: to })
+                    });
+
+                    const data = await resp.json();
+                    if (data && data.status === 'ok') {
+                        addMessage(`✓ Reverted override ${from} → ${to}. Replanning...`, 'agent');
+                        // trigger replan
+                        setTimeout(() => sendMessage('plan my day'), 200);
+                    } else {
+                        addMessage(`❌ Failed to clear override: ${data.error || JSON.stringify(data)}`, 'agent');
+                    }
+                } catch (e) {
+                    addMessage(`❌ Error clearing override: ${e.message}`, 'agent');
+                }
+            });
+        }
+
+        function updateStateDisplay() {
+            document.getElementById("avoidModes").textContent = 
+                state.avoid_modes.length > 0 ? state.avoid_modes.join(", ") : "None";
+            
+            // Format leg_avoid_modes for display
+            if (Object.keys(state.leg_avoid_modes).length > 0) {
+                const legAvoidItems = [];
+                for (const legKey in state.leg_avoid_modes) {
+                    const constraint = state.leg_avoid_modes[legKey];
+                    const modes = constraint.avoid ? constraint.avoid.join(", ") : "?";
+                    legAvoidItems.push(`${legKey}: [${modes}]`);
+                }
+                document.getElementById("legAvoidModes").textContent = legAvoidItems.join("; ");
+            } else {
+                document.getElementById("legAvoidModes").textContent = "None";
+            }
+        }
+
+        function clearChat() {
+            document.getElementById("messages").innerHTML = "";
+            meetings = [];
+            state = { avoid_modes: [], leg_overrides: {}, leg_avoid_modes: {} };
+            updateMeetingsList();
+            updateStateDisplay();
+            addMessage("Chat cleared. Add new meetings to start planning!", "agent");
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Initialize
+        document.getElementById("messageInput").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessage();
+        });
+
+        loadLocations();
+        addMessage("Welcome! 👋 Add your meetings and I'll help you plan your day.", "agent");
+    </script>
+</body>
+</html>
