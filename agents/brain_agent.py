@@ -71,6 +71,16 @@ LOCATION_ALIASES = {
 }
 
 
+def _build_location_token_map():
+    token_map = {k.lower(): v for k, v in LOCATION_ALIASES.items()}
+    for location in get_all_locations():
+        token_map[location.lower()] = location
+    return token_map
+
+
+LOCATION_TOKEN_MAP = _build_location_token_map()
+
+
 def _canonicalize_location(raw: str):
     if not raw:
         return None
@@ -96,31 +106,49 @@ def _canonicalize_location(raw: str):
 
 
 def _extract_leg(text: str):
+    def canonical_pair(from_raw: str, to_raw: str):
+        from_loc = _canonicalize_location(from_raw)
+        to_loc = _canonicalize_location(to_raw)
+        return from_loc, to_loc
+
     # Highest-confidence parse: explicit "from X to Y"
     explicit = re.search(r"\bfrom\s+([a-z\s]+?)\s+to\s+([a-z\s]+)", text)
     if explicit:
-        from_raw = explicit.group(1).strip()
-        to_raw = explicit.group(2).strip()
-    else:
-        # Fallback parse for terse commands like "bandra to cst cab"
-        generic = re.search(r"\b([a-z][a-z\s]{1,30}?)\s+to\s+([a-z][a-z\s]{1,30})\b", text)
-        if not generic:
-            return None, None
-        from_raw = generic.group(1).strip()
-        to_raw = generic.group(2).strip()
+        from_loc, to_loc = canonical_pair(explicit.group(1).strip(), explicit.group(2).strip())
+        if from_loc and to_loc:
+            return from_loc, to_loc
 
-    stop_tokens = [
-        "route", "please", "using", "use", "with", "and", "then", "the", "a", "an",
-        "i", "want", "wanna", "would", "like", "to", "take", "by", "via", "on", "in"
-    ] + KNOWN_MODES
+    normalized = re.sub(r"[^a-z\s]", " ", text.lower())
+    normalized = re.sub(r"\s+", " ", normalized).strip()
 
-    def clean_loc(value: str):
-        tokens = [t for t in value.split() if t not in stop_tokens]
-        return " ".join(tokens).strip()
+    mentions = []
+    for token, canonical in sorted(LOCATION_TOKEN_MAP.items(), key=lambda x: len(x[0]), reverse=True):
+        pattern = rf"\b{re.escape(token)}\b"
+        for m in re.finditer(pattern, normalized):
+            mentions.append((m.start(), m.end(), canonical))
 
-    from_loc = _canonicalize_location(clean_loc(from_raw))
-    to_loc = _canonicalize_location(clean_loc(to_raw))
-    return from_loc, to_loc
+    if not mentions:
+        return None, None
+
+    mentions.sort(key=lambda x: (x[0], -(x[1] - x[0])))
+    filtered = []
+    for start, end, canonical in mentions:
+        if filtered and start < filtered[-1][1]:
+            continue
+        filtered.append((start, end, canonical))
+
+    if len(filtered) < 2:
+        return None, None
+
+    to_match = re.search(r"\bto\b", normalized)
+    if to_match:
+        to_idx = to_match.start()
+        before = [m for m in filtered if m[0] < to_idx]
+        after = [m for m in filtered if m[0] > to_idx]
+        if before and after:
+            return before[-1][2], after[0][2]
+
+    return filtered[0][2], filtered[1][2]
 
 
 def _extract_mode(text: str):
@@ -128,6 +156,8 @@ def _extract_mode(text: str):
         if re.search(rf"\b{re.escape(mode)}\b", text):
             return mode
     if "taxi" in text:
+        return "cab"
+    if "uber" in text or "ola" in text:
         return "cab"
     return None
 
