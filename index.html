@@ -419,7 +419,7 @@
         let state = { avoid_modes: [], leg_overrides: {}, leg_avoid_modes: {} };
         let availableLocations = [];
 
-        const API_URL = "http://127.0.0.1:8001";
+        const API_URL = window.location.origin;
 
         async function loadLocations() {
             try {
