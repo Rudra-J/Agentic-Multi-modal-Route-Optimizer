@@ -58,6 +58,11 @@ Output:
 User: why this route?
 Output:
 {"action":"explain"}
+
+Important behavior rules:
+- If the user clearly specifies a leg with a preferred mode (e.g. "from X to Y by cab"), return action="edit_leg".
+- If the user clearly specifies a leg with a mode to avoid (e.g. "don't take train from X to Y"), return action="avoid_mode_on_leg".
+- Do NOT return "plan" for these explicit leg-level instructions.
 """
 
 
@@ -233,13 +238,61 @@ def _rule_based_override_decision(user_message: str):
     return None
 
 
-def think(user_message):
-    # Deterministic override for explicit leg-level instructions to avoid
-    # accidental "plan" responses from the LLM.
-    forced = _rule_based_override_decision(user_message)
-    if forced is not None:
-        return forced
+def _normalize_decision(decision: dict):
+    if not isinstance(decision, dict):
+        return None
 
+    action = (decision.get("action") or "").strip().lower()
+    if not action:
+        return None
+
+    normalized = {"action": action}
+
+    if action in ["edit_leg", "avoid_mode_on_leg", "clear_leg_override"]:
+        from_loc = _canonicalize_location(decision.get("from_location", ""))
+        to_loc = _canonicalize_location(decision.get("to_location", ""))
+        if not from_loc or not to_loc:
+            return None
+        normalized["from_location"] = from_loc
+        normalized["to_location"] = to_loc
+
+    if action == "edit_leg":
+        mode = _extract_mode((decision.get("transport_mode") or "").lower())
+        if not mode:
+            return None
+        normalized["transport_mode"] = mode
+
+    if action == "avoid_mode_on_leg":
+        avoid_modes = decision.get("avoid_modes", [])
+        if not isinstance(avoid_modes, list):
+            return None
+        filtered = []
+        for mode in avoid_modes:
+            parsed = _extract_mode(str(mode).lower())
+            if parsed:
+                filtered.append(parsed)
+        if not filtered:
+            return None
+        normalized["avoid_modes"] = filtered
+
+    if action == "update_preferences":
+        avoid_modes = decision.get("avoid_modes", [])
+        if isinstance(avoid_modes, list):
+            filtered = []
+            for mode in avoid_modes:
+                parsed = _extract_mode(str(mode).lower())
+                if parsed:
+                    filtered.append(parsed)
+            normalized["avoid_modes"] = filtered
+
+    reason = decision.get("reason")
+    if isinstance(reason, str) and reason.strip():
+        normalized["reason"] = reason.strip()
+
+    return normalized
+
+
+def think(user_message):
     try:
         reply = ask_llm(SYSTEM_PROMPT, user_message)
 
@@ -248,6 +301,10 @@ def think(user_message):
         if start == -1 or end <= start:
             return _fallback_decision(user_message)
 
-        return json.loads(reply[start:end])
+        parsed = json.loads(reply[start:end])
+        normalized = _normalize_decision(parsed)
+        if normalized is not None:
+            return normalized
+        return _fallback_decision(user_message)
     except Exception:
         return _fallback_decision(user_message)
