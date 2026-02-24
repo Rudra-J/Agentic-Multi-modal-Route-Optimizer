@@ -18,6 +18,9 @@ HEADERS = {
 
 def ask_llm(system_prompt, user_prompt):
 
+    if not API_KEY:
+        raise RuntimeError("OPENROUTER_API_KEY is not set")
+
     payload = {
         "model": "openrouter/free",
         "messages": [
@@ -26,7 +29,10 @@ def ask_llm(system_prompt, user_prompt):
         ]
     }
 
-    r = requests.post(URL, headers=HEADERS, json=payload)
-    r.raise_for_status()
+    try:
+        r = requests.post(URL, headers=HEADERS, json=payload, timeout=25)
+        r.raise_for_status()
+    except requests.RequestException as e:
+        raise RuntimeError(f"LLM request failed: {e}") from e
 
     return r.json()["choices"][0]["message"]["content"]

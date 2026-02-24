@@ -28,8 +28,9 @@ call venv\Scripts\activate.bat
 
 REM Install dependencies
 echo 📥 Installing dependencies...
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+set PIP_TRUSTED_HOST_ARGS=--trusted-host pypi.org --trusted-host files.pythonhosted.org
+python -m pip install --upgrade pip %PIP_TRUSTED_HOST_ARGS%
+pip install -r requirements.txt %PIP_TRUSTED_HOST_ARGS%
 if %errorlevel% neq 0 (
     echo ❌ Failed to install dependencies
     exit /b 1

@@ -48,7 +48,7 @@ NetworkX Graph (12+ locations, 4 transport modes)
 cd agentic_auto_routing
 
 # Install dependencies
-pip install fastapi uvicorn pydantic networkx requests python-multipart
+pip install -r requirements.txt --trusted-host pypi.org --trusted-host files.pythonhosted.org
 
 # Set environment variable (optional, for LLM calls)
 export OPENROUTER_API_KEY="your-key-here"

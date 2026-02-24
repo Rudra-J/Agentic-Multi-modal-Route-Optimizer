@@ -25,8 +25,9 @@ echo "✓ Virtual environment activated"
 
 # Install dependencies
 echo "📥 Installing dependencies..."
-pip install --upgrade pip
-pip install -r requirements.txt
+PIP_TRUSTED_HOST_ARGS="--trusted-host pypi.org --trusted-host files.pythonhosted.org"
+pip install --upgrade pip $PIP_TRUSTED_HOST_ARGS
+pip install -r requirements.txt $PIP_TRUSTED_HOST_ARGS
 
 echo "✓ Dependencies installed"
 

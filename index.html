@@ -726,6 +726,7 @@
                 // Update state
                 if (data.memory) {
                     state.avoid_modes = data.memory.avoid_modes || [];
+                    state.leg_overrides = data.memory.leg_overrides || {};
                     state.leg_avoid_modes = data.memory.leg_avoid_modes || {};
                 }
                 if (data.result && data.result.route) {
@@ -841,15 +842,27 @@
             document.getElementById("avoidModes").textContent = 
                 state.avoid_modes.length > 0 ? state.avoid_modes.join(", ") : "None";
             
-            // Format leg_avoid_modes for display
-            if (Object.keys(state.leg_avoid_modes).length > 0) {
-                const legAvoidItems = [];
+            // Format leg constraints (overrides + avoid modes) for display
+            const legConstraintItems = [];
+
+            if (state.leg_overrides && Object.keys(state.leg_overrides).length > 0) {
+                for (const legKey in state.leg_overrides) {
+                    const override = state.leg_overrides[legKey];
+                    const mode = override.mode ? override.mode : "?";
+                    legConstraintItems.push(`${legKey}: force [${mode}]`);
+                }
+            }
+
+            if (state.leg_avoid_modes && Object.keys(state.leg_avoid_modes).length > 0) {
                 for (const legKey in state.leg_avoid_modes) {
                     const constraint = state.leg_avoid_modes[legKey];
                     const modes = constraint.avoid ? constraint.avoid.join(", ") : "?";
-                    legAvoidItems.push(`${legKey}: [${modes}]`);
+                    legConstraintItems.push(`${legKey}: avoid [${modes}]`);
                 }
-                document.getElementById("legAvoidModes").textContent = legAvoidItems.join("; ");
+            }
+
+            if (legConstraintItems.length > 0) {
+                document.getElementById("legAvoidModes").textContent = legConstraintItems.join("; ");
             } else {
                 document.getElementById("legAvoidModes").textContent = "None";
             }

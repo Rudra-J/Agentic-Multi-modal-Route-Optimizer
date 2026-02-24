@@ -19,6 +19,7 @@ class MobilityAgent:
             "result": result,
             "memory": {
                 "avoid_modes": list(self.state.avoid_modes),
+                "leg_overrides": self.state.leg_overrides,
                 "leg_avoid_modes": self.state.leg_avoid_modes
             }
         }

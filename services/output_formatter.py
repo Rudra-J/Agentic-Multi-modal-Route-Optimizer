@@ -11,6 +11,15 @@ def minutes_to_time(minutes):
     return f"{h:02d}:{m:02d}"
 
 
+def _reliability_to_int(value):
+    if isinstance(value, str) and value.endswith("%"):
+        try:
+            return int(value[:-1])
+        except ValueError:
+            return None
+    return None
+
+
 def format_plan(itinerary):
     total_cost = 0
     total_time = 0
@@ -28,17 +37,34 @@ def format_plan(itinerary):
         for leg in route["legs"]:
             leg_start_time = minutes_to_time(current_time)
             leg_end_time = minutes_to_time(current_time + leg["time"])
-            
-            section_legs.append({
-                "from": leg["from"],
-                "to": leg["to"],
-                "mode": leg["mode"],
-                "time": leg["time"],
-                "cost": leg["cost"],
-                "reliability": leg["reliability"],
-                "start_time": leg_start_time,
-                "end_time": leg_end_time
-            })
+
+            # Aggregate continuous cab rides so the UI doesn't imply cab switching.
+            if (
+                leg["mode"] == "cab"
+                and section_legs
+                and section_legs[-1]["mode"] == "cab"
+            ):
+                prev = section_legs[-1]
+                prev["to"] = leg["to"]
+                prev["time"] += leg["time"]
+                prev["cost"] += leg["cost"]
+                prev["end_time"] = leg_end_time
+
+                prev_rel = _reliability_to_int(prev.get("reliability"))
+                curr_rel = _reliability_to_int(leg.get("reliability"))
+                if prev_rel is not None and curr_rel is not None:
+                    prev["reliability"] = f"{min(prev_rel, curr_rel)}%"
+            else:
+                section_legs.append({
+                    "from": leg["from"],
+                    "to": leg["to"],
+                    "mode": leg["mode"],
+                    "time": leg["time"],
+                    "cost": leg["cost"],
+                    "reliability": leg["reliability"],
+                    "start_time": leg_start_time,
+                    "end_time": leg_end_time
+                })
             
             current_time += leg["time"]
             total_cost += leg["cost"]
