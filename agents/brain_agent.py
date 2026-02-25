@@ -167,10 +167,35 @@ def _extract_mode(text: str):
     return None
 
 
+def _detect_global_preference(user_message: str):
+    text = (user_message or "").lower()
+    mode = _extract_mode(text)
+    if not mode:
+        return None
+
+    from_loc, to_loc = _extract_leg(text)
+    if from_loc and to_loc:
+        return None
+
+    avoid_markers = ["avoid", "don't", "dont", "do not", "not use", "not take", "no ", "hate"]
+    if any(marker in text for marker in avoid_markers):
+        return {
+            "action": "update_preferences",
+            "avoid_modes": [mode],
+            "reason": "preference_guard"
+        }
+
+    return None
+
+
 def _fallback_decision(user_message: str):
     text = (user_message or "").lower()
     from_loc, to_loc = _extract_leg(text)
     mode = _extract_mode(text)
+
+    global_preference = _detect_global_preference(user_message)
+    if global_preference is not None:
+        return global_preference
 
     avoid_markers = ["avoid", "don't", "dont", "do not", "no ", "not use", "not take"]
 
@@ -197,13 +222,6 @@ def _fallback_decision(user_message: str):
 
     if "why" in text or "explain" in text:
         return {"action": "explain", "reason": "fallback_rule"}
-
-    if "avoid" in text and "bus" in text:
-        return {
-            "action": "update_preferences",
-            "avoid_modes": ["bus"],
-            "reason": "fallback_rule"
-        }
 
     return {"action": "plan", "reason": "fallback_rule"}
 
@@ -304,6 +322,10 @@ def think(user_message):
         parsed = json.loads(reply[start:end])
         normalized = _normalize_decision(parsed)
         if normalized is not None:
+            if normalized.get("action") == "plan":
+                global_preference = _detect_global_preference(user_message)
+                if global_preference is not None:
+                    return global_preference
             return normalized
         return _fallback_decision(user_message)
     except Exception:
