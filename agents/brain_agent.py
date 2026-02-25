@@ -311,22 +311,29 @@ def _normalize_decision(decision: dict):
 
 
 def think(user_message):
-    try:
-        reply = ask_llm(SYSTEM_PROMPT, user_message)
+    max_parse_retries = 2
 
-        start = reply.find("{")
-        end = reply.rfind("}") + 1
-        if start == -1 or end <= start:
-            return _fallback_decision(user_message)
+    for _ in range(max_parse_retries + 1):
+        try:
+            reply = ask_llm(SYSTEM_PROMPT, user_message)
 
-        parsed = json.loads(reply[start:end])
-        normalized = _normalize_decision(parsed)
-        if normalized is not None:
+            start = reply.find("{")
+            end = reply.rfind("}") + 1
+            if start == -1 or end <= start:
+                continue
+
+            parsed = json.loads(reply[start:end])
+            normalized = _normalize_decision(parsed)
+            if normalized is None:
+                continue
+
             if normalized.get("action") == "plan":
                 global_preference = _detect_global_preference(user_message)
                 if global_preference is not None:
                     return global_preference
+
             return normalized
-        return _fallback_decision(user_message)
-    except Exception:
-        return _fallback_decision(user_message)
+        except Exception:
+            continue
+
+    return _fallback_decision(user_message)
