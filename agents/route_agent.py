@@ -55,6 +55,9 @@ def score_path(path, transport_mode="any", avoid_modes=None, weather="clear", cu
             if transport_mode == "public_only" and edge["mode"] == "cab":
                 continue
 
+            if transport_mode in {"metro", "train", "bus", "cab"} and edge["mode"] != transport_mode:
+                continue
+
             candidates.append(edge)
 
         if not candidates:

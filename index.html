@@ -64,6 +64,24 @@
             flex-direction: column;
         }
 
+        .meetings-panel {
+            flex: 1.1;
+            display: flex;
+            flex-direction: column;
+            background: #171c25;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-y: auto;
+        }
+
+        .meetings-panel h3 {
+            font-size: 14px;
+            color: #eef2fb;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .sidebar {
             flex: 1;
             display: flex;
@@ -129,6 +147,29 @@
             border-radius: 3px;
         }
 
+        .pref-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(99, 102, 241, 0.15);
+            color: #c7d2fe;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            margin: 2px 2px;
+            white-space: nowrap;
+        }
+        .pref-x {
+            cursor: pointer;
+            font-size: 13px;
+            color: #f87171;
+            margin-left: 2px;
+            line-height: 1;
+        }
+        .pref-x:hover {
+            color: #ef4444;
+        }
+
         .messages {
             flex: 1;
             overflow-y: auto;
@@ -180,6 +221,7 @@
         .input-section {
             display: flex;
             gap: 10px;
+            width: 100%;
         }
 
         .input-wrapper {
@@ -187,6 +229,14 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            width: 100%;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            width: 100%;
         }
 
         input[type="text"],
@@ -337,6 +387,7 @@
                 flex-direction: column;
             }
 
+            .meetings-panel,
             .sidebar {
                 min-height: 150px;
                 max-height: 200px;
@@ -346,50 +397,152 @@
                 max-width: 90%;
             }
         }
+
+        body {
+            background: #0f1115;
+            color: #e6eaf2;
+        }
+
+        .container {
+            background: #11151d;
+        }
+
+        .content {
+            background: #11151d;
+        }
+
+        .messages {
+            background: #171c25;
+            border-color: #2a3140;
+        }
+
+        .agent .message-content {
+            background: #1e2430;
+            color: #e9edf6;
+            border-color: #31394b;
+        }
+
+        .user .message-content {
+            background: #5c74ff;
+            color: #ffffff;
+        }
+
+        .sidebar {
+            background: #171c25;
+            color: #d9deea;
+        }
+
+        .sidebar h3,
+        .state-label,
+        .meeting-location {
+            color: #eef2fb;
+        }
+
+        .meeting-time,
+        .meetings-list,
+        .message-label {
+            color: #aab3c7;
+        }
+
+        .meeting-item,
+        .state-info {
+            background: #1e2430;
+            border-color: #30384a;
+        }
+
+        .state-value,
+        .meetings-input,
+        .response-details {
+            background: #141a24;
+            color: #dde3f0;
+            border-color: #30384a;
+        }
+
+        input[type="text"],
+        input[type="time"],
+        input[type="number"],
+        select {
+            background: #1b2230;
+            color: #eaf0ff;
+            border-color: #3a445a;
+        }
+
+        input[type="text"]::placeholder {
+            color: #aab3c7;
+        }
+
+        #messageInput {
+            padding: 12px 14px;
+            min-height: 46px;
+            font-size: 15px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .clear-btn {
+            background: #2a3140;
+            color: #e6eaf2;
+        }
+
+        .clear-btn:hover {
+            background: #353d4f;
+        }
+
+        .add-meeting-btn {
+            background: #5c74ff;
+        }
+
+        .add-meeting-btn:hover {
+            background: #4f67ef;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚗 Mobility Agent</h1>
+            <h1>Mobility Agent</h1>
             <p>Intelligent Route Planning & Travel Coordination</p>
         </div>
 
         <div class="content">
+            <div class="meetings-panel">
+                <h3>Meetings Input</h3>
+
+                <div>
+                    <label style="font-size: 12px; color: #aab3c7; display: block; margin-bottom: 5px;">
+                        Meetings (Location, Time, Duration)
+                    </label>
+                    <div class="meetings-input">
+                        <div class="meeting-input-row">
+                            <select id="meetingLocation" style="flex: 1; padding: 6px 8px; font-size: 12px;">
+                                <option value="">Select location...</option>
+                            </select>
+                            <input type="time" id="meetingTime" style="flex: 1; padding: 6px 8px; font-size: 12px;" />
+                            <input type="number" id="meetingDuration" min="5" max="480" value="30" style="flex: 0.5; padding: 6px 8px; font-size: 12px;" placeholder="mins" />
+                            <button class="add-meeting-btn" onclick="addMeeting()">+ Add</button>
+                        </div>
+                        <div id="meetingsList" style="font-size: 11px;"></div>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid #30384a; padding-top: 10px; margin-top: 10px;">
+                    <label style="font-size: 12px; color: #aab3c7; display: block; margin-bottom: 5px;">
+                        📤 Or Upload CSV Itinerary
+                    </label>
+                    <div style="display: flex; gap: 6px;">
+                        <input type="file" id="csvFile" accept=".csv" style="flex: 1; padding: 6px 8px; font-size: 12px; border: 1px solid #3a445a; border-radius: 4px; background: #1b2230; color: #eaf0ff;" />
+                        <button onclick="uploadCSV()" style="padding: 6px 12px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Upload</button>
+                    </div>
+                    <div id="csvStatus" style="font-size: 11px; color: #aab3c7; margin-top: 5px; display: none;"></div>
+                </div>
+            </div>
+
             <div class="chat-section">
                 <div class="messages" id="messages"></div>
 
                 <div class="input-section">
                     <div class="input-wrapper">
-                        <div>
-                            <label style="font-size: 12px; color: #666; display: block; margin-bottom: 5px;">
-                                Meetings (Location, Time, Duration)
-                            </label>
-                            <div class="meetings-input">
-                                <div class="meeting-input-row">
-                                    <select id="meetingLocation" style="flex: 1; padding: 6px 8px; font-size: 12px;">
-                                        <option value="">Select location...</option>
-                                    </select>
-                                    <input type="time" id="meetingTime" style="flex: 1; padding: 6px 8px; font-size: 12px;" />
-                                    <input type="number" id="meetingDuration" min="5" max="480" value="30" style="flex: 0.5; padding: 6px 8px; font-size: 12px;" placeholder="mins" />
-                                    <button class="add-meeting-btn" onclick="addMeeting()">+ Add</button>
-                                </div>
-                                <div id="meetingsList" style="font-size: 11px;"></div>
-                            </div>
-                        </div>
-
-                        <div style="border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px;">
-                            <label style="font-size: 12px; color: #666; display: block; margin-bottom: 5px;">
-                                📤 Or Upload CSV Itinerary
-                            </label>
-                            <div style="display: flex; gap: 6px;">
-                                <input type="file" id="csvFile" accept=".csv" style="flex: 1; padding: 6px 8px; font-size: 12px; border: 1px solid #ddd; border-radius: 4px;" />
-                                <button onclick="uploadCSV()" style="padding: 6px 12px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600;">Upload</button>
-                            </div>
-                            <div id="csvStatus" style="font-size: 11px; color: #666; margin-top: 5px; display: none;"></div>
-                        </div>
-
-                        <div style="display: flex; gap: 8px; margin-top: 10px;">
+                        <div class="chat-input-row">
                             <input type="text" id="messageInput" placeholder="Ask me anything... (e.g., 'plan my day', 'use metro for next leg')" />
                             <button class="send-btn" onclick="sendMessage()" id="sendBtn">Send</button>
                         </div>
@@ -405,11 +558,12 @@
                     <div class="state-label">Avoid Modes:</div>
                     <div class="state-value" id="avoidModes">None</div>
 
-                    <div class="state-label" style="margin-top: 12px;">Leg Avoid Modes:</div>
+                    <div class="state-label" style="margin-top: 12px;">Leg Constraints:</div>
                     <div class="state-value" id="legAvoidModes">None</div>
                 </div>
 
-                <button class="clear-btn" onclick="clearChat()" style="margin-top: 15px; width: 100%;">Clear Chat</button>
+                <button class="clear-btn" onclick="exportChat()" style="margin-top: 15px; width: 100%; background: #2d3748;">📋 Export Chat</button>
+                <button class="clear-btn" onclick="clearChat()" style="margin-top: 8px; width: 100%;">Clear Chat</button>
             </div>
         </div>
     </div>
@@ -418,6 +572,7 @@
         let meetings = [];
         let state = { avoid_modes: [], leg_overrides: {}, leg_avoid_modes: {} };
         let availableLocations = [];
+        let chatLog = [];
 
         const API_URL = window.location.origin;
 
@@ -461,8 +616,8 @@
             }
 
             let html = `
-                <div style="background: #f0f4ff; border-radius: 8px; padding: 12px; margin-top: 10px; width: 100%; box-sizing: border-box;">
-                    <div style="font-weight: 600; color: #333; margin-bottom: 10px;">📋 Route Details:</div>
+                <div style="background: #1a2130; border-radius: 8px; padding: 12px; margin-top: 10px; width: 100%; box-sizing: border-box;">
+                    <div style="font-weight: 600; color: #eef2fb; margin-bottom: 10px;">📋 Route Details:</div>
             `;
 
             // Display sections if available
@@ -471,11 +626,11 @@
                     console.log(`Processing section ${sectionIdx}:`, section);
                     
                     html += `
-                        <div style="background: white; border-left: 5px solid #667eea; padding: 12px; margin-bottom: 12px; border-radius: 4px; width: 100%; box-sizing: border-box;">
-                            <div style="font-weight: 700; color: #333; font-size: 14px; margin-bottom: 8px;">
+                        <div style="background: #202938; border-left: 5px solid #667eea; padding: 12px; margin-bottom: 12px; border-radius: 4px; width: 100%; box-sizing: border-box;">
+                            <div style="font-weight: 700; color: #eef2fb; font-size: 14px; margin-bottom: 8px;">
                                 📍 ${section.from} → ${section.to}
                             </div>
-                            <div style="font-size: 12px; color: #666; margin-bottom: 8px; display: flex; gap: 16px; flex-wrap: wrap;">
+                            <div style="font-size: 12px; color: #b7c1d6; margin-bottom: 8px; display: flex; gap: 16px; flex-wrap: wrap;">
                                 <span><strong>⏱️ Section Time:</strong> ${section.section_start} to ${section.section_end} (${section.section_time})</span>
                                 <span><strong>💰 Cost:</strong> ₹${section.section_cost}</span>
                             </div>
@@ -484,16 +639,16 @@
                     // List legs within this section
                     section.legs.forEach((leg, legIdx) => {
                         html += `
-                            <div style="background: #f9f9f9; padding: 10px; margin-bottom: 8px; border-radius: 3px; border-left: 2px solid #2ecc71;">
-                                <div style="font-size: 13px; color: #333; font-weight: 600; margin-bottom: 6px;">
-                                    <span style="background: #e8f0ff; padding: 3px 8px; border-radius: 3px; font-weight: 700; color: #667eea;">
+                            <div style="background: #161d29; padding: 10px; margin-bottom: 8px; border-radius: 3px; border-left: 2px solid #2ecc71;">
+                                <div style="font-size: 13px; color: #eef2fb; font-weight: 600; margin-bottom: 6px;">
+                                    <span style="background: #2a3550; padding: 3px 8px; border-radius: 3px; font-weight: 700; color: #8aa4ff;">
                                         ${leg.mode.toUpperCase()}
                                     </span>
-                                    <span style="margin-left: 8px; color: #333;">
+                                    <span style="margin-left: 8px; color: #e6ecf8;">
                                         ${leg.from} → ${leg.to}
                                     </span>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; font-size: 12px; color: #666;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; font-size: 12px; color: #b7c1d6;">
                                     <span>${leg.start_time} → ${leg.end_time}</span>
                                     <span>⏱️ ${leg.time}m | 💰 ₹${leg.cost} | 📊 ${leg.reliability}</span>
                                 </div>
@@ -509,16 +664,16 @@
                     console.log(`Processing leg ${idx}:`, leg);
                     const timeInfo = leg.start_time && leg.end_time ? ` | ${leg.start_time} → ${leg.end_time}` : "";
                     html += `
-                        <div style="background: white; border-left: 3px solid #667eea; padding: 12px; margin-bottom: 10px; border-radius: 4px; width: 100%; box-sizing: border-box;">
-                            <div style="font-weight: 700; color: #333; margin-bottom: 6px; font-size: 13px;">
-                                <span style="background: #e8f0ff; padding: 3px 8px; border-radius: 3px; color: #667eea; font-weight: 700;">
+                        <div style="background: #202938; border-left: 3px solid #667eea; padding: 12px; margin-bottom: 10px; border-radius: 4px; width: 100%; box-sizing: border-box;">
+                            <div style="font-weight: 700; color: #eef2fb; margin-bottom: 6px; font-size: 13px;">
+                                <span style="background: #2a3550; padding: 3px 8px; border-radius: 3px; color: #8aa4ff; font-weight: 700;">
                                     ${leg.mode.toUpperCase()}
                                 </span>
-                                <span style="margin-left: 8px; color: #333;">
+                                <span style="margin-left: 8px; color: #eef2fb;">
                                     ${leg.from} → ${leg.to}
                                 </span>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; font-size: 12px; color: #666;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; font-size: 12px; color: #b7c1d6;">
                                 <span>${timeInfo.substring(3)}</span>
                                 <span>⏱️ ${leg.time}m | 💰 ₹${leg.cost} | 📊 ${leg.reliability}</span>
                             </div>
@@ -529,16 +684,16 @@
 
             // Summary
             html += `
-                    <div style="border-top: 2px solid #ddd; padding-top: 10px; margin-top: 10px; width: 100%; box-sizing: border-box;">
-                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #333; margin-bottom: 6px;">
+                    <div style="border-top: 2px solid #36415a; padding-top: 10px; margin-top: 10px; width: 100%; box-sizing: border-box;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #e6ecf8; margin-bottom: 6px;">
                             <span>Total Cost:</span>
                             <span style="color: #2ecc71;">₹${route.total_cost}</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #333; margin-bottom: 6px;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #e6ecf8; margin-bottom: 6px;">
                             <span>Total Time:</span>
                             <span style="color: #667eea;">${route.total_time}</span>
                         </div>
-                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #333;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #e6ecf8;">
                             <span>Delay Risk:</span>
                             <span style="color: #f39c12;">${route.delay_risk}</span>
                         </div>
@@ -700,6 +855,7 @@
                 return;
             }
 
+            chatLog.push({ role: "user", text: message, ts: new Date().toISOString() });
             addMessage(message, "user");
             if (!messageOverride) input.value = "";
 
@@ -760,6 +916,9 @@
                         } else {
                             // Pass an error-only details object so UI doesn't try to render a route
                             addMessage(responseText, "agent", { error: reason });
+                            if (state.avoid_modes && state.avoid_modes.length > 0) {
+                                showPreferenceWarning(state.avoid_modes);
+                            }
                         }
                     } else {
                         responseText = `✅ Your day is planned!`;
@@ -775,21 +934,80 @@
                 } else if (action === "avoid_mode_on_leg") {
                     responseText = `✓ Avoiding ${result.avoid.join(", ")} on ${result.from} → ${result.to}`;
                     addMessage(responseText, "agent", result);
+                } else if (action === "clear_leg_override" || action === "clear_leg_preference") {
+                    responseText = `✓ Cleared preferences for ${result.from} → ${result.to}` + (result.cleared ? ` (${result.cleared})` : '');
+                    addMessage(responseText, "agent", result);
                 } else if (action === "explain") {
                     responseText = "📋 Here's your planned route";
                     addMessage(responseText, "agent", result);
+                } else if (action === "what_if") {
+                    responseText = result.message || "I evaluated that change. Reply 'yes' to apply it.";
+                    addMessage(responseText, "agent", result);
+                } else if (action === "plan_query") {
+                    responseText = result.message || "Here's what the current plan shows for that leg.";
+                    addMessage(responseText, "agent", result);
+                } else if (action === "unclear") {
+                    responseText = result.message || "I didn't understand that. Could you rephrase?";
+                    addMessage(responseText, "agent", result);
+                } else if (action === "no_action") {
+                    responseText = result.message || "No change applied.";
+                    addMessage(responseText, "agent", result);
                 } else {
-                    responseText = JSON.stringify(result, null, 2).substring(0, 200);
+                    responseText = result.message || JSON.stringify(result, null, 2).substring(0, 200);
                     addMessage(responseText, "agent", result);
                 }
+                chatLog.push({ role: "agent", text: responseText, action: action, result: result, memory: state, ts: new Date().toISOString() });
                 updateStateDisplay();
 
             } catch (error) {
+                chatLog.push({ role: "agent", text: `Error: ${error.message}`, ts: new Date().toISOString() });
                 addMessage(`❌ Error: ${error.message}`, "agent");
             } finally {
                 sendBtn.disabled = false;
                 sendBtn.innerHTML = "Send";
             }
+        }
+
+        function showPreferenceWarning(avoidModes) {
+            const messagesDiv = document.getElementById("messages");
+
+            const messageDiv = document.createElement("div");
+            messageDiv.className = "message agent";
+
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <div class="message-label">Agent</div>
+                    <div style="margin-bottom:8px;">⚠️ Current preferences may be making the plan infeasible. Active avoid modes: <strong>${escapeHtml(avoidModes.join(", "))}</strong>.</div>
+                    <div>
+                        <button id="revert-pref-btn" style="padding:6px 10px; background:#f39c12; color:#fff; border:none; border-radius:4px; cursor:pointer;">Clear preferences and replan</button>
+                    </div>
+                </div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            const btn = messageDiv.querySelector('#revert-pref-btn');
+            btn.addEventListener('click', async () => {
+                try {
+                    const resp = await fetch(`${API_URL}/clear_preferences`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+
+                    const data = await resp.json();
+                    if (data && data.status === 'ok') {
+                        state.avoid_modes = [];
+                        updateStateDisplay();
+                        addMessage('✓ Cleared global preferences. Replanning...', 'agent');
+                        setTimeout(() => sendMessage('plan my day'), 200);
+                    } else {
+                        addMessage(`❌ Failed to clear preferences: ${data.error || JSON.stringify(data)}`, 'agent');
+                    }
+                } catch (e) {
+                    addMessage(`❌ Error clearing preferences: ${e.message}`, 'agent');
+                }
+            });
         }
 
         // Show a warning card with a one-click revert for failed overrides
@@ -839,17 +1057,26 @@
         }
 
         function updateStateDisplay() {
-            document.getElementById("avoidModes").textContent = 
-                state.avoid_modes.length > 0 ? state.avoid_modes.join(", ") : "None";
-            
-            // Format leg constraints (overrides + avoid modes) for display
-            const legConstraintItems = [];
+            // --- Avoid modes with per-mode X buttons ---
+            const avoidEl = document.getElementById("avoidModes");
+            if (state.avoid_modes && state.avoid_modes.length > 0) {
+                avoidEl.innerHTML = state.avoid_modes.map(mode =>
+                    `<span class="pref-chip">${escapeHtml(mode)}<span class="pref-x" onclick="removeAvoidMode('${escapeHtml(mode)}')">✕</span></span>`
+                ).join(" ");
+            } else {
+                avoidEl.textContent = "None";
+            }
+
+            // --- Leg constraints with per-item X buttons ---
+            const legEl = document.getElementById("legAvoidModes");
+            const chips = [];
 
             if (state.leg_overrides && Object.keys(state.leg_overrides).length > 0) {
                 for (const legKey in state.leg_overrides) {
                     const override = state.leg_overrides[legKey];
-                    const mode = override.mode ? override.mode : "?";
-                    legConstraintItems.push(`${legKey}: force [${mode}]`);
+                    const mode = override.mode || "?";
+                    const parts = legKey.split("->");
+                    chips.push(`<span class="pref-chip">${escapeHtml(legKey)}: force [${escapeHtml(mode)}]<span class="pref-x" onclick="removeLegOverride('${escapeHtml(parts[0])}','${escapeHtml(parts[1])}')">✕</span></span>`);
                 }
             }
 
@@ -857,23 +1084,114 @@
                 for (const legKey in state.leg_avoid_modes) {
                     const constraint = state.leg_avoid_modes[legKey];
                     const modes = constraint.avoid ? constraint.avoid.join(", ") : "?";
-                    legConstraintItems.push(`${legKey}: avoid [${modes}]`);
+                    const parts = legKey.split("->");
+                    chips.push(`<span class="pref-chip">${escapeHtml(legKey)}: avoid [${escapeHtml(modes)}]<span class="pref-x" onclick="removeLegAvoid('${escapeHtml(parts[0])}','${escapeHtml(parts[1])}')">✕</span></span>`);
                 }
             }
 
-            if (legConstraintItems.length > 0) {
-                document.getElementById("legAvoidModes").textContent = legConstraintItems.join("; ");
-            } else {
-                document.getElementById("legAvoidModes").textContent = "None";
+            legEl.innerHTML = chips.length > 0 ? chips.join(" ") : "None";
+        }
+
+        async function removeAvoidMode(mode) {
+            try {
+                const res = await fetch(`${API_URL}/remove_avoid_mode`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ mode })
+                });
+                const data = await res.json();
+                if (data.status === "ok") {
+                    state.avoid_modes = data.avoid_modes || [];
+                    updateStateDisplay();
+                    addMessage(`✓ Removed global avoid: ${mode}`, 'agent');
+                }
+            } catch (e) {
+                addMessage(`❌ Error removing avoid mode: ${e.message}`, 'agent');
             }
         }
 
-        function clearChat() {
+        async function removeLegOverride(from, to) {
+            try {
+                const res = await fetch(`${API_URL}/clear_leg_override`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ from, to })
+                });
+                const data = await res.json();
+                if (data.status === "ok") {
+                    const key = `${from}->${to}`;
+                    delete state.leg_overrides[key];
+                    updateStateDisplay();
+                    addMessage(`✓ Removed leg override: ${from} → ${to}`, 'agent');
+                }
+            } catch (e) {
+                addMessage(`❌ Error removing leg override: ${e.message}`, 'agent');
+            }
+        }
+
+        async function removeLegAvoid(from, to) {
+            try {
+                const res = await fetch(`${API_URL}/clear_leg_avoid`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ from, to })
+                });
+                const data = await res.json();
+                if (data.status === "ok") {
+                    const key = `${from}->${to}`;
+                    delete state.leg_avoid_modes[key];
+                    updateStateDisplay();
+                    addMessage(`✓ Removed leg avoid: ${from} → ${to}`, 'agent');
+                }
+            } catch (e) {
+                addMessage(`❌ Error removing leg avoid: ${e.message}`, 'agent');
+            }
+        }
+
+        function exportChat() {
+            if (chatLog.length === 0) {
+                addMessage("Nothing to export yet — start a conversation first.", "agent");
+                return;
+            }
+            const payload = {
+                exported_at: new Date().toISOString(),
+                meetings: meetings,
+                state: state,
+                messages: chatLog
+            };
+            const json = JSON.stringify(payload, null, 2);
+            navigator.clipboard.writeText(json).then(() => {
+                addMessage("✅ Chat log copied to clipboard! Paste it wherever you need.", "agent");
+            }).catch(() => {
+                // Fallback: download as file
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'chat_export.json';
+                a.click();
+                URL.revokeObjectURL(url);
+                addMessage("✅ Chat log downloaded as chat_export.json", "agent");
+            });
+        }
+
+        async function clearChat() {
             document.getElementById("messages").innerHTML = "";
             meetings = [];
             state = { avoid_modes: [], leg_overrides: {}, leg_avoid_modes: {} };
+            chatLog = [];
             updateMeetingsList();
             updateStateDisplay();
+
+            try {
+                await fetch(`${API_URL}/reset_state`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+            } catch (e) {
+                console.error("Failed to reset backend state:", e);
+            }
+
             addMessage("Chat cleared. Add new meetings to start planning!", "agent");
         }
 

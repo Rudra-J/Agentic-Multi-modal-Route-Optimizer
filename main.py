@@ -134,6 +134,62 @@ def clear_leg_override(req: dict):
     except Exception as e:
         return {"error": str(e)}
 
+
+@app.post("/clear_preferences")
+def clear_preferences():
+    """Clear global avoid-mode preferences from agent state."""
+    try:
+        agent.state.avoid_modes.clear()
+        return {
+            "status": "ok",
+            "avoid_modes": []
+        }
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@app.post("/remove_avoid_mode")
+def remove_avoid_mode(req: dict):
+    """Remove a single global avoid mode.
+
+    Payload: {"mode": "train"}
+    """
+    try:
+        mode = req.get("mode", "").strip().lower()
+        if not mode:
+            return {"error": "mode is required"}
+        agent.state.avoid_modes.discard(mode)
+        return {"status": "ok", "avoid_modes": list(agent.state.avoid_modes)}
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@app.post("/clear_leg_avoid")
+def clear_leg_avoid(req: dict):
+    """Clear avoid-mode constraint for a specific leg.
+
+    Payload: {"from": "Bandra", "to": "CST"}
+    """
+    try:
+        frm = req.get("from")
+        to = req.get("to")
+        if not frm or not to:
+            return {"error": "from and to are required"}
+        agent.state.clear_leg_avoid_modes(frm, to)
+        return {"status": "ok", "from": frm, "to": to}
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@app.post("/reset_state")
+def reset_state():
+    """Reset all conversational memory and constraints."""
+    try:
+        agent.state.reset()
+        return {"status": "ok"}
+    except Exception as e:
+        return {"error": str(e)}
+
 @app.post("/upload_itinerary")
 async def upload_itinerary(file: UploadFile = File(...)):
     """Upload a CSV file with meetings itinerary.

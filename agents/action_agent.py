@@ -10,7 +10,7 @@ def execute(decision: dict, state, meetings):
 
     if action == "update_preferences":
         for mode in decision.get("avoid_modes", []):
-            state.avoid_modes.add(mode)
+            state.add_avoid_mode(mode)
 
         state.add_note(decision.get("reason", ""))
 
@@ -45,6 +45,31 @@ def execute(decision: dict, state, meetings):
             "status": "leg_override_cleared",
             "from": from_loc,
             "to": to_loc
+        }
+
+    if action == "clear_leg_preference":
+        from_loc = decision.get("from_location")
+        to_loc = decision.get("to_location")
+
+        had_override = state.get_leg_override(from_loc, to_loc) is not None
+        had_avoid = state.get_leg_avoid_modes(from_loc, to_loc) is not None
+
+        state.clear_leg_override(from_loc, to_loc)
+        state.clear_leg_avoid_modes(from_loc, to_loc)
+
+        cleared = []
+        if had_override:
+            cleared.append("mode override")
+        if had_avoid:
+            cleared.append("avoid constraint")
+
+        summary = ", ".join(cleared) if cleared else "no active preferences"
+
+        return {
+            "status": "leg_preferences_cleared",
+            "from": from_loc,
+            "to": to_loc,
+            "cleared": summary
         }
 
     if action == "avoid_mode_on_leg":
@@ -106,5 +131,11 @@ def execute(decision: dict, state, meetings):
         if state.last_plan is None:
             return {"error": "No plan available yet"}
         return state.last_plan
+
+    if action == "unclear":
+        return {
+            "status": "unclear",
+            "message": "I didn't quite understand that request. Could you rephrase it? For example, you can say 'plan my day', 'avoid trains', 'use cab from Powai to BKC', or 'is there a bus from X to Y?'"
+        }
 
     return {"status": "no_action_taken"}

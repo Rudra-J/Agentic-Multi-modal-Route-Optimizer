@@ -43,8 +43,10 @@ def plan_day(meetings, transport_mode="any", avoid_modes=None, leg_overrides=Non
             user_mode = (override.get("mode") or "").strip().lower()
             if user_mode in ("cab", "taxi"):
                 route_mode = "cab_only"
-            elif user_mode in ("public", "public_only") or user_mode in ("metro", "train", "bus"):
+            elif user_mode in ("public", "public_only"):
                 route_mode = "public_only"
+            elif user_mode in ("metro", "train", "bus"):
+                route_mode = user_mode
             elif user_mode in ("any", ""):
                 route_mode = transport_mode
             else:

@@ -163,6 +163,7 @@ agentic_auto_routing/
 python test_harness.py              # Main test suite
 python test_leg_constraint_integration.py  # E2E workflow test
 python test_leg_avoid_comprehensive.py     # Constraint validation
+python run_feature_suite.py         # Sequential feature suite (API + conversation + memory)
 ```
 
 ### Test Coverage
