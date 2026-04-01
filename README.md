@@ -99,10 +99,10 @@ The system is scored across 5 areas using an offline eval harness (`eval/`). Res
 |------|-------|--------|
 | LLM Intent Parsing | 100% | PASS |
 | Constraint Application | 100% | PASS |
-| Route Optimization | 87.5% | PASS |
+| Route Optimization | 100% | PASS |
 | Schedule Feasibility | 100% | PASS |
-| Conversation Flow | 25% | FAIL |
-| **Overall** | **82.5%** | **4/5 areas passing** |
+| Conversation Flow | 100% | PASS |
+| **Overall** | **100%** | **5/5 areas passing** |
 
 **Per-metric breakdown:**
 
@@ -115,8 +115,11 @@ The system is scored across 5 areas using an offline eval harness (`eval/`). Res
 | Global/leg constraint storage | 11/11 100% |
 | Conflict detection | 4/4 100% |
 | Route validity | 9/9 100% |
+| Leg constraint compliance | 2/2 100% |
 | Infeasibility detection | 1/1 100% |
 | Schedule sort order | 4/4 100% |
+| Multi-turn state persistence | 2/2 100% |
+| Conflict surfacing | 2/2 100% |
 
 Run the eval yourself:
 

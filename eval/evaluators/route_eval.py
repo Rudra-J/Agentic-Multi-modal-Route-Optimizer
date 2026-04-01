@@ -10,17 +10,20 @@ from eval.models import EvalResult, MetricScore, FailureDetail
 def _all_leg_modes(plan: dict) -> list:
     modes = []
     for leg in plan.get("route", []):
-        for sub in leg.get("legs", []):
-            modes.append(sub.get("mode", ""))
+        if "legs" in leg:
+            for sub in leg["legs"]:
+                modes.append(sub.get("mode", ""))
+        elif "mode" in leg:
+            modes.append(leg["mode"])
     return modes
 
 
 def _leg_mode_for(plan: dict, from_loc: str, to_loc: str) -> str:
     for leg in plan.get("route", []):
         if leg.get("from") == from_loc and leg.get("to") == to_loc:
-            sub_legs = leg.get("legs", [])
-            if sub_legs:
-                return sub_legs[0].get("mode", "")
+            if "legs" in leg and leg["legs"]:
+                return leg["legs"][0].get("mode", "")
+            return leg.get("mode", "")
     return ""
 
 

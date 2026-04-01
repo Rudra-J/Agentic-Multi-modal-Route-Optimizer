@@ -33,7 +33,10 @@ class WorldState:
         self.notes.append(note)
 
     def set_leg_override(self, from_loc: str, to_loc: str, mode: str, reason: str = ""):
-        """Override the transport mode for a specific leg"""
+        """Override the transport mode for a specific leg.
+        Silently blocked if mode is globally avoided."""
+        if mode in self.avoid_modes:
+            return
         key = f"{self._normalize(from_loc)}->{self._normalize(to_loc)}"
         # Clear conflicting avoid entry for the same leg
         if key in self.leg_avoid_modes:
