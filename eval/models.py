@@ -8,6 +8,12 @@ class MetricScore:
     passed: int
     total: int
 
+    def __post_init__(self):
+        if self.total < 0 or self.passed < 0:
+            raise ValueError(f"passed and total must be non-negative, got passed={self.passed}, total={self.total}")
+        if self.passed > self.total:
+            raise ValueError(f"passed ({self.passed}) cannot exceed total ({self.total})")
+
     @property
     def score_pct(self) -> float:
         if self.total == 0:
@@ -35,8 +41,8 @@ class FailureDetail:
 @dataclass
 class EvalResult:
     area: str
-    metrics: list = field(default_factory=list)       # list[MetricScore]
-    failures: list = field(default_factory=list)      # list[FailureDetail]
+    metrics: list[MetricScore] = field(default_factory=list)
+    failures: list[FailureDetail] = field(default_factory=list)
 
     @property
     def overall_score(self) -> float:
