@@ -1,372 +1,133 @@
-# Agentic Auto Routing System
+# Mumbai Mobility Agent
 
-An intelligent multi-modal transportation planning agent that leverages LLMs, graph algorithms, and multi-agent orchestration to optimize day-long itineraries across Mumbai's transport network.
-
-**Demo**: Plan your day with natural language constraints → Set leg-specific transport preferences → Get optimized multi-modal routes.
+A conversational AI assistant that helps you navigate Mumbai's multi-modal transit network — by simply talking to it.
 
 ---
 
-## 🎯 Features
+## The Problem
 
-- **Natural Language Planning**: Talk to an AI agent about your itinerary ("plan my day", "avoid trains from Bandra to CST")
-- **Multi-Modal Route Optimization**: Choose from metro, train, bus, or cab with automatic balancing of time, cost, and reliability
-- **Leg-Specific Constraints**: Avoid transport modes on specific route legs without affecting other parts of your day
-- **Real-Time Replanning**: Add constraints mid-planning and get updated routes instantly
-- **Conversational Interface**: Constraints persist across multiple planning iterations
-- **CSV Itinerary Upload**: Batch upload meetings from spreadsheets
+Mumbai has one of the most complex urban transit networks in the world: local trains, metro lines, BEST buses, and cabs all operate in parallel, with overlapping routes, different reliability profiles, and wildly different costs. Planning a multi-stop day across this network is frustrating. You end up juggling apps, second-guessing connections, and manually accounting for your own constraints — "I hate crowded trains", "I can't walk far", "I have a meeting at 10".
+
+No single tool lets you say *"plan my day, but avoid trains and use cab only for the last leg"* and actually get a coherent, time-validated plan back.
 
 ---
 
-## 🏗️ Architecture
+## What This Does
 
-```
-Frontend (Vanilla JS)
-    ↓
-FastAPI Backend (8001)
-    ↓
-Multi-Agent Pipeline:
-    • Brain Agent (NLP intent parsing via OpenRouter LLM)
-    • Action Agent (Constraint enforcement)
-    • Planner Agent (Route optimization with Dijkstra's)
-    • Schedule Agent (Time window satisfaction)
-    • Mobility Agent (Result formatting)
-    ↓
-NetworkX Graph (12+ locations, 4 transport modes)
-```
+Mumbai Mobility Agent is a **conversational route optimizer**. You describe your day in natural language — stops, preferences, constraints, times — and the agent figures out the best path through the network.
+
+### What you can ask it
+
+- **Plan a multi-stop day**
+  > "I need to go from Andheri to Dadar, then Dadar to Churchgate, then back home by 9 PM"
+
+- **Apply constraints naturally**
+  > "Avoid trains today" / "Use only metro and bus" / "No cabs on the Bandra to Dadar leg"
+
+- **Override specific legs**
+  > "Force cab from Kurla to BKC — I have luggage"
+
+- **Ask what-if questions**
+  > "What if I take cab instead of metro for the first leg?"
+
+- **Check feasibility and timing**
+  > "Can I make it from Andheri to CST by 9 AM?"
+
+- **Handle conflicts and follow-ups**
+  > The agent remembers your constraints across the conversation and resolves conflicts — for example, if you avoid trains globally but try to force a train on one leg, it surfaces the conflict and asks what you want to do.
+
+- **Export your plan**
+  > Download your optimized itinerary as a structured summary.
 
 ---
 
-## 🚀 Quick Start
+## How Constraints Work
 
-### Prerequisites
-- Python 3.9+
-- OpenRouter API key (for LLM access)
+You can set preferences at two levels:
 
-### Installation
+- **Global**: "Avoid trains" applies to your entire day
+- **Per-leg**: "Use cab from Bandra to BKC" applies only to that leg
+
+Both persist across the full conversation. When they conflict, the agent surfaces the issue to you rather than silently picking one.
+
+---
+
+## Why No LangChain
+
+This project deliberately avoids LangChain or any other LLM orchestration framework. The entire agent pipeline — intent parsing, decision routing, state management, constraint resolution, and fallback logic — is built from scratch in Python.
+
+This was a conscious choice to deeply understand what LLM orchestration actually requires: how to structure prompts, how to validate and parse structured outputs reliably, how to handle LLM failures gracefully, and how to maintain multi-turn conversational state without a framework doing it for you.
+
+The result is a lean, transparent stack with no hidden abstractions.
+
+---
+
+## Transport Modes
+
+| Mode | Character |
+|------|-----------|
+| Metro | Fast urban corridors, high reliability |
+| Local Train | Long-distance suburban links, low cost |
+| Bus | Last-mile and cross-city, most flexible |
+| Cab | On-demand, best for luggage or accessibility |
+
+Routes are scored on **duration**, **cost**, and **reliability** — with traffic multipliers per mode.
+
+---
+
+## Setup
 
 ```bash
-cd agentic_auto_routing
-
-# Install dependencies
-pip install -r requirements.txt --trusted-host pypi.org --trusted-host files.pythonhosted.org
-
-# Set environment variable (optional, for LLM calls)
-export OPENROUTER_API_KEY="your-key-here"
-```
-
-### Run the Server
-
-```bash
-# Start the FastAPI server on http://127.0.0.1:8001
+python -m venv venv
+source venv/bin/activate       # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env           # Add your OPENROUTER_API_KEY
 uvicorn main:app --reload --port 8001
 ```
 
-Access the UI at **http://127.0.0.1:8001/**
+Open `http://127.0.0.1:8001/` in your browser.
+
+Get a free API key at [openrouter.ai](https://openrouter.ai).
 
 ---
 
-## 📖 Usage Examples
+## Eval Results
 
-### 1. Basic Day Planning
-```javascript
-// In the web interface
-Message: "plan my day"
-Meetings:
-  • 09:00 - Andheri (45 min)
-  • 10:30 - BKC (90 min)
-  • 12:30 - Thane (45 min)
+The system is scored across 5 areas using an offline eval harness (`eval/`). Results below are from the current build using `qwen/qwen3.6-plus-preview:free` via OpenRouter.
 
-Response: Optimal route with metro/train/cab recommendations
-  Leg 1: Andheri → Malad (Metro, 10 min, ₹10)
-  Leg 2: Malad → Borivali (Metro, 8 min, ₹15)
-  Leg 3: Borivali → Thane (Cab, 30 min, ₹130)
-```
+| Area | Score | Status |
+|------|-------|--------|
+| LLM Intent Parsing | 100% | PASS |
+| Constraint Application | 100% | PASS |
+| Route Optimization | 87.5% | PASS |
+| Schedule Feasibility | 100% | PASS |
+| Conversation Flow | 25% | FAIL |
+| **Overall** | **82.5%** | **4/5 areas passing** |
 
-### 2. Add Leg-Specific Constraint
-```javascript
-Message: "I don't want to use metro from Andheri to Malad"
+**Per-metric breakdown:**
 
-Action: avoid_mode_on_leg
-  From: Andheri
-  To: Malad
-  Avoid: metro
-  
-Sidebar updates:
-  Leg Avoid Modes: andheri->malad: [metro]
-```
+| Metric | Score |
+|--------|-------|
+| Intent classification accuracy | 20/20 100% |
+| Location extraction accuracy | 16/16 100% |
+| Mode extraction accuracy | 10/10 100% |
+| LLM fallback rate | 0/20 (zero fallbacks) |
+| Global/leg constraint storage | 11/11 100% |
+| Conflict detection | 4/4 100% |
+| Route validity | 9/9 100% |
+| Infeasibility detection | 1/1 100% |
+| Schedule sort order | 4/4 100% |
 
-### 3. Replan with Constraint
-```javascript
-Message: "plan my day"
-
-Result: New route respects constraint
-  Leg 1: Andheri → Malad (Bus, 15 min, ₹10)  ← Changed from metro!
-  Leg 2: Malad → Borivali (Metro, 8 min, ₹15)
-  Leg 3: Borivali → Thane (Cab, 30 min, ₹130)
-```
-
-### 4. Global Constraints
-```javascript
-Message: "avoid all trains today"
-
-Action: avoid_mode_global
-  Avoid: train
-
-Result: All routes avoid trains, using metro/cab/bus alternatives
-```
-
----
-
-## 📁 Project Structure
-
-```
-agentic_auto_routing/
-├── main.py                          # FastAPI app entry point
-├── index.html                       # Frontend (single-page app)
-│
-├── agents/
-│   ├── brain_agent.py              # NLP intent parsing (OpenRouter LLM)
-│   ├── action_agent.py             # Constraint enforcement
-│   ├── planner_agent.py            # Route optimization (Dijkstra's)
-│   ├── schedule_agent.py           # Time window scheduling
-│   └── mobility_agent.py            # Result formatting & state management
-│
-├── models/
-│   ├── world_state.py              # State management (constraints, preferences)
-│   ├── meeting.py                  # Meeting data model
-│   ├── route.py                    # Route request/response models
-│   └── plan.py                     # Planning request model
-│
-├── services/
-│   └── route_agent.py              # Route finding service
-│
-├── data/
-│   └── mumbai_routes.py            # Transport network graph (12 locations, 4 modes)
-│
-├── tests/
-│   ├── test_harness.py             # Comprehensive test suite (9 groups, 20+ tests)
-│   ├── test_leg_avoid.py           # Leg-specific constraint tests
-│   ├── test_leg_constraint_integration.py  # End-to-end workflow tests
-│   └── test_*.py                   # Other validation tests
-│
-├── RESUME_WRITEUP.md               # Detailed project summary (2-page)
-├── RESUME_BULLETS.md               # Bullet-point summary (1-page)
-└── README.md                        # This file
-```
-
----
-
-## 🧪 Testing
-
-### Run All Tests
-```bash
-python test_harness.py              # Main test suite
-python test_leg_constraint_integration.py  # E2E workflow test
-python test_leg_avoid_comprehensive.py     # Constraint validation
-python run_feature_suite.py         # Sequential feature suite (API + conversation + memory)
-```
-
-### Test Coverage
-- ✅ **Unit Tests**: Individual agents (brain, action, planner, schedule)
-- ✅ **Integration Tests**: Full workflow (plan → constrain → replan)
-- ✅ **Regression Tests**: Constraint application, state persistence
-- ✅ **E2E Tests**: Real user scenarios end-to-end
-
----
-
-## 🔧 API Endpoints
-
-### `/chat` (POST)
-Main conversational endpoint. Parses user intent and executes action.
-
-**Request**:
-```json
-{
-  "message": "plan my day",
-  "meetings": [
-    {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-    {"location": "BKC", "start_time": "10:30", "duration_minutes": 90}
-  ]
-}
-```
-
-**Response**:
-```json
-{
-  "decision": {
-    "action": "plan"
-  },
-  "result": {
-    "status": "success",
-    "route": [...],
-    "total_duration": 180,
-    "total_cost": 155
-  },
-  "memory": {
-    "avoid_modes": [],
-    "leg_avoid_modes": {}
-  }
-}
-```
-
-### `/locations` (GET)
-Get all available locations in the network.
+Run the eval yourself:
 
 ```bash
-curl http://127.0.0.1:8001/locations
-```
-
-### `/upload_itinerary` (POST)
-Upload a CSV file with meeting details.
-
-```bash
-curl -X POST -F "file=@itinerary.csv" http://127.0.0.1:8001/upload_itinerary
+python -m eval.run_eval          # all areas
+python -m eval.run_eval --area intent
 ```
 
 ---
 
-## 📊 Key Metrics
+## Requirements
 
-| Metric | Result |
-|--------|--------|
-| Planning Success Rate | >90% (valid time windows) |
-| Constraint Application Accuracy | 100% (verified via tests) |
-| LLM Intent Parse Accuracy | >95% (diverse utterances) |
-| Avg Response Time | <2s (LLM bottleneck) |
-| Route Options/Leg | 3-5 viable alternatives |
-| State Persistence | 100% (10+ request chains) |
-
----
-
-## 💡 How It Works
-
-### 1. Intent Parsing (Brain Agent)
-- User says: "I don't want trains from Bandra to CST"
-- LLM parses to: `{action: "avoid_mode_on_leg", from: "Bandra", to: "CST", modes: ["train"]}`
-- Accuracy: >95% via prompt engineering
-
-### 2. Constraint Enforcement (Action Agent)
-- Validates and stores constraint in `state.leg_avoid_modes`
-- Normalizes location names (case-insensitive, whitespace-invariant)
-- Key format: `"bandra->cst"`
-
-### 3. Route Optimization (Planner Agent)
-- Builds graph with 12+ locations, 4 transport modes
-- Applies both global and leg-specific constraints
-- Runs Dijkstra's algorithm with constraint-aware edge filtering
-- Returns top 3-5 feasible routes
-
-### 4. Scheduling (Schedule Agent)
-- Validates time windows across all legs
-- Ensures arrival times match meeting start times
-- Detects infeasible itineraries
-
-### 5. Result Formatting (Mobility Agent)
-- Formats routes for display
-- Returns state (constraints, overrides) to frontend
-- Provides natural language explanations
-
----
-
-## 🎓 Data Science & Algorithms
-
-### Graph Algorithms
-- **Pathfinding**: Dijkstra's algorithm with multi-criteria optimization
-- **Edge Representation**: Weighted graph (duration, cost, reliability)
-- **Constraint Handling**: Dynamic edge filtering based on leg-specific constraints
-
-### Optimization
-- **Multi-Criteria**: Balance time (minutes) vs. cost (₹) vs. reliability (0-1)
-- **Constraint Satisfaction**: CSP solving with feasibility checking
-- **Trade-Off Analysis**: Surface 3-5 Pareto-optimal routes
-
-### NLP & LLM
-- **Intent Classification**: 10+ action types via prompt engineering
-- **Entity Extraction**: Location names via fuzzy matching
-- **Conversational State**: Constraint persistence across requests
-
----
-
-## 🌳 Transport Network
-
-### Locations (12)
-Andheri, Malad, Borivali, BKC, Powai, Lower Parel, Bandra, Dadar, CST, Colaba, Thane, Navi Mumbai
-
-### Transport Modes (4)
-- **Metro**: Fast (5-18 min), moderate cost (₹10-30), very reliable (0.90-0.95)
-- **Train**: Fast (10-50 min), cheap (₹8-25), moderately reliable (0.82-0.88)
-- **Bus**: Slow (15-55 min), cheap (₹10-25), less reliable (0.70-0.80)
-- **Cab**: Fast (10-50 min), expensive (₹50-200), very reliable (0.96-0.99)
-
----
-
-## 🚀 Potential Enhancements
-
-1. **Real-Time Traffic**: Integrate live traffic APIs to dynamically update travel times
-2. **Preference Learning**: ML model to predict user's time-vs-cost tradeoffs
-3. **Linear Programming**: Global cost optimization across all meetings
-4. **Map Visualization**: Geographic display of routes with stops
-5. **A/B Testing**: Compare constraint resolution strategies empirically
-6. **Multi-Day Planning**: Extend to week-long itineraries
-7. **User Analytics**: Track which modes/routes users prefer for recommendations
-
----
-
-## 📝 Resume & Documentation
-
-- **RESUME_WRITEUP.md**: Comprehensive 2-page project summary (technical details, problem-solving examples)
-- **RESUME_BULLETS.md**: Concise bullet-point version for job applications
-
----
-
-## 🛠️ Tech Stack
-
-**Backend**:
-- FastAPI (async web framework)
-- Pydantic (data validation)
-- NetworkX (graph algorithms)
-- OpenRouter API (LLM access)
-- Uvicorn (ASGI server)
-
-**Frontend**:
-- Vanilla JavaScript
-- Fetch API (no frameworks)
-- CSS (responsive design)
-- Real-time state updates
-
-**Testing**:
-- Python unittest
-- Integration test framework
-- Regression test suite
-
----
-
-## 📄 License
-
-Open source project.
-
----
-
-## 👨‍💻 About
-
-Built as a portfolio project demonstrating:
-- Advanced graph algorithms & optimization
-- LLM integration & prompt engineering
-- Multi-agent system design
-- Full-stack software engineering
-- Comprehensive testing & validation
-
-**Key Insight**: Bridges NLP-driven intent understanding with classical algorithms, showing how LLMs can enhance rather than replace algorithmic problem-solving.
-
----
-
-## 🤝 Contributing
-
-Found a bug? Have ideas for improvement? 
-- Test the system end-to-end: `python test_leg_constraint_integration.py`
-- Check the test suite: `python test_harness.py`
-- Review the agent pipeline in `agents/` directory
-
----
-
-**Try it now**: Run `uvicorn main:app --reload --port 8001` and visit http://127.0.0.1:8001/
+- Python 3.9+
+- An OpenRouter API key (free tier works)
