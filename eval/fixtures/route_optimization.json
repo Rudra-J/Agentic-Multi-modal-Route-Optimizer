@@ -94,5 +94,44 @@
     "leg_overrides": {},
     "leg_avoid_modes": {},
     "expected": {"status": "success", "leg_count": 0}
+  },
+  {
+    "id": "ro_009",
+    "description": "Four-meeting plan covers three legs",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30},
+      {"location": "CST", "start_time": "13:00", "duration_minutes": 30},
+      {"location": "Colaba", "start_time": "15:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "leg_count": 3}
+  },
+  {
+    "id": "ro_010",
+    "description": "All modes avoided except cab — every leg must use cab",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30},
+      {"location": "CST", "start_time": "13:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": ["train", "metro", "bus"],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "all_legs_mode": "cab"}
+  },
+  {
+    "id": "ro_011",
+    "description": "Unknown location not in graph — planner returns failed status gracefully",
+    "meetings": [
+      {"location": "Unknown Place", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "Andheri", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "failed"}
   }
 ]

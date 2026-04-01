@@ -6,7 +6,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from eval.evaluators import intent_eval, constraint_eval, route_eval, schedule_eval, conversation_eval
+from eval.evaluators import intent_eval, constraint_eval, route_eval, schedule_eval, conversation_eval, whatif_eval, availability_eval
 from eval.report import print_report
 
 
@@ -18,6 +18,8 @@ AREAS = {
     "route": ("route_optimization.json", route_eval),
     "schedule": ("schedule_feasibility.json", schedule_eval),
     "conversation": ("conversation_flow.json", conversation_eval),
+    "whatif": ("whatif.json", whatif_eval),
+    "availability": ("availability.json", availability_eval),
 }
 
 

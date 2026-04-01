@@ -1,0 +1,62 @@
+[
+  {
+    "id": "av_001",
+    "description": "Is there a metro from Andheri to BKC? — yes",
+    "message": "Is there a metro from Andheri to BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Andheri",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_002",
+    "description": "Is there a train from Andheri to BKC? — no direct train",
+    "message": "Is there a train from Andheri to BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Andheri",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_003",
+    "description": "Can I take cab from Bandra to Dadar? — yes",
+    "message": "Can I take cab from Bandra to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Bandra",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_004",
+    "description": "Are there any routes from CST to Colaba? — yes with alternatives",
+    "message": "Is there a direct connection from CST to Colaba?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true
+    }
+  },
+  {
+    "id": "av_005",
+    "description": "Is there a bus from Andheri to Powai? — no direct bus",
+    "message": "Is there a bus from Andheri to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus"
+    }
+  }
+]

@@ -93,7 +93,7 @@ Get a free API key at [openrouter.ai](https://openrouter.ai).
 
 ## Eval Results
 
-The system is scored across 5 areas using an offline eval harness (`eval/`). Results below are from the current build using `qwen/qwen3.6-plus-preview:free` via OpenRouter.
+The system is scored across 7 areas using an offline eval harness (`eval/`). Results below are from the current build using `qwen/qwen3.6-plus-preview:free` via OpenRouter.
 
 | Area | Score | Status |
 |------|-------|--------|
@@ -101,8 +101,10 @@ The system is scored across 5 areas using an offline eval harness (`eval/`). Res
 | Constraint Application | 100% | PASS |
 | Route Optimization | 100% | PASS |
 | Schedule Feasibility | 100% | PASS |
-| Conversation Flow | 100% | PASS |
-| **Overall** | **100%** | **5/5 areas passing** |
+| Conversation Flow | 90% | PASS |
+| What-If Scenarios | 100% | PASS |
+| Route Availability | 100% | PASS |
+| **Overall** | **98.6%** | **7/7 areas passing** |
 
 **Per-metric breakdown:**
 
@@ -114,18 +116,25 @@ The system is scored across 5 areas using an offline eval harness (`eval/`). Res
 | LLM fallback rate | 0/20 (zero fallbacks) |
 | Global/leg constraint storage | 11/11 100% |
 | Conflict detection | 4/4 100% |
-| Route validity | 9/9 100% |
+| Route validity | 12/12 100% |
 | Leg constraint compliance | 2/2 100% |
-| Infeasibility detection | 1/1 100% |
+| Infeasibility detection | 2/2 100% |
 | Schedule sort order | 4/4 100% |
-| Multi-turn state persistence | 2/2 100% |
+| Multi-turn state persistence | 4/5 80% |
 | Conflict surfacing | 2/2 100% |
+| What-if preview trigger | 1/1 100% |
+| What-if pending state | 2/2 100% |
+| What-if confirmation | 1/1 100% |
+| Route check status | 5/5 100% |
+| Route availability flag | 5/5 100% |
 
 Run the eval yourself:
 
 ```bash
 python -m eval.run_eval          # all areas
 python -m eval.run_eval --area intent
+python -m eval.run_eval --area whatif
+python -m eval.run_eval --area availability
 ```
 
 ---

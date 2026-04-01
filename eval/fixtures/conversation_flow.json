@@ -65,5 +65,47 @@
       {"location": "Dadar", "start_time": "11:00", "duration_minutes": 60}
     ],
     "expected": {"leg_override_absent": {"from": "Andheri", "to": "Dadar"}}
+  },
+  {
+    "id": "cf_006",
+    "description": "What-if triggers proposal_preview status",
+    "turns": [
+      {"message": "plan my day"},
+      {"message": "what if I take cab instead of metro from Andheri to BKC?"}
+    ],
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+    ],
+    "expected": {"last_result_status": "proposal_preview"}
+  },
+  {
+    "id": "cf_007",
+    "description": "Clearing a global avoid removes it and plan can use that mode again",
+    "turns": [
+      {"message": "avoid trains today"},
+      {"message": "remove train from avoid list"},
+      {"message": "plan my day"}
+    ],
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "Dadar", "start_time": "12:00", "duration_minutes": 60}
+    ],
+    "expected": {"avoid_modes_empty": true}
+  },
+  {
+    "id": "cf_008",
+    "description": "Three global constraints stack (avoid train, metro, bus → only cab)",
+    "turns": [
+      {"message": "avoid trains"},
+      {"message": "avoid metro"},
+      {"message": "avoid buses"},
+      {"message": "plan my day"}
+    ],
+    "meetings": [
+      {"location": "Bandra", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "CST", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "expected": {"plan_modes_absent": ["train", "metro", "bus"]}
   }
 ]

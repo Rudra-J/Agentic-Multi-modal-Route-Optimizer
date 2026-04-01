@@ -13,5 +13,6 @@ def emergency_cab(from_loc, to_loc):
         "provider": provider,
         "time": 45,
         "cost": 300,
+        "reliability": 0.98,
         "fallback": True
     }

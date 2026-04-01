@@ -41,10 +41,11 @@ def run(fixtures: list) -> EvalResult:
 
         agent = MobilityAgent()
         last_plan = None
+        last_response = None
 
         for turn in turns:
-            response = agent.chat(turn["message"], meetings)
-            result_data = response.get("result", {}) if isinstance(response, dict) else {}
+            last_response = agent.chat(turn["message"], meetings)
+            result_data = last_response.get("result", {}) if isinstance(last_response, dict) else {}
             if isinstance(result_data, dict) and result_data.get("status") != "failed" and "route" in result_data:
                 last_plan = result_data
 
@@ -75,6 +76,31 @@ def run(fixtures: list) -> EvalResult:
                     input_summary=str([t["message"] for t in turns]),
                     expected=f"{lm['from']}->{lm['to']} = {lm['mode']}",
                     actual=actual_mode
+                ))
+
+        if "last_result_status" in expected and last_response is not None:
+            state_total += 1
+            actual_status = last_response.get("result", {}).get("status") if isinstance(last_response, dict) else None
+            if actual_status == expected["last_result_status"]:
+                state_pass += 1
+            else:
+                result.failures.append(FailureDetail(
+                    case_id=cid, metric="multi_turn_state_persistence",
+                    input_summary=str([t["message"] for t in turns]),
+                    expected=f"result.status == {expected['last_result_status']}",
+                    actual=str(actual_status)
+                ))
+
+        if "avoid_modes_empty" in expected:
+            state_total += 1
+            if len(agent.state.avoid_modes) == 0:
+                state_pass += 1
+            else:
+                result.failures.append(FailureDetail(
+                    case_id=cid, metric="multi_turn_state_persistence",
+                    input_summary=str([t["message"] for t in turns]),
+                    expected="avoid_modes is empty",
+                    actual=str(list(agent.state.avoid_modes))
                 ))
 
         if "leg_override_absent" in expected:

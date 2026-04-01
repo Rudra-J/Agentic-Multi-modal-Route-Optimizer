@@ -118,7 +118,7 @@ def find_route(start, end, transport_mode="any", avoid_modes=None, weather="clea
         # all_simple_paths finds ALL possible paths between start and end
         # If direct edge doesn't exist, it chains through intermediate nodes
         paths = list(nx.all_simple_paths(G, start, end, cutoff=5))
-    except nx.NetworkXNoPath:
+    except (nx.NetworkXNoPath, nx.NodeNotFound):
         return None
 
     if not paths:
