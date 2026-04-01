@@ -56,6 +56,18 @@ User: I'd rather not take the metro at all
 Output:
 {"action":"update_preferences","avoid_modes":["metro"],"reason":"user wants to avoid metro globally"}
 
+User: I hate trains
+Output:
+{"action":"update_preferences","avoid_modes":["train"],"reason":"user dislikes trains"}
+
+User: avoid all cabs today
+Output:
+{"action":"update_preferences","avoid_modes":["cab"],"reason":"user wants to avoid cab globally"}
+
+User: no buses for me
+Output:
+{"action":"update_preferences","avoid_modes":["bus"],"reason":"user dislikes buses"}
+
 User: I don't wanna take the train in the bandra to cst route
 Output:
 {"action":"avoid_mode_on_leg","from_location":"Bandra","to_location":"CST","avoid_modes":["train"],"reason":"user preference"}
@@ -83,6 +95,18 @@ Output:
 User: can we do train from Dadar to CST instead?
 Output:
 {"action":"edit_leg","from_location":"Dadar","to_location":"CST","transport_mode":"train","reason":"user prefers train for this leg"}
+
+User: take an uber from Bandra to CST
+Output:
+{"action":"edit_leg","from_location":"Bandra","to_location":"CST","transport_mode":"cab","reason":"uber maps to cab"}
+
+User: get me an ola from BKC to Bandra
+Output:
+{"action":"edit_leg","from_location":"BKC","to_location":"Bandra","transport_mode":"cab","reason":"ola maps to cab"}
+
+User: no public transport on the Andheri to Dadar leg
+Output:
+{"action":"avoid_mode_on_leg","from_location":"Andheri","to_location":"Dadar","avoid_modes":["train","metro","bus"],"reason":"public transport means train, metro, bus"}
 
 User: clear override from Andheri to BKC
 Output:
@@ -152,6 +176,22 @@ User: how are we getting from Andheri to Dadar?
 Output:
 {"action":"explain"}
 
+User: is the Bandra to CST leg using train?
+Output:
+{"action":"explain"}
+
+User: which mode are we taking from Powai to BKC?
+Output:
+{"action":"explain"}
+
+User: use cab from Powai to BKC
+Output:
+{"action":"edit_leg","from_location":"Powai","to_location":"BKC","transport_mode":"cab"}
+
+User: use train from Bandra to CST
+Output:
+{"action":"edit_leg","from_location":"Bandra","to_location":"CST","transport_mode":"train"}
+
 Important behavior rules:
 - If the user clearly specifies a leg with a preferred mode (e.g. "from X to Y by cab", "switch the X to Y leg to bus"), return action="edit_leg".
 - If the user clearly specifies a leg with a mode to avoid (e.g. "don't take train from X to Y", "skip bus between X and Y"), return action="avoid_mode_on_leg".
@@ -160,6 +200,9 @@ Important behavior rules:
 - If the user asks to remove, clear, or reset preferences/constraints for a specific leg (e.g. "remove powai to bkc preference", "clear the bkc to bandra constraint", "reset the leg from X to Y"), return action="clear_leg_preference".
 - Do NOT return "plan" for these explicit leg-level instructions.
 - If the user is ASKING a question about the current route (e.g. "are we using cab?", "is it taking metro?", "which mode?"), return action="explain". Do NOT treat questions as commands.
+- If the user's message ends with "?" or starts with a question word (is, are, was, which, what, how, why, can, could, will, would), return action="explain". Do NOT treat questions as commands to change the route.
+- If the user expresses dislike or avoidance for a mode WITHOUT mentioning specific locations (no "from X to Y"), return action="update_preferences". Never return action="plan" for these.
+- "uber", "ola", "taxi" all map to transport_mode="cab" in edit_leg actions.
 """
 
 
@@ -472,28 +515,8 @@ def think(user_message):
 
             parsed = json.loads(reply[start:end])
             normalized = _normalize_decision(parsed)
-            if normalized is None:
-                continue
-
-            if normalized.get("action") == "plan":
-                # Don't let the LLM accidentally plan when user asked a question
-                if _is_question(user_message.lower()):
-                    return {"action": "explain", "reason": "question_guard"}
-
-                global_preference = _detect_global_preference(user_message)
-                if global_preference is not None:
-                    return global_preference
-
-                rule_override = _rule_based_override_decision(user_message)
-                if rule_override is not None:
-                    return rule_override
-
-            if normalized.get("action") == "edit_leg":
-                # Don't let the LLM set an override when user is asking a question
-                if _is_question(user_message.lower()):
-                    return {"action": "explain", "reason": "question_guard"}
-
-            return normalized
+            if normalized is not None:
+                return normalized
         except Exception:
             continue
 
