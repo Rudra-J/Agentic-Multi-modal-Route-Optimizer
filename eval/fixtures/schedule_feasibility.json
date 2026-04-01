@@ -1,0 +1,41 @@
+[
+  {
+    "id": "sf_001",
+    "description": "Meetings already sorted — order preserved",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "expected_order": ["Andheri", "BKC"]
+  },
+  {
+    "id": "sf_002",
+    "description": "Unsorted meetings — sorted by start_time",
+    "meetings": [
+      {"location": "CST", "start_time": "13:00", "duration_minutes": 30},
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "expected_order": ["Andheri", "Dadar", "CST"]
+  },
+  {
+    "id": "sf_003",
+    "description": "Back-to-back meetings — sorted correctly",
+    "meetings": [
+      {"location": "BKC", "start_time": "10:30", "duration_minutes": 30},
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 90}
+    ],
+    "expected_order": ["Andheri", "BKC"]
+  },
+  {
+    "id": "sf_004",
+    "description": "Four meetings — correct sort order",
+    "meetings": [
+      {"location": "Colaba", "start_time": "15:00", "duration_minutes": 30},
+      {"location": "Andheri", "start_time": "08:00", "duration_minutes": 30},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 30},
+      {"location": "Dadar", "start_time": "13:00", "duration_minutes": 30}
+    ],
+    "expected_order": ["Andheri", "BKC", "Dadar", "Colaba"]
+  }
+]

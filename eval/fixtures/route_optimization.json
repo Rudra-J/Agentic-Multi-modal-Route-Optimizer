@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ro_001",
+    "description": "Basic two-meeting plan returns a valid route",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "has_route": true}
+  },
+  {
+    "id": "ro_002",
+    "description": "Global avoid train — no train in any leg",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": ["train"],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "modes_absent": ["train"]}
+  },
+  {
+    "id": "ro_003",
+    "description": "Global avoid all public modes — only cab available",
+    "meetings": [
+      {"location": "Bandra", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "CST", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": ["train", "metro", "bus"],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "all_legs_mode": "cab"}
+  },
+  {
+    "id": "ro_004",
+    "description": "Leg override forces cab on Andheri->BKC",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {"andheri->bkc": {"mode": "cab", "reason": "test"}},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "leg_mode": {"from": "Andheri", "to": "BKC", "mode": "cab"}}
+  },
+  {
+    "id": "ro_005",
+    "description": "Leg avoid bus on Bandra->CST — bus absent on that leg",
+    "meetings": [
+      {"location": "Bandra", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "CST", "start_time": "11:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {"bandra->cst": {"avoid": ["bus"], "reason": "test"}},
+    "expected": {"status": "success", "leg_mode_absent": {"from": "Bandra", "to": "CST", "mode": "bus"}}
+  },
+  {
+    "id": "ro_006",
+    "description": "Three meetings — plan covers two legs",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
+      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30},
+      {"location": "CST", "start_time": "13:00", "duration_minutes": 30}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "leg_count": 2}
+  },
+  {
+    "id": "ro_007",
+    "description": "Impossible time window returns failed status",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 60},
+      {"location": "Navi Mumbai", "start_time": "09:05", "duration_minutes": 30}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "failed"}
+  },
+  {
+    "id": "ro_008",
+    "description": "Single meeting returns empty itinerary (no legs needed)",
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 60}
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {"status": "success", "leg_count": 0}
+  }
+]

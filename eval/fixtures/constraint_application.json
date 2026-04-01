@@ -1,0 +1,80 @@
+[
+  {
+    "id": "ca_001",
+    "description": "Global avoid stores in avoid_modes",
+    "action": "update_preferences",
+    "decision": {"action": "update_preferences", "avoid_modes": ["train"]},
+    "expected": {"avoid_modes": ["train"], "leg_overrides": {}, "leg_avoid_modes": {}}
+  },
+  {
+    "id": "ca_002",
+    "description": "Global avoid removes conflicting leg override",
+    "pre_state": {"leg_overrides": {"andheri->bkc": {"mode": "train", "reason": "user"}}},
+    "action": "update_preferences",
+    "decision": {"action": "update_preferences", "avoid_modes": ["train"]},
+    "expected": {"avoid_modes": ["train"], "leg_overrides": {}}
+  },
+  {
+    "id": "ca_003",
+    "description": "Leg override stored with normalized key",
+    "action": "edit_leg",
+    "decision": {"action": "edit_leg", "from_location": "Andheri", "to_location": "BKC", "transport_mode": "metro", "reason": "user"},
+    "expected": {"leg_overrides": {"andheri->bkc": {"mode": "metro", "reason": "user"}}}
+  },
+  {
+    "id": "ca_004",
+    "description": "Leg avoid stored with normalized key",
+    "action": "avoid_mode_on_leg",
+    "decision": {"action": "avoid_mode_on_leg", "from_location": "Bandra", "to_location": "CST", "avoid_modes": ["bus"], "reason": "user"},
+    "expected": {"leg_avoid_modes": {"bandra->cst": {"avoid": ["bus"], "reason": "user"}}}
+  },
+  {
+    "id": "ca_005",
+    "description": "Leg override clears conflicting avoid for same leg",
+    "pre_state": {"leg_avoid_modes": {"andheri->bkc": {"avoid": ["metro"], "reason": "user"}}},
+    "action": "edit_leg",
+    "decision": {"action": "edit_leg", "from_location": "Andheri", "to_location": "BKC", "transport_mode": "metro", "reason": "user"},
+    "expected": {"leg_overrides": {"andheri->bkc": {"mode": "metro", "reason": "user"}}, "leg_avoid_modes": {}}
+  },
+  {
+    "id": "ca_006",
+    "description": "Leg avoid clears conflicting override for same leg",
+    "pre_state": {"leg_overrides": {"andheri->bkc": {"mode": "metro", "reason": "user"}}},
+    "action": "avoid_mode_on_leg",
+    "decision": {"action": "avoid_mode_on_leg", "from_location": "Andheri", "to_location": "BKC", "avoid_modes": ["metro"], "reason": "user"},
+    "expected": {"leg_overrides": {}, "leg_avoid_modes": {"andheri->bkc": {"avoid": ["metro"], "reason": "user"}}}
+  },
+  {
+    "id": "ca_007",
+    "description": "clear_leg_override removes the override",
+    "pre_state": {"leg_overrides": {"andheri->bkc": {"mode": "cab", "reason": "user"}}},
+    "action": "clear_leg_override",
+    "decision": {"action": "clear_leg_override", "from_location": "Andheri", "to_location": "BKC"},
+    "expected": {"leg_overrides": {}}
+  },
+  {
+    "id": "ca_008",
+    "description": "clear_leg_preference removes both override and avoid",
+    "pre_state": {
+      "leg_overrides": {"powai->bkc": {"mode": "bus", "reason": "user"}},
+      "leg_avoid_modes": {"powai->bkc": {"avoid": ["metro"], "reason": "user"}}
+    },
+    "action": "clear_leg_preference",
+    "decision": {"action": "clear_leg_preference", "from_location": "Powai", "to_location": "BKC"},
+    "expected": {"leg_overrides": {}, "leg_avoid_modes": {}}
+  },
+  {
+    "id": "ca_009",
+    "description": "Multiple global avoids accumulate",
+    "action": "update_preferences",
+    "decision": {"action": "update_preferences", "avoid_modes": ["train", "bus"]},
+    "expected": {"avoid_modes": ["train", "bus"]}
+  },
+  {
+    "id": "ca_010",
+    "description": "Leg key is case-insensitive (uppercase input)",
+    "action": "edit_leg",
+    "decision": {"action": "edit_leg", "from_location": "ANDHERI", "to_location": "BKC", "transport_mode": "cab", "reason": "test"},
+    "expected": {"leg_overrides": {"andheri->bkc": {"mode": "cab", "reason": "test"}}}
+  }
+]

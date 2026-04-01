@@ -1,0 +1,69 @@
+[
+  {
+    "id": "cf_001",
+    "description": "Global avoid persists into plan",
+    "turns": [
+      {"message": "avoid trains today"},
+      {"message": "plan my day"}
+    ],
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+    ],
+    "expected": {"plan_modes_absent": ["train"]}
+  },
+  {
+    "id": "cf_002",
+    "description": "Leg override persists into replan",
+    "turns": [
+      {"message": "use cab from Andheri to BKC"},
+      {"message": "replan"}
+    ],
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+    ],
+    "expected": {"leg_mode": {"from": "Andheri", "to": "BKC", "mode": "cab"}}
+  },
+  {
+    "id": "cf_003",
+    "description": "Clearing preference removes it from subsequent plan",
+    "turns": [
+      {"message": "use cab from Andheri to BKC"},
+      {"message": "remove the Andheri to BKC preference"},
+      {"message": "plan my day"}
+    ],
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+    ],
+    "expected": {"leg_override_absent": {"from": "Andheri", "to": "BKC"}}
+  },
+  {
+    "id": "cf_004",
+    "description": "Multiple constraints stack correctly",
+    "turns": [
+      {"message": "avoid trains today"},
+      {"message": "avoid buses today"},
+      {"message": "plan my day"}
+    ],
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 60}
+    ],
+    "expected": {"plan_modes_absent": ["train", "bus"]}
+  },
+  {
+    "id": "cf_005",
+    "description": "Conflict: global avoid train then force train on one leg — conflict detected",
+    "turns": [
+      {"message": "avoid trains today"},
+      {"message": "use train from Andheri to Dadar"}
+    ],
+    "meetings": [
+      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
+      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 60}
+    ],
+    "expected": {"leg_override_absent": {"from": "Andheri", "to": "Dadar"}}
+  }
+]

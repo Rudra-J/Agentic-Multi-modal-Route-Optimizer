@@ -1,0 +1,22 @@
+[
+  {"id": "ip_001", "input": "plan my day", "expected": {"action": "plan"}},
+  {"id": "ip_002", "input": "let's get the route sorted", "expected": {"action": "plan"}},
+  {"id": "ip_003", "input": "can you plan my schedule for today?", "expected": {"action": "plan"}},
+  {"id": "ip_004", "input": "replan", "expected": {"action": "replan"}},
+  {"id": "ip_005", "input": "recalculate everything", "expected": {"action": "replan"}},
+  {"id": "ip_006", "input": "redo the route please", "expected": {"action": "replan"}},
+  {"id": "ip_007", "input": "I hate buses", "expected": {"action": "update_preferences", "avoid_modes": ["bus"]}},
+  {"id": "ip_008", "input": "no trains for me today", "expected": {"action": "update_preferences", "avoid_modes": ["train"]}},
+  {"id": "ip_009", "input": "avoid all cabs", "expected": {"action": "update_preferences", "avoid_modes": ["cab"]}},
+  {"id": "ip_010", "input": "I'd rather not take the metro at all", "expected": {"action": "update_preferences", "avoid_modes": ["metro"]}},
+  {"id": "ip_011", "input": "I don't wanna take the train from Bandra to CST", "expected": {"action": "avoid_mode_on_leg", "from_location": "Bandra", "to_location": "CST", "avoid_modes": ["train"]}},
+  {"id": "ip_012", "input": "skip the bus between Powai and BKC", "expected": {"action": "avoid_mode_on_leg", "from_location": "Powai", "to_location": "BKC", "avoid_modes": ["bus"]}},
+  {"id": "ip_013", "input": "no metro on the Andheri to Dadar stretch", "expected": {"action": "avoid_mode_on_leg", "from_location": "Andheri", "to_location": "Dadar", "avoid_modes": ["metro"]}},
+  {"id": "ip_014", "input": "use metro from Andheri to BKC", "expected": {"action": "edit_leg", "from_location": "Andheri", "to_location": "BKC", "transport_mode": "metro"}},
+  {"id": "ip_015", "input": "I want to take a cab from BKC to Bandra", "expected": {"action": "edit_leg", "from_location": "BKC", "to_location": "Bandra", "transport_mode": "cab"}},
+  {"id": "ip_016", "input": "switch the Powai to BKC leg to bus", "expected": {"action": "edit_leg", "from_location": "Powai", "to_location": "BKC", "transport_mode": "bus"}},
+  {"id": "ip_017", "input": "clear override from Andheri to BKC", "expected": {"action": "clear_leg_override", "from_location": "Andheri", "to_location": "BKC"}},
+  {"id": "ip_018", "input": "remove powai to bkc preference", "expected": {"action": "clear_leg_preference", "from_location": "Powai", "to_location": "BKC"}},
+  {"id": "ip_019", "input": "why this route?", "expected": {"action": "explain"}},
+  {"id": "ip_020", "input": "are we using a cab from Powai to BKC?", "expected": {"action": "explain"}}
+]
