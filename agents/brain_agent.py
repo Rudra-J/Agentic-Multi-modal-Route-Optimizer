@@ -200,7 +200,7 @@ Important behavior rules:
 - If the user asks to remove, clear, or reset preferences/constraints for a specific leg (e.g. "remove powai to bkc preference", "clear the bkc to bandra constraint", "reset the leg from X to Y"), return action="clear_leg_preference".
 - Do NOT return "plan" for these explicit leg-level instructions.
 - If the user is ASKING a question about the current route (e.g. "are we using cab?", "is it taking metro?", "which mode?"), return action="explain". Do NOT treat questions as commands.
-- If the user's message ends with "?" or starts with a question word (is, are, was, which, what, how, why, can, could, will, would), return action="explain". Do NOT treat questions as commands to change the route.
+- If the user's message is a route inquiry ending with "?" (e.g. "are we using cab?", "is it metro?", "which mode?"), return action="explain". Note: "can you plan/replan/schedule" is a command not a question — return plan or replan accordingly.
 - If the user expresses dislike or avoidance for a mode WITHOUT mentioning specific locations (no "from X to Y"), return action="update_preferences". Never return action="plan" for these.
 - "uber", "ola", "taxi" all map to transport_mode="cab" in edit_leg actions.
 """

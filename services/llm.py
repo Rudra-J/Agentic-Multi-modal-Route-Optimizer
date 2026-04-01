@@ -23,7 +23,7 @@ def ask_llm(system_prompt, user_prompt, max_retries=2, retry_delay_sec=1.0):
         raise RuntimeError("OPENROUTER_API_KEY is not set")
 
     payload = {
-        "model": "openrouter/free",
+        "model": os.getenv("OPENROUTER_MODEL", "qwen/qwen3.6-plus-preview:free"),
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
