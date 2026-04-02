@@ -139,6 +139,159 @@ python -m eval.run_eval --area availability
 
 ---
 
+## System Design
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                         Browser / Client                            │
+│                     POST /chat  {message, meetings}                 │
+└───────────────────────────────┬─────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                       FastAPI  (main.py)                            │
+│  /chat  /route  /plan_day  /schedule  /upload_itinerary             │
+│  /set_leg_override  /clear_leg_override  /clear_preferences  …      │
+└───────────────────────────────┬─────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                     MobilityAgent  (orchestrator)                   │
+│                                                                     │
+│  1. Classify message type                                           │
+│     ├─ schedule question   → direct answer from WorldState          │
+│     ├─ what-if scenario    → stage pending_leg_change               │
+│     ├─ confirmation/reject → apply or discard staged change         │
+│     ├─ route availability  → RouteAgent lookup                      │
+│     └─ general intent      → BrainAgent (LLM)                      │
+│                                                                     │
+│  WorldState (persists across turns)                                 │
+│    avoid_modes · leg_overrides · leg_avoid_modes                    │
+│    last_plan · pending_leg_change · last_route_query                │
+└──┬──────────┬──────────┬──────────────────────────────┬────────────┘
+   │          │          │                              │
+   ▼          ▼          ▼                              ▼
+┌──────┐  ┌──────┐  ┌──────────┐               ┌──────────────┐
+│Brain │  │Action│  │ Planner  │               │  RouteAgent  │
+│Agent │  │Agent │  │  Agent   │               │  (single leg)│
+│      │  │      │  │          │               │  NetworkX    │
+│ LLM  │→ │Apply │→ │Dijkstra's│               │  MultiDi-    │
+│intent│  │cons- │  │multi-stop│               │  Graph       │
+│→JSON │  │train-│  │optimiz-  │               └──────┬───────┘
+│dec-  │  │ts to │  │ation     │                      │
+│ision │  │World-│  │          │               ┌──────▼───────┐
+└──────┘  │State │  └────┬─────┘               │  RiskAgent   │
+          └──────┘       │                     │  reliability │
+                         │                     │  scoring     │
+                         ▼                     └──────────────┘
+                   ┌──────────┐
+                   │ Schedule │
+                   │  Agent   │
+                   │time-win- │
+                   │dow valid-│
+                   │ation     │
+                   └────┬─────┘
+                        │  (if infeasible)
+                        ▼
+                   ┌──────────┐
+                   │ Fallback │
+                   │  Agent   │
+                   │emergency │
+                   │   cab    │
+                   └──────────┘
+```
+
+### Data & Services
+
+```
+data/
+  mumbai_routes.py     12-location, 4-mode transport graph
+                       Edge weights: duration · cost · reliability
+
+services/
+  llm.py               OpenRouter API client (2 retries)
+  output_formatter.py  Plan → human-readable response
+  time_utils.py        Time window helpers
+
+models/
+  world_state.py       Conversation state (constraints, last plan)
+  plan.py              PlanRequest / PlanResult types
+  route.py             RouteRequest type
+  meeting.py           Meeting type
+```
+
+### Transport Scoring Formula
+
+```
+score = duration × (2 − reliability) × traffic_multiplier
+```
+
+Lower score = better route. Planner runs Dijkstra's on this weight across all legs, then applies constraint filters before returning the optimal plan.
+
+---
+
+## File Structure
+
+```
+.
+├── main.py                      FastAPI app & API routes
+├── index.html                   Single-page frontend
+├── requirements.txt
+├── .env.example
+├── sample_itinerary.csv         Example CSV for /upload_itinerary
+│
+├── agents/
+│   ├── mobility_agent.py        Main orchestrator + WorldState manager
+│   ├── brain_agent.py           LLM intent parsing → structured decision
+│   ├── action_agent.py          Applies decisions to WorldState
+│   ├── planner_agent.py         Multi-stop Dijkstra optimizer
+│   ├── schedule_agent.py        Time-window feasibility validator
+│   ├── route_agent.py           Single-leg pathfinding (NetworkX)
+│   ├── risk_agent.py            Reliability / weather risk scorer
+│   └── fallback_agent.py        Emergency cab fallback
+│
+├── models/
+│   ├── world_state.py           Conversational state (constraints, plan)
+│   ├── plan.py                  PlanRequest / PlanResult
+│   ├── route.py                 RouteRequest
+│   └── meeting.py               Meeting
+│
+├── data/
+│   ├── mumbai_routes.py         12-location NetworkX MultiDiGraph
+│   └── __init__.py
+│
+├── services/
+│   ├── llm.py                   OpenRouter client (retry logic)
+│   ├── output_formatter.py      Plan → readable text
+│   └── time_utils.py            Time helpers
+│
+├── eval/
+│   ├── run_eval.py              Eval harness entry point
+│   ├── report.py                Score aggregation & reporting
+│   ├── models.py                Eval data models
+│   ├── evaluators/
+│   │   ├── intent_eval.py
+│   │   ├── constraint_eval.py
+│   │   ├── route_eval.py
+│   │   ├── schedule_eval.py
+│   │   ├── conversation_eval.py
+│   │   ├── whatif_eval.py
+│   │   └── availability_eval.py
+│   └── fixtures/
+│       ├── intent_parsing.json
+│       ├── constraint_application.json
+│       ├── route_optimization.json
+│       ├── schedule_feasibility.json
+│       ├── conversation_flow.json
+│       ├── whatif.json
+│       └── availability.json
+│
+└── run_feature_suite.py         Integration test suite
+    run_endtoend_test.py         End-to-end test suite
+```
+
+---
+
 ## Requirements
 
 - Python 3.9+
