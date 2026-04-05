@@ -1,56 +1,2312 @@
 [
   {
     "id": "wi_001",
-    "description": "What-if on Andheri->BKC triggers proposal_preview",
+    "description": "What-if cab on Andheri\u2192BKC \u2192 proposal_preview",
     "turns": [
-      {"message": "plan my day"},
-      {"message": "what if I take cab instead of metro from Andheri to BKC?"}
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Andheri to BKC?"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"last_result_status": "proposal_preview"}
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
   },
   {
     "id": "wi_002",
-    "description": "What-if sets pending_leg_change in state",
+    "description": "What-if metro on Bandra\u2192Dadar \u2192 proposal_preview",
     "turns": [
-      {"message": "plan my day"},
-      {"message": "what if I take cab from Andheri to BKC?"}
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use metro from Bandra to Dadar?"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"pending_leg_change_mode": "cab"}
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
   },
   {
     "id": "wi_003",
-    "description": "Confirming what-if with 'yes' applies cab override on Andheri->BKC",
+    "description": "What-if bus on Dadar\u2192CST \u2192 proposal_preview",
     "turns": [
-      {"message": "plan my day"},
-      {"message": "what if I take cab from Andheri to BKC?"},
-      {"message": "yes"}
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead of the current option from Dadar to CST?"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"leg_mode": {"from": "Andheri", "to": "BKC", "mode": "cab"}}
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
   },
   {
     "id": "wi_004",
-    "description": "Rejecting what-if with 'no' clears pending_leg_change",
+    "description": "What-if train on Andheri\u2192Dadar \u2192 proposal_preview",
     "turns": [
-      {"message": "plan my day"},
-      {"message": "what if I take cab from Andheri to BKC?"},
-      {"message": "no"}
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used train for the Andheri to Dadar leg?"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"pending_leg_change_absent": true}
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_005",
+    "description": "What-if cab on Dadar\u2192CST \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Dadar to CST?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_006",
+    "description": "What-if metro on CST\u2192Colaba \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead from CST to Colaba?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_007",
+    "description": "What-if bus on CST\u2192Colaba \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use bus from CST to Colaba?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_008",
+    "description": "What-if cab on BKC\u2192Powai \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead of the current option from BKC to Powai?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_009",
+    "description": "What-if metro on BKC\u2192Lower Parel \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used metro for the BKC to Lower Parel leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_010",
+    "description": "What-if cab on Lower Parel\u2192Bandra \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Lower Parel to Bandra?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_011",
+    "description": "What-if train on Dadar\u2192CST \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take train instead from Dadar to CST?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_012",
+    "description": "What-if cab on Andheri\u2192Powai \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use cab from Andheri to Powai?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_013",
+    "description": "What-if metro on Andheri\u2192BKC \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead of the current option from Andheri to BKC?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_014",
+    "description": "What-if bus on Andheri\u2192BKC \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used bus for the Andheri to BKC leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_015",
+    "description": "What-if cab on Bandra\u2192Dadar \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Bandra to Dadar?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_016",
+    "description": "What-if metro on Andheri\u2192Powai \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead from Andheri to Powai?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_017",
+    "description": "What-if train on Andheri\u2192Borivali \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use train from Andheri to Borivali?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_018",
+    "description": "What-if cab on Borivali\u2192Thane \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead of the current option from Borivali to Thane?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_019",
+    "description": "What-if bus on Bandra\u2192Dadar \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used bus for the Bandra to Dadar leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_020",
+    "description": "What-if metro on Bandra\u2192Dadar \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to metro from Bandra to Dadar?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_021",
+    "description": "What-if train on Borivali\u2192Thane \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take train instead from Borivali to Thane?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_022",
+    "description": "What-if cab on Malad\u2192Borivali \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use cab from Malad to Borivali?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_023",
+    "description": "What-if metro on Malad\u2192Borivali \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead of the current option from Malad to Borivali?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_024",
+    "description": "What-if bus on Powai\u2192Thane \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used bus for the Powai to Thane leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_025",
+    "description": "What-if cab on Powai\u2192Thane \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Powai to Thane?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_026",
+    "description": "What-if train on Powai\u2192Thane \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take train instead from Powai to Thane?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_027",
+    "description": "What-if metro on Lower Parel\u2192Bandra \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use metro from Lower Parel to Bandra?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_028",
+    "description": "What-if cab on CST\u2192Colaba \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead of the current option from CST to Colaba?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_029",
+    "description": "What-if bus on Andheri\u2192Malad \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used bus for the Andheri to Malad leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_030",
+    "description": "What-if metro on Dadar\u2192CST \u2192 proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to metro from Dadar to CST?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "wi_031",
+    "description": "What-if cab on Andheri\u2192BKC \u2192 pending_leg_change=cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Andheri to BKC?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "cab"
+    }
+  },
+  {
+    "id": "wi_032",
+    "description": "What-if metro on Bandra\u2192Dadar \u2192 pending_leg_change=metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use metro from Bandra to Dadar?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "metro"
+    }
+  },
+  {
+    "id": "wi_033",
+    "description": "What-if train on Andheri\u2192Dadar \u2192 pending_leg_change=train",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take train instead of the current option from Andheri to Dadar?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "train"
+    }
+  },
+  {
+    "id": "wi_034",
+    "description": "What-if bus on Dadar\u2192CST \u2192 pending_leg_change=bus",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used bus for the Dadar to CST leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "bus"
+    }
+  },
+  {
+    "id": "wi_035",
+    "description": "What-if cab on Dadar\u2192CST \u2192 pending_leg_change=cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Dadar to CST?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "cab"
+    }
+  },
+  {
+    "id": "wi_036",
+    "description": "What-if metro on CST\u2192Colaba \u2192 pending_leg_change=metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead from CST to Colaba?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "metro"
+    }
+  },
+  {
+    "id": "wi_037",
+    "description": "What-if cab on BKC\u2192Powai \u2192 pending_leg_change=cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use cab from BKC to Powai?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "cab"
+    }
+  },
+  {
+    "id": "wi_038",
+    "description": "What-if bus on Andheri\u2192BKC \u2192 pending_leg_change=bus",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead of the current option from Andheri to BKC?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "bus"
+    }
+  },
+  {
+    "id": "wi_039",
+    "description": "What-if train on Dadar\u2192CST \u2192 pending_leg_change=train",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used train for the Dadar to CST leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "train"
+    }
+  },
+  {
+    "id": "wi_040",
+    "description": "What-if metro on Andheri\u2192BKC \u2192 pending_leg_change=metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to metro from Andheri to BKC?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "metro"
+    }
+  },
+  {
+    "id": "wi_041",
+    "description": "What-if cab on Lower Parel\u2192Bandra \u2192 pending_leg_change=cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Lower Parel to Bandra?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "cab"
+    }
+  },
+  {
+    "id": "wi_042",
+    "description": "What-if train on Borivali\u2192Thane \u2192 pending_leg_change=train",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use train from Borivali to Thane?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "train"
+    }
+  },
+  {
+    "id": "wi_043",
+    "description": "What-if bus on Bandra\u2192Dadar \u2192 pending_leg_change=bus",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead of the current option from Bandra to Dadar?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "bus"
+    }
+  },
+  {
+    "id": "wi_044",
+    "description": "What-if cab on Andheri\u2192Powai \u2192 pending_leg_change=cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used cab for the Andheri to Powai leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "cab"
+    }
+  },
+  {
+    "id": "wi_045",
+    "description": "What-if metro on BKC\u2192Lower Parel \u2192 pending_leg_change=metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to metro from BKC to Lower Parel?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "metro"
+    }
+  },
+  {
+    "id": "wi_046",
+    "description": "What-if train on Powai\u2192Thane \u2192 pending_leg_change=train",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take train instead from Powai to Thane?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "train"
+    }
+  },
+  {
+    "id": "wi_047",
+    "description": "What-if cab on Andheri\u2192Borivali \u2192 pending_leg_change=cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use cab from Andheri to Borivali?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "cab"
+    }
+  },
+  {
+    "id": "wi_048",
+    "description": "What-if bus on CST\u2192Colaba \u2192 pending_leg_change=bus",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead of the current option from CST to Colaba?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "bus"
+    }
+  },
+  {
+    "id": "wi_049",
+    "description": "What-if metro on Andheri\u2192Powai \u2192 pending_leg_change=metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used metro for the Andheri to Powai leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "metro"
+    }
+  },
+  {
+    "id": "wi_050",
+    "description": "What-if cab on Malad\u2192Borivali \u2192 pending_leg_change=cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Malad to Borivali?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_mode": "cab"
+    }
+  },
+  {
+    "id": "wi_051",
+    "description": "What-if cab on Andheri\u2192BKC confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Andheri to BKC?"
+      },
+      {
+        "message": "yes"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_052",
+    "description": "What-if metro on Bandra\u2192Dadar confirmed \u2192 leg uses metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use metro from Bandra to Dadar?"
+      },
+      {
+        "message": "sure"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "wi_053",
+    "description": "What-if cab on Dadar\u2192CST confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead of the current option from Dadar to CST?"
+      },
+      {
+        "message": "go ahead"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_054",
+    "description": "What-if cab on CST\u2192Colaba confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used cab for the CST to Colaba leg?"
+      },
+      {
+        "message": "apply it"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_055",
+    "description": "What-if metro on CST\u2192Colaba confirmed \u2192 leg uses metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to metro from CST to Colaba?"
+      },
+      {
+        "message": "confirm"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "wi_056",
+    "description": "What-if bus on Dadar\u2192CST confirmed \u2192 leg uses bus",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead from Dadar to CST?"
+      },
+      {
+        "message": "sounds good"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "wi_057",
+    "description": "What-if cab on BKC\u2192Powai confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use cab from BKC to Powai?"
+      },
+      {
+        "message": "do it"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_058",
+    "description": "What-if metro on BKC\u2192Lower Parel confirmed \u2192 leg uses metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead of the current option from BKC to Lower Parel?"
+      },
+      {
+        "message": "yes please"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Lower Parel",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "wi_059",
+    "description": "What-if cab on Lower Parel\u2192Bandra confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used cab for the Lower Parel to Bandra leg?"
+      },
+      {
+        "message": "apply"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Lower Parel",
+        "to": "Bandra",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_060",
+    "description": "What-if train on Andheri\u2192Dadar confirmed \u2192 leg uses train",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to train from Andheri to Dadar?"
+      },
+      {
+        "message": "ok go ahead"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Dadar",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "wi_061",
+    "description": "What-if cab on Andheri\u2192Powai confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Andheri to Powai?"
+      },
+      {
+        "message": "yes that works"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Powai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_062",
+    "description": "What-if bus on Bandra\u2192Dadar confirmed \u2192 leg uses bus",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use bus from Bandra to Dadar?"
+      },
+      {
+        "message": "let's do it"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "wi_063",
+    "description": "What-if cab on Andheri\u2192Borivali confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead of the current option from Andheri to Borivali?"
+      },
+      {
+        "message": "apply the change"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Borivali",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_064",
+    "description": "What-if metro on Andheri\u2192BKC confirmed \u2192 leg uses metro",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used metro for the Andheri to BKC leg?"
+      },
+      {
+        "message": "confirmed"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "wi_065",
+    "description": "What-if cab on Malad\u2192Borivali confirmed \u2192 leg uses cab",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Malad to Borivali?"
+      },
+      {
+        "message": "absolutely"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Malad",
+        "to": "Borivali",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "wi_066",
+    "description": "What-if cab on Andheri\u2192BKC rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Andheri to BKC?"
+      },
+      {
+        "message": "no"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_067",
+    "description": "What-if metro on Bandra\u2192Dadar rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use metro from Bandra to Dadar?"
+      },
+      {
+        "message": "never mind"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_068",
+    "description": "What-if train on Andheri\u2192Dadar rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take train instead of the current option from Andheri to Dadar?"
+      },
+      {
+        "message": "cancel"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_069",
+    "description": "What-if bus on Dadar\u2192CST rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used bus for the Dadar to CST leg?"
+      },
+      {
+        "message": "keep the original"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_070",
+    "description": "What-if cab on Dadar\u2192CST rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Dadar to CST?"
+      },
+      {
+        "message": "no thanks"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_071",
+    "description": "What-if metro on CST\u2192Colaba rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead from CST to Colaba?"
+      },
+      {
+        "message": "cancel that"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_072",
+    "description": "What-if cab on BKC\u2192Powai rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use cab from BKC to Powai?"
+      },
+      {
+        "message": "don't apply it"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_073",
+    "description": "What-if bus on Andheri\u2192BKC rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead of the current option from Andheri to BKC?"
+      },
+      {
+        "message": "revert"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_074",
+    "description": "What-if metro on Andheri\u2192BKC rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used metro for the Andheri to BKC leg?"
+      },
+      {
+        "message": "no keep it"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_075",
+    "description": "What-if train on Dadar\u2192CST rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to train from Dadar to CST?"
+      },
+      {
+        "message": "stick with original"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_076",
+    "description": "What-if cab on Lower Parel\u2192Bandra rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Lower Parel to Bandra?"
+      },
+      {
+        "message": "no that's fine"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_077",
+    "description": "What-if train on Borivali\u2192Thane rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use train from Borivali to Thane?"
+      },
+      {
+        "message": "discard"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_078",
+    "description": "What-if bus on Bandra\u2192Dadar rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead of the current option from Bandra to Dadar?"
+      },
+      {
+        "message": "cancel the change"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_079",
+    "description": "What-if cab on Andheri\u2192Powai rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used cab for the Andheri to Powai leg?"
+      },
+      {
+        "message": "no do not apply"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
+  },
+  {
+    "id": "wi_080",
+    "description": "What-if metro on BKC\u2192Lower Parel rejected \u2192 pending cleared",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to metro from BKC to Lower Parel?"
+      },
+      {
+        "message": "reject"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "pending_leg_change_absent": true
+    }
   }
 ]

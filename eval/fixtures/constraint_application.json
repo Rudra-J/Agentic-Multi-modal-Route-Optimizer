@@ -1,80 +1,4906 @@
 [
   {
     "id": "ca_001",
-    "description": "Global avoid stores in avoid_modes",
+    "description": "Simple global avoid metro",
     "action": "update_preferences",
-    "decision": {"action": "update_preferences", "avoid_modes": ["train"]},
-    "expected": {"avoid_modes": ["train"], "leg_overrides": {}, "leg_avoid_modes": {}}
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "pre_state": {}
   },
   {
     "id": "ca_002",
-    "description": "Global avoid removes conflicting leg override",
-    "pre_state": {"leg_overrides": {"andheri->bkc": {"mode": "train", "reason": "user"}}},
+    "description": "Simple global avoid train",
     "action": "update_preferences",
-    "decision": {"action": "update_preferences", "avoid_modes": ["train"]},
-    "expected": {"avoid_modes": ["train"], "leg_overrides": {}}
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "pre_state": {}
   },
   {
     "id": "ca_003",
-    "description": "Leg override stored with normalized key",
-    "action": "edit_leg",
-    "decision": {"action": "edit_leg", "from_location": "Andheri", "to_location": "BKC", "transport_mode": "metro", "reason": "user"},
-    "expected": {"leg_overrides": {"andheri->bkc": {"mode": "metro", "reason": "user"}}}
+    "description": "Simple global avoid bus",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "pre_state": {}
   },
   {
     "id": "ca_004",
-    "description": "Leg avoid stored with normalized key",
-    "action": "avoid_mode_on_leg",
-    "decision": {"action": "avoid_mode_on_leg", "from_location": "Bandra", "to_location": "CST", "avoid_modes": ["bus"], "reason": "user"},
-    "expected": {"leg_avoid_modes": {"bandra->cst": {"avoid": ["bus"], "reason": "user"}}}
+    "description": "Simple global avoid cab",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "pre_state": {}
   },
   {
     "id": "ca_005",
-    "description": "Leg override clears conflicting avoid for same leg",
-    "pre_state": {"leg_avoid_modes": {"andheri->bkc": {"avoid": ["metro"], "reason": "user"}}},
-    "action": "edit_leg",
-    "decision": {"action": "edit_leg", "from_location": "Andheri", "to_location": "BKC", "transport_mode": "metro", "reason": "user"},
-    "expected": {"leg_overrides": {"andheri->bkc": {"mode": "metro", "reason": "user"}}, "leg_avoid_modes": {}}
+    "description": "Avoid metro clears leg override on Andheri\u2192BKC",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro"
+      ],
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
   },
   {
     "id": "ca_006",
-    "description": "Leg avoid clears conflicting override for same leg",
-    "pre_state": {"leg_overrides": {"andheri->bkc": {"mode": "metro", "reason": "user"}}},
-    "action": "avoid_mode_on_leg",
-    "decision": {"action": "avoid_mode_on_leg", "from_location": "Andheri", "to_location": "BKC", "avoid_modes": ["metro"], "reason": "user"},
-    "expected": {"leg_overrides": {}, "leg_avoid_modes": {"andheri->bkc": {"avoid": ["metro"], "reason": "user"}}}
+    "description": "Avoid train clears leg override on Bandra\u2192Dadar",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train"
+      ],
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
   },
   {
     "id": "ca_007",
-    "description": "clear_leg_override removes the override",
-    "pre_state": {"leg_overrides": {"andheri->bkc": {"mode": "cab", "reason": "user"}}},
-    "action": "clear_leg_override",
-    "decision": {"action": "clear_leg_override", "from_location": "Andheri", "to_location": "BKC"},
-    "expected": {"leg_overrides": {}}
+    "description": "Avoid bus clears leg override on Dadar\u2192CST",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus"
+      ],
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
   },
   {
     "id": "ca_008",
-    "description": "clear_leg_preference removes both override and avoid",
-    "pre_state": {
-      "leg_overrides": {"powai->bkc": {"mode": "bus", "reason": "user"}},
-      "leg_avoid_modes": {"powai->bkc": {"avoid": ["metro"], "reason": "user"}}
+    "description": "Avoid cab clears leg override on CST\u2192Colaba",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
     },
-    "action": "clear_leg_preference",
-    "decision": {"action": "clear_leg_preference", "from_location": "Powai", "to_location": "BKC"},
-    "expected": {"leg_overrides": {}, "leg_avoid_modes": {}}
+    "expected": {
+      "avoid_modes": [
+        "cab"
+      ],
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
   },
   {
     "id": "ca_009",
-    "description": "Multiple global avoids accumulate",
+    "description": "Global avoid ['train', 'bus']",
     "action": "update_preferences",
-    "decision": {"action": "update_preferences", "avoid_modes": ["train", "bus"]},
-    "expected": {"avoid_modes": ["train", "bus"]}
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train",
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train",
+        "bus"
+      ]
+    },
+    "pre_state": {}
   },
   {
     "id": "ca_010",
-    "description": "Leg key is case-insensitive (uppercase input)",
+    "description": "Global avoid ['metro', 'cab']",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro",
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro",
+        "cab"
+      ]
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_011",
+    "description": "Global avoid ['train', 'metro']",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train",
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train",
+        "metro"
+      ]
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_012",
+    "description": "Global avoid ['bus', 'cab']",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus",
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus",
+        "cab"
+      ]
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_013",
+    "description": "Global avoid ['train', 'metro', 'bus']",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train",
+        "metro",
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train",
+        "metro",
+        "bus"
+      ]
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_014",
+    "description": "Global avoid ['bus', 'metro', 'cab']",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus",
+        "metro",
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus",
+        "metro",
+        "cab"
+      ]
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_015",
+    "description": "Accumulate avoid: existing [train] + add bus",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ca_016",
+    "description": "Accumulate avoid: existing [bus] + add metro",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ca_017",
+    "description": "Accumulate avoid: existing [metro] + add cab",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ca_018",
+    "description": "Accumulate avoid: existing [cab] + add train",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ca_019",
+    "description": "Accumulate avoid: existing [train] + add metro",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ca_020",
+    "description": "Accumulate avoid: existing [bus] + add cab",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ca_021",
+    "description": "Accumulate avoid: existing [metro] + add bus",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ca_022",
+    "description": "Accumulate avoid: existing [cab] + add metro",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "pre_state": {
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ca_023",
+    "description": "Avoid train: removes Andheri\u2192BKC override, keeps Dadar\u2192CST",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train"
+      ],
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "train",
+          "reason": "user"
+        },
+        "dadar->cst": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_024",
+    "description": "Avoid bus: removes Bandra\u2192Dadar override, keeps Andheri\u2192BKC",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus"
+      ],
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        },
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_025",
+    "description": "Avoid metro: removes CST\u2192Colaba override, keeps Powai\u2192Thane",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro"
+      ],
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "metro",
+          "reason": "user"
+        },
+        "powai->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_026",
+    "description": "Avoid cab: removes Andheri\u2192Powai override, keeps Bandra\u2192Dadar",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "cab"
+      ],
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->powai": {
+          "mode": "cab",
+          "reason": "user"
+        },
+        "bandra->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_027",
+    "description": "Avoid train: removes Malad\u2192Borivali override, keeps BKC\u2192Powai",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train"
+      ],
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "train",
+          "reason": "user"
+        },
+        "bkc->powai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_028",
+    "description": "Avoid bus: removes Dadar\u2192CST override, keeps Andheri\u2192Borivali",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus"
+      ],
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "bus",
+          "reason": "user"
+        },
+        "andheri->borivali": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_029",
+    "description": "Avoid metro: removes Andheri\u2192BKC override, keeps CST\u2192Navi Mumbai",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "metro"
+      ],
+      "leg_overrides": {
+        "cst->navi mumbai": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        },
+        "cst->navi mumbai": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_030",
+    "description": "Avoid cab: removes Borivali\u2192Thane override, keeps Lower Parel\u2192Bandra",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "cab"
+      ],
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "cab",
+          "reason": "user"
+        },
+        "lower parel->bandra": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_031",
+    "description": "Avoid train: removes CST\u2192Navi Mumbai override, keeps Andheri\u2192Malad",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "train"
+      ],
+      "leg_overrides": {
+        "andheri->malad": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->navi mumbai": {
+          "mode": "train",
+          "reason": "user"
+        },
+        "andheri->malad": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_032",
+    "description": "Avoid bus: removes Powai\u2192Thane override, keeps Thane\u2192Navi Mumbai",
+    "action": "update_preferences",
+    "decision": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    },
+    "expected": {
+      "avoid_modes": [
+        "bus"
+      ],
+      "leg_overrides": {
+        "thane->navi mumbai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "bus",
+          "reason": "user"
+        },
+        "thane->navi mumbai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_033",
+    "description": "Store leg override metro on Andheri\u2192BKC",
     "action": "edit_leg",
-    "decision": {"action": "edit_leg", "from_location": "ANDHERI", "to_location": "BKC", "transport_mode": "cab", "reason": "test"},
-    "expected": {"leg_overrides": {"andheri->bkc": {"mode": "cab", "reason": "test"}}}
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_034",
+    "description": "Store leg override metro on Andheri\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_035",
+    "description": "Store leg override metro on Andheri\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_036",
+    "description": "Store leg override metro on BKC\u2192Powai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_037",
+    "description": "Store leg override metro on BKC\u2192Lower Parel",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_038",
+    "description": "Store leg override metro on Bandra\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_039",
+    "description": "Store leg override metro on Dadar\u2192CST",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_040",
+    "description": "Store leg override metro on CST\u2192Colaba",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_041",
+    "description": "Store leg override metro on Powai\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_042",
+    "description": "Store leg override metro on Thane\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "thane->navi mumbai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_043",
+    "description": "Store leg override metro on Lower Parel\u2192Bandra",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_044",
+    "description": "Store leg override metro on Andheri\u2192Malad",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->malad": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_045",
+    "description": "Store leg override metro on Malad\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Borivali",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_046",
+    "description": "Store leg override metro on Borivali\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Thane",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_047",
+    "description": "Store leg override metro on CST\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->navi mumbai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_048",
+    "description": "Store leg override train on Andheri\u2192BKC",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_049",
+    "description": "Store leg override train on Andheri\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_050",
+    "description": "Store leg override train on Andheri\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_051",
+    "description": "Store leg override train on BKC\u2192Powai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_052",
+    "description": "Store leg override train on BKC\u2192Lower Parel",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_053",
+    "description": "Store leg override train on Bandra\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_054",
+    "description": "Store leg override train on Dadar\u2192CST",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_055",
+    "description": "Store leg override train on CST\u2192Colaba",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_056",
+    "description": "Store leg override train on Powai\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_057",
+    "description": "Store leg override train on Thane\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "thane->navi mumbai": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_058",
+    "description": "Store leg override train on Lower Parel\u2192Bandra",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_059",
+    "description": "Store leg override train on Andheri\u2192Malad",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->malad": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_060",
+    "description": "Store leg override train on Malad\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Borivali",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_061",
+    "description": "Store leg override train on Borivali\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Thane",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_062",
+    "description": "Store leg override train on CST\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->navi mumbai": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_063",
+    "description": "Store leg override bus on Andheri\u2192BKC",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_064",
+    "description": "Store leg override bus on Andheri\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_065",
+    "description": "Store leg override bus on Andheri\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_066",
+    "description": "Store leg override bus on BKC\u2192Powai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_067",
+    "description": "Store leg override bus on BKC\u2192Lower Parel",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_068",
+    "description": "Store leg override bus on Bandra\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_069",
+    "description": "Store leg override bus on Dadar\u2192CST",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_070",
+    "description": "Store leg override bus on CST\u2192Colaba",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_071",
+    "description": "Store leg override bus on Powai\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_072",
+    "description": "Store leg override bus on Thane\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "thane->navi mumbai": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_073",
+    "description": "Store leg override bus on Lower Parel\u2192Bandra",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_074",
+    "description": "Store leg override bus on Andheri\u2192Malad",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->malad": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_075",
+    "description": "Store leg override bus on Malad\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Borivali",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_076",
+    "description": "Store leg override bus on Borivali\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Thane",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_077",
+    "description": "Store leg override bus on CST\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->navi mumbai": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_078",
+    "description": "Store leg override cab on Andheri\u2192BKC",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_079",
+    "description": "Store leg override cab on Andheri\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_080",
+    "description": "Store leg override cab on Andheri\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_081",
+    "description": "Store leg override cab on BKC\u2192Powai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_082",
+    "description": "Store leg override cab on BKC\u2192Lower Parel",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_083",
+    "description": "Store leg override cab on Bandra\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_084",
+    "description": "Store leg override cab on Dadar\u2192CST",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_085",
+    "description": "Store leg override cab on CST\u2192Colaba",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_086",
+    "description": "Store leg override cab on Powai\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_087",
+    "description": "Store leg override cab on Thane\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "thane->navi mumbai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_088",
+    "description": "Store leg override cab on Lower Parel\u2192Bandra",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_089",
+    "description": "Store leg override cab on Andheri\u2192Malad",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->malad": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_090",
+    "description": "Store leg override cab on Malad\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Borivali",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_091",
+    "description": "Store leg override cab on Borivali\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Thane",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_092",
+    "description": "Store leg override cab on CST\u2192Navi Mumbai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->navi mumbai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_093",
+    "description": "edit_leg metro on Andheri\u2192BKC clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "andheri->bkc": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_094",
+    "description": "edit_leg train on Andheri\u2192Dadar clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "train",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "andheri->dadar": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_095",
+    "description": "edit_leg bus on BKC\u2192Powai clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "bkc->powai": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_096",
+    "description": "edit_leg cab on Bandra\u2192Dadar clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "bandra->dadar": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_097",
+    "description": "edit_leg metro on Dadar\u2192CST clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_098",
+    "description": "edit_leg train on Dadar\u2192CST clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "train",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_099",
+    "description": "edit_leg bus on Dadar\u2192CST clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_100",
+    "description": "edit_leg cab on CST\u2192Colaba clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "cst->colaba": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_101",
+    "description": "edit_leg metro on Lower Parel\u2192Bandra clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "lower parel->bandra": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_102",
+    "description": "edit_leg cab on Andheri\u2192Borivali clears conflicting leg_avoid",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "andheri->borivali": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_103",
+    "description": "Add override cab on Dadar\u2192CST, pre_state has metro on Andheri\u2192BKC",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        },
+        "dadar->cst": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_104",
+    "description": "Add override metro on BKC\u2192Powai, pre_state has train on Dadar\u2192CST",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "train",
+          "reason": "user"
+        },
+        "bkc->powai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_105",
+    "description": "Add override train on Andheri\u2192Borivali, pre_state has bus on Bandra\u2192Dadar",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "transport_mode": "train",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        },
+        "andheri->borivali": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_106",
+    "description": "Add override metro on Andheri\u2192Malad, pre_state has cab on CST\u2192Colaba",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "cab",
+          "reason": "user"
+        },
+        "andheri->malad": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_107",
+    "description": "Add override bus on Andheri\u2192BKC, pre_state has metro on Malad\u2192Borivali",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "bus",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "metro",
+          "reason": "user"
+        },
+        "andheri->bkc": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_108",
+    "description": "Add override cab on Bandra\u2192Dadar, pre_state has train on Powai\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "train",
+          "reason": "user"
+        },
+        "bandra->dadar": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_109",
+    "description": "Add override metro on CST\u2192Colaba, pre_state has cab on Andheri\u2192Powai",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "andheri->powai": {
+          "mode": "cab",
+          "reason": "user"
+        },
+        "cst->colaba": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->powai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_110",
+    "description": "Add override cab on Andheri\u2192BKC, pre_state has metro on BKC\u2192Lower Parel",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "metro",
+          "reason": "user"
+        },
+        "andheri->bkc": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_111",
+    "description": "Add override metro on Bandra\u2192Dadar, pre_state has bus on CST\u2192Colaba",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "transport_mode": "metro",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "bus",
+          "reason": "user"
+        },
+        "bandra->dadar": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_112",
+    "description": "Add override cab on Powai\u2192Thane, pre_state has train on Borivali\u2192Thane",
+    "action": "edit_leg",
+    "decision": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "transport_mode": "cab",
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "train",
+          "reason": "user"
+        },
+        "powai->thane": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_113",
+    "description": "Store leg_avoid metro on Andheri\u2192BKC",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->bkc": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_114",
+    "description": "Store leg_avoid metro on Andheri\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->dadar": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_115",
+    "description": "Store leg_avoid metro on Andheri\u2192Borivali",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->borivali": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_116",
+    "description": "Store leg_avoid metro on BKC\u2192Powai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->powai": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_117",
+    "description": "Store leg_avoid metro on BKC\u2192Lower Parel",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->lower parel": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_118",
+    "description": "Store leg_avoid metro on Bandra\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bandra->dadar": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_119",
+    "description": "Store leg_avoid metro on Dadar\u2192CST",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_120",
+    "description": "Store leg_avoid metro on CST\u2192Colaba",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "cst->colaba": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_121",
+    "description": "Store leg_avoid metro on Powai\u2192Thane",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "powai->thane": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_122",
+    "description": "Store leg_avoid metro on Thane\u2192Navi Mumbai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "thane->navi mumbai": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_123",
+    "description": "Store leg_avoid metro on Lower Parel\u2192Bandra",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "lower parel->bandra": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_124",
+    "description": "Store leg_avoid metro on Andheri\u2192Malad",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->malad": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_125",
+    "description": "Store leg_avoid train on Andheri\u2192BKC",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->bkc": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_126",
+    "description": "Store leg_avoid train on Andheri\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->dadar": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_127",
+    "description": "Store leg_avoid train on Andheri\u2192Borivali",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->borivali": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_128",
+    "description": "Store leg_avoid train on BKC\u2192Powai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->powai": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_129",
+    "description": "Store leg_avoid train on BKC\u2192Lower Parel",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->lower parel": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_130",
+    "description": "Store leg_avoid train on Bandra\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bandra->dadar": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_131",
+    "description": "Store leg_avoid train on Dadar\u2192CST",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_132",
+    "description": "Store leg_avoid train on CST\u2192Colaba",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "cst->colaba": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_133",
+    "description": "Store leg_avoid train on Powai\u2192Thane",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "powai->thane": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_134",
+    "description": "Store leg_avoid train on Thane\u2192Navi Mumbai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "thane->navi mumbai": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_135",
+    "description": "Store leg_avoid train on Lower Parel\u2192Bandra",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "lower parel->bandra": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_136",
+    "description": "Store leg_avoid train on Andheri\u2192Malad",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->malad": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_137",
+    "description": "Store leg_avoid bus on Andheri\u2192BKC",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->bkc": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_138",
+    "description": "Store leg_avoid bus on Andheri\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->dadar": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_139",
+    "description": "Store leg_avoid bus on Andheri\u2192Borivali",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->borivali": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_140",
+    "description": "Store leg_avoid bus on BKC\u2192Powai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->powai": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_141",
+    "description": "Store leg_avoid bus on BKC\u2192Lower Parel",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->lower parel": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_142",
+    "description": "Store leg_avoid bus on Bandra\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bandra->dadar": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_143",
+    "description": "Store leg_avoid bus on Dadar\u2192CST",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_144",
+    "description": "Store leg_avoid bus on CST\u2192Colaba",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "cst->colaba": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_145",
+    "description": "Store leg_avoid bus on Powai\u2192Thane",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "powai->thane": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_146",
+    "description": "Store leg_avoid bus on Thane\u2192Navi Mumbai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "thane->navi mumbai": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_147",
+    "description": "Store leg_avoid bus on Lower Parel\u2192Bandra",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "lower parel->bandra": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_148",
+    "description": "Store leg_avoid bus on Andheri\u2192Malad",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->malad": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_149",
+    "description": "Store leg_avoid cab on Andheri\u2192BKC",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->bkc": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_150",
+    "description": "Store leg_avoid cab on Andheri\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->dadar": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_151",
+    "description": "Store leg_avoid cab on Andheri\u2192Borivali",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->borivali": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_152",
+    "description": "Store leg_avoid cab on BKC\u2192Powai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->powai": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_153",
+    "description": "Store leg_avoid cab on BKC\u2192Lower Parel",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bkc->lower parel": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_154",
+    "description": "Store leg_avoid cab on Bandra\u2192Dadar",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "bandra->dadar": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_155",
+    "description": "Store leg_avoid cab on Dadar\u2192CST",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_156",
+    "description": "Store leg_avoid cab on CST\u2192Colaba",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "cst->colaba": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_157",
+    "description": "Store leg_avoid cab on Powai\u2192Thane",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "powai->thane": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_158",
+    "description": "Store leg_avoid cab on Thane\u2192Navi Mumbai",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "thane->navi mumbai": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_159",
+    "description": "Store leg_avoid cab on Lower Parel\u2192Bandra",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "lower parel->bandra": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_160",
+    "description": "Store leg_avoid cab on Andheri\u2192Malad",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_avoid_modes": {
+        "andheri->malad": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {}
+  },
+  {
+    "id": "ca_161",
+    "description": "avoid_mode_on_leg metro on Andheri\u2192BKC clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "andheri->bkc": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_162",
+    "description": "avoid_mode_on_leg train on Andheri\u2192Dadar clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "andheri->dadar": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_163",
+    "description": "avoid_mode_on_leg bus on BKC\u2192Powai clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "bkc->powai": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_164",
+    "description": "avoid_mode_on_leg cab on Bandra\u2192Dadar clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "bandra->dadar": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_165",
+    "description": "avoid_mode_on_leg metro on Dadar\u2192CST clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_166",
+    "description": "avoid_mode_on_leg train on Borivali\u2192Thane clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "train"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "borivali->thane": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_167",
+    "description": "avoid_mode_on_leg bus on Dadar\u2192CST clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "CST",
+      "avoid_modes": [
+        "bus"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "dadar->cst": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_168",
+    "description": "avoid_mode_on_leg cab on CST\u2192Colaba clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "cst->colaba": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_169",
+    "description": "avoid_mode_on_leg metro on Lower Parel\u2192Bandra clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "metro"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "lower parel->bandra": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_170",
+    "description": "avoid_mode_on_leg cab on Andheri\u2192Powai clears conflicting override",
+    "action": "avoid_mode_on_leg",
+    "decision": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "cab"
+      ],
+      "reason": "user"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {
+        "andheri->powai": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->powai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_171",
+    "description": "clear_leg_override removes override on Andheri\u2192BKC",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Andheri",
+      "to_location": "BKC"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_172",
+    "description": "clear_leg_override removes override on Andheri\u2192Dadar",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Andheri",
+      "to_location": "Dadar"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_173",
+    "description": "clear_leg_override removes override on Andheri\u2192Borivali",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Andheri",
+      "to_location": "Borivali"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_174",
+    "description": "clear_leg_override removes override on BKC\u2192Powai",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "BKC",
+      "to_location": "Powai"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_175",
+    "description": "clear_leg_override removes override on BKC\u2192Lower Parel",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "BKC",
+      "to_location": "Lower Parel"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_176",
+    "description": "clear_leg_override removes override on Bandra\u2192Dadar",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Bandra",
+      "to_location": "Dadar"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_177",
+    "description": "clear_leg_override removes override on Dadar\u2192CST",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Dadar",
+      "to_location": "CST"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_178",
+    "description": "clear_leg_override removes override on CST\u2192Colaba",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "CST",
+      "to_location": "Colaba"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_179",
+    "description": "clear_leg_override removes override on Powai\u2192Thane",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Powai",
+      "to_location": "Thane"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_180",
+    "description": "clear_leg_override removes override on Thane\u2192Navi Mumbai",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "thane->navi mumbai": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_181",
+    "description": "clear_leg_override removes override on Lower Parel\u2192Bandra",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "lower parel->bandra": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_182",
+    "description": "clear_leg_override removes override on Andheri\u2192Malad",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Andheri",
+      "to_location": "Malad"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->malad": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_183",
+    "description": "clear_leg_override removes override on Malad\u2192Borivali",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Malad",
+      "to_location": "Borivali"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "malad->borivali": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_184",
+    "description": "clear_leg_override removes override on Borivali\u2192Thane",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "Borivali",
+      "to_location": "Thane"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "borivali->thane": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_185",
+    "description": "clear_leg_override removes override on CST\u2192Navi Mumbai",
+    "action": "clear_leg_override",
+    "decision": {
+      "action": "clear_leg_override",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->navi mumbai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_186",
+    "description": "clear_leg_preference removes override+avoid on Andheri\u2192BKC",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Andheri",
+      "to_location": "BKC"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->bkc": {
+          "mode": "train",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {
+        "andheri->bkc": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_187",
+    "description": "clear_leg_preference removes override+avoid on Andheri\u2192Dadar",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Andheri",
+      "to_location": "Dadar"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {
+        "andheri->dadar": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_188",
+    "description": "clear_leg_preference removes override+avoid on Andheri\u2192Borivali",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Andheri",
+      "to_location": "Borivali"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "andheri->borivali": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {
+        "andheri->borivali": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_189",
+    "description": "clear_leg_preference removes override+avoid on BKC\u2192Powai",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "BKC",
+      "to_location": "Powai"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bkc->powai": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {
+        "bkc->powai": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_190",
+    "description": "clear_leg_preference removes override+avoid on BKC\u2192Lower Parel",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "BKC",
+      "to_location": "Lower Parel"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bkc->lower parel": {
+          "mode": "train",
+          "reason": "user"
+        }
+      },
+      "leg_avoid_modes": {
+        "bkc->lower parel": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_191",
+    "description": "clear_leg_preference removes only override on Bandra\u2192Dadar",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Bandra",
+      "to_location": "Dadar"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "bandra->dadar": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_192",
+    "description": "clear_leg_preference removes only override on Dadar\u2192CST",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Dadar",
+      "to_location": "CST"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "dadar->cst": {
+          "mode": "cab",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_193",
+    "description": "clear_leg_preference removes only override on CST\u2192Colaba",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "CST",
+      "to_location": "Colaba"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "cst->colaba": {
+          "mode": "metro",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_194",
+    "description": "clear_leg_preference removes only override on Powai\u2192Thane",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Powai",
+      "to_location": "Thane"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "powai->thane": {
+          "mode": "train",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_195",
+    "description": "clear_leg_preference removes only override on Thane\u2192Navi Mumbai",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Thane",
+      "to_location": "Navi Mumbai"
+    },
+    "expected": {
+      "leg_overrides": {}
+    },
+    "pre_state": {
+      "leg_overrides": {
+        "thane->navi mumbai": {
+          "mode": "bus",
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_196",
+    "description": "clear_leg_preference removes only avoid on Lower Parel\u2192Bandra",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Lower Parel",
+      "to_location": "Bandra"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "lower parel->bandra": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_197",
+    "description": "clear_leg_preference removes only avoid on Andheri\u2192Malad",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Andheri",
+      "to_location": "Malad"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "andheri->malad": {
+          "avoid": [
+            "metro"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_198",
+    "description": "clear_leg_preference removes only avoid on Malad\u2192Borivali",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Malad",
+      "to_location": "Borivali"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "malad->borivali": {
+          "avoid": [
+            "train"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_199",
+    "description": "clear_leg_preference removes only avoid on Borivali\u2192Thane",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "Borivali",
+      "to_location": "Thane"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "borivali->thane": {
+          "avoid": [
+            "bus"
+          ],
+          "reason": "user"
+        }
+      }
+    }
+  },
+  {
+    "id": "ca_200",
+    "description": "clear_leg_preference removes only avoid on CST\u2192Navi Mumbai",
+    "action": "clear_leg_preference",
+    "decision": {
+      "action": "clear_leg_preference",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai"
+    },
+    "expected": {
+      "leg_overrides": {},
+      "leg_avoid_modes": {}
+    },
+    "pre_state": {
+      "leg_avoid_modes": {
+        "cst->navi mumbai": {
+          "avoid": [
+            "cab"
+          ],
+          "reason": "user"
+        }
+      }
+    }
   }
 ]

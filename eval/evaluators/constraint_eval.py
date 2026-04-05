@@ -3,6 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
+from tqdm import tqdm
 from models.world_state import WorldState
 from agents.action_agent import execute
 from eval.models import EvalResult, MetricScore, FailureDetail
@@ -29,7 +30,7 @@ def run(fixtures: list) -> EvalResult:
     leg_override_pass = leg_override_total = 0
     conflict_pass = conflict_total = 0
 
-    for case in fixtures:
+    for case in tqdm(fixtures, desc="constraint", unit="case"):
         cid = case["id"]
         decision = case["decision"]
         expected = case["expected"]

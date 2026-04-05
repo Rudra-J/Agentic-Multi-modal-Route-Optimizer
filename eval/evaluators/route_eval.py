@@ -3,6 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
+from tqdm import tqdm
 from agents.planner_agent import plan_day
 from eval.models import EvalResult, MetricScore, FailureDetail
 
@@ -35,7 +36,7 @@ def run(fixtures: list) -> EvalResult:
     leg_constraint_pass = leg_constraint_total = 0
     infeasibility_pass = infeasibility_total = 0
 
-    for case in fixtures:
+    for case in tqdm(fixtures, desc="route", unit="case"):
         cid = case["id"]
         meetings = case["meetings"]
         avoid_modes = case.get("avoid_modes", [])

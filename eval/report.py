@@ -1,4 +1,7 @@
 # eval/report.py
+import json
+import os
+from datetime import datetime, timezone
 from eval.models import EvalResult
 
 
@@ -52,3 +55,44 @@ def print_report(results: list) -> None:
             print(f"    Input:    {failure.input_summary}")
             print(f"    Expected: {failure.expected}")
             print(f"    Actual:   {failure.actual}")
+
+
+def save_report(results: list, output_dir: str = None) -> str:
+    """Save eval results to a timestamped JSON file. Returns the saved file path."""
+    if output_dir is None:
+        output_dir = os.path.join(os.path.dirname(__file__), "results")
+    os.makedirs(output_dir, exist_ok=True)
+
+    all_scores = [r.overall_score for r in results]
+    overall = round(sum(all_scores) / len(all_scores), 1) if all_scores else 0.0
+    areas_passed = sum(1 for r in results if r.passed)
+
+    data = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "overall_score": overall,
+        "areas_passed": areas_passed,
+        "areas_total": len(results),
+        "areas": [
+            {
+                "name": r.area,
+                "score": r.overall_score,
+                "passed": r.passed,
+                "metrics": [
+                    {"name": m.name, "passed": m.passed, "total": m.total, "pct": m.score_pct}
+                    for m in r.metrics
+                ],
+                "failures": [
+                    {"case_id": f.case_id, "metric": f.metric, "input": f.input_summary,
+                     "expected": f.expected, "actual": f.actual}
+                    for f in r.failures
+                ],
+            }
+            for r in results
+        ],
+    }
+
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    path = os.path.join(output_dir, f"eval_{ts}.json")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2)
+    return path

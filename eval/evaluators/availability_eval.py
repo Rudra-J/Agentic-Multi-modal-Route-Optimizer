@@ -3,6 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
+from tqdm import tqdm
 from agents.mobility_agent import MobilityAgent
 from eval.models import EvalResult, MetricScore, FailureDetail
 
@@ -13,7 +14,7 @@ def run(fixtures: list) -> EvalResult:
     status_pass = status_total = 0
     availability_pass = availability_total = 0
 
-    for case in fixtures:
+    for case in tqdm(fixtures, desc="availability", unit="case"):
         cid = case["id"]
         message = case["message"]
         meetings = case["meetings"]

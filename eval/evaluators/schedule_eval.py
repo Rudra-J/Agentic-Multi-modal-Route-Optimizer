@@ -3,6 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 
+from tqdm import tqdm
 from agents.schedule_agent import schedule
 from eval.models import EvalResult, MetricScore, FailureDetail
 
@@ -12,7 +13,7 @@ def run(fixtures: list) -> EvalResult:
 
     order_pass = order_total = 0
 
-    for case in fixtures:
+    for case in tqdm(fixtures, desc="schedule", unit="case"):
         cid = case["id"]
         meetings = case["meetings"]
         expected_order = case.get("expected_order", [])

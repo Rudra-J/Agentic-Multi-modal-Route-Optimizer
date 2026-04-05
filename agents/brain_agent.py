@@ -48,6 +48,26 @@ User: I hate buses
 Output:
 {"action":"update_preferences","avoid_modes":["bus"]}
 
+User: skip the metro
+Output:
+{"action":"update_preferences","avoid_modes":["metro"],"reason":"user wants to avoid metro globally"}
+
+User: cabs are out
+Output:
+{"action":"update_preferences","avoid_modes":["cab"],"reason":"user wants to avoid cab globally"}
+
+User: train-free today
+Output:
+{"action":"update_preferences","avoid_modes":["train"],"reason":"user wants no trains today"}
+
+User: keep me off the bus
+Output:
+{"action":"update_preferences","avoid_modes":["bus"],"reason":"user wants to avoid bus globally"}
+
+User: metro is not an option
+Output:
+{"action":"update_preferences","avoid_modes":["metro"],"reason":"user wants to avoid metro globally"}
+
 User: no trains for me today
 Output:
 {"action":"update_preferences","avoid_modes":["train"],"reason":"user dislikes trains"}
@@ -143,6 +163,54 @@ Output:
 User: recalculate everything
 Output:
 {"action":"replan"}
+
+User: update the plan
+Output:
+{"action":"replan"}
+
+User: refresh the route
+Output:
+{"action":"replan"}
+
+User: revise the route
+Output:
+{"action":"replan"}
+
+User: rebuild the plan
+Output:
+{"action":"replan"}
+
+User: reconfigure my route
+Output:
+{"action":"replan"}
+
+User: start the plan over
+Output:
+{"action":"replan"}
+
+User: organize my day
+Output:
+{"action":"plan"}
+
+User: figure out my schedule
+Output:
+{"action":"plan"}
+
+User: lay out my day
+Output:
+{"action":"plan"}
+
+User: create an itinerary for me
+Output:
+{"action":"plan"}
+
+User: set up my day's travel
+Output:
+{"action":"plan"}
+
+User: can you figure out my schedule?
+Output:
+{"action":"plan"}
 
 User: why this route?
 Output:
@@ -297,12 +365,17 @@ def _extract_leg(text: str):
 
 
 def _extract_mode(text: str):
-    for mode in KNOWN_MODES:
-        if re.search(rf"\b{re.escape(mode)}\b", text):
-            return mode
-    if "taxi" in text:
+    if re.search(r"\bcabs?\b", text):
         return "cab"
-    if "uber" in text or "ola" in text:
+    if re.search(r"\bmetros?\b", text):
+        return "metro"
+    if re.search(r"\btrains?\b", text):
+        return "train"
+    if re.search(r"\bbus(?:es)?\b", text):
+        return "bus"
+    if re.search(r"\btaxis?\b", text):
+        return "cab"
+    if re.search(r"\b(uber|ola)\b", text):
         return "cab"
     return None
 
@@ -342,7 +415,10 @@ def _detect_global_preference(user_message: str):
     if from_loc and to_loc:
         return None
 
-    avoid_markers = ["avoid", "don't", "dont", "do not", "not use", "not take", "no ", "hate"]
+    avoid_markers = [
+        "avoid", "don't", "dont", "do not", "not use", "not take", "no ", "hate",
+        "skip", "off", "free", "out", "not an option", "ban", "stay away",
+    ]
     if any(marker in text for marker in avoid_markers):
         return {
             "action": "update_preferences",
@@ -395,7 +471,11 @@ def _fallback_decision(user_message: str):
             "reason": "fallback_rule"
         }
 
-    replan_markers = ["replan", "redo", "recalculate", "re-plan", "re plan", "plan again", "reoptimize"]
+    replan_markers = [
+        "replan", "redo", "recalculate", "re-plan", "re plan", "plan again", "reoptimize",
+        "refresh", "revise", "rebuild", "reconfigure", "re-optimize", "start over",
+        "update the plan", "update the route", "redo the",
+    ]
     if any(marker in text for marker in replan_markers):
         return {"action": "replan", "reason": "fallback_rule"}
 
@@ -408,7 +488,11 @@ def _fallback_decision(user_message: str):
         return {"action": "explain", "reason": "fallback_rule"}
 
     # Plan-related keywords still get through
-    plan_markers = ["plan", "schedule", "route", "get started", "let's go", "optimize"]
+    plan_markers = [
+        "plan", "schedule", "route", "get started", "let's go", "optimize",
+        "organize", "figure out", "lay out", "create", "set up", "sort out",
+        "arrange", "itinerary", "journey",
+    ]
     if any(marker in text for marker in plan_markers):
         return {"action": "plan", "reason": "fallback_rule"}
 

@@ -93,40 +93,44 @@ Get a free API key at [openrouter.ai](https://openrouter.ai).
 
 ## Eval Results
 
-The system is scored across 7 areas using an offline eval harness (`eval/`). Results below are from the current build using `qwen/qwen3.6-plus-preview:free` via OpenRouter.
+The system is scored across 7 areas using an offline eval harness (`eval/`). Results below are from `eval_20260404_231641`.
 
 | Area | Score | Status |
 |------|-------|--------|
-| LLM Intent Parsing | 100% | PASS |
 | Constraint Application | 100% | PASS |
-| Route Optimization | 100% | PASS |
 | Schedule Feasibility | 100% | PASS |
-| Conversation Flow | 90% | PASS |
-| What-If Scenarios | 100% | PASS |
-| Route Availability | 100% | PASS |
-| **Overall** | **98.6%** | **7/7 areas passing** |
+| Conversation Flow | 100% | PASS |
+| Route Optimization | 98% | PASS |
+| What-If Scenarios | 87.3% | PASS |
+| Route Availability | 79% | FAIL |
+| LLM Intent Parsing | 70.7% | FAIL |
+| **Overall** | **90.7%** | **5/7 areas passing** |
 
 **Per-metric breakdown:**
 
 | Metric | Score |
 |--------|-------|
-| Intent classification accuracy | 20/20 100% |
-| Location extraction accuracy | 16/16 100% |
-| Mode extraction accuracy | 10/10 100% |
-| LLM fallback rate | 0/20 (zero fallbacks) |
-| Global/leg constraint storage | 11/11 100% |
-| Conflict detection | 4/4 100% |
-| Route validity | 12/12 100% |
-| Leg constraint compliance | 2/2 100% |
-| Infeasibility detection | 2/2 100% |
-| Schedule sort order | 4/4 100% |
-| Multi-turn state persistence | 4/5 80% |
-| Conflict surfacing | 2/2 100% |
-| What-if preview trigger | 1/1 100% |
-| What-if pending state | 2/2 100% |
-| What-if confirmation | 1/1 100% |
-| Route check status | 5/5 100% |
-| Route availability flag | 5/5 100% |
+| Intent classification accuracy | 287/400 (71.8%) |
+| Location extraction accuracy | 560/560 (100%) |
+| Mode extraction accuracy | 200/290 (69%) |
+| Fallback rate (lower is better) | 50/400 (12.5%) |
+| Parse success rate | 400/400 (100%) |
+| Global avoid stored correctly | 32/32 (100%) |
+| Leg avoid stored correctly | 68/68 (100%) |
+| Leg override stored correctly | 110/110 (100%) |
+| Conflict detection rate | 34/34 (100%) |
+| Route validity rate | 212/230 (92.2%) |
+| Constraint compliance | 100/100 (100%) |
+| Leg constraint compliance | 50/50 (100%) |
+| Infeasibility detection | 40/40 (100%) |
+| Schedule sort order | 80/80 (100%) |
+| Multi-turn state persistence | 119/119 (100%) |
+| Conflict surfacing | 40/40 (100%) |
+| What-if preview trigger | 30/30 (100%) |
+| What-if pending state | 24/35 (68.6%) |
+| What-if confirmation | 14/15 (93.3%) |
+| Route check status | 80/100 (80%) |
+| Route availability flag | 78/100 (78%) |
 
 Run the eval yourself:
 
@@ -141,64 +145,31 @@ python -m eval.run_eval --area availability
 
 ## System Design
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         Browser / Client                            │
-│                     POST /chat  {message, meetings}                 │
-└───────────────────────────────┬─────────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                       FastAPI  (main.py)                            │
-│  /chat  /route  /plan_day  /schedule  /upload_itinerary             │
-│  /set_leg_override  /clear_leg_override  /clear_preferences  …      │
-└───────────────────────────────┬─────────────────────────────────────┘
-                                │
-                                ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                     MobilityAgent  (orchestrator)                   │
-│                                                                     │
-│  1. Classify message type                                           │
-│     ├─ schedule question   → direct answer from WorldState          │
-│     ├─ what-if scenario    → stage pending_leg_change               │
-│     ├─ confirmation/reject → apply or discard staged change         │
-│     ├─ route availability  → RouteAgent lookup                      │
-│     └─ general intent      → BrainAgent (LLM)                      │
-│                                                                     │
-│  WorldState (persists across turns)                                 │
-│    avoid_modes · leg_overrides · leg_avoid_modes                    │
-│    last_plan · pending_leg_change · last_route_query                │
-└──┬──────────┬──────────┬──────────────────────────────┬────────────┘
-   │          │          │                              │
-   ▼          ▼          ▼                              ▼
-┌──────┐  ┌──────┐  ┌──────────┐               ┌──────────────┐
-│Brain │  │Action│  │ Planner  │               │  RouteAgent  │
-│Agent │  │Agent │  │  Agent   │               │  (single leg)│
-│      │  │      │  │          │               │  NetworkX    │
-│ LLM  │→ │Apply │→ │Dijkstra's│               │  MultiDi-    │
-│intent│  │cons- │  │multi-stop│               │  Graph       │
-│→JSON │  │train-│  │optimiz-  │               └──────┬───────┘
-│dec-  │  │ts to │  │ation     │                      │
-│ision │  │World-│  │          │               ┌──────▼───────┐
-└──────┘  │State │  └────┬─────┘               │  RiskAgent   │
-          └──────┘       │                     │  reliability │
-                         │                     │  scoring     │
-                         ▼                     └──────────────┘
-                   ┌──────────┐
-                   │ Schedule │
-                   │  Agent   │
-                   │time-win- │
-                   │dow valid-│
-                   │ation     │
-                   └────┬─────┘
-                        │  (if infeasible)
-                        ▼
-                   ┌──────────┐
-                   │ Fallback │
-                   │  Agent   │
-                   │emergency │
-                   │   cab    │
-                   └──────────┘
+```mermaid
+flowchart TD
+    Browser["Browser / Client\nPOST /chat {message, meetings}"]
+    FastAPI["FastAPI — main.py\n/chat · /route · /plan_day · /schedule\n/upload_itinerary · /set_leg_override · …"]
+    MobilityAgent["MobilityAgent — orchestrator\nWorldState: avoid_modes · leg_overrides\nleg_avoid_modes · last_plan · pending_leg_change"]
+
+    Browser --> FastAPI --> MobilityAgent
+
+    MobilityAgent -->|"schedule question"| WS["Direct answer\nfrom WorldState"]
+    MobilityAgent -->|"what-if scenario"| WI["Stage\npending_leg_change"]
+    MobilityAgent -->|"confirm / reject"| CR["Apply or discard\nstaged change"]
+    MobilityAgent -->|"route availability"| RouteAgent
+    MobilityAgent -->|"general intent"| BrainAgent
+
+    BrainAgent["BrainAgent\nLLM → JSON decision\n(regex fallback)"]
+    ActionAgent["ActionAgent\nApply constraints\nto WorldState"]
+    PlannerAgent["PlannerAgent\nDijkstra's multi-stop\noptimization"]
+    ScheduleAgent["ScheduleAgent\nTime-window\nfeasibility check"]
+    FallbackAgent["FallbackAgent\nEmergency cab\nfallback"]
+    RouteAgent["RouteAgent\nSingle-leg pathfinding\nNetworkX MultiDiGraph"]
+    RiskAgent["RiskAgent\nReliability &\nweather scoring"]
+
+    BrainAgent --> ActionAgent --> PlannerAgent --> ScheduleAgent
+    ScheduleAgent -->|"infeasible"| FallbackAgent
+    RouteAgent --> RiskAgent
 ```
 
 ### Data & Services

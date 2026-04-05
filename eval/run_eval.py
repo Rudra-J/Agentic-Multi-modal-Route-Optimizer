@@ -7,7 +7,7 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from eval.evaluators import intent_eval, constraint_eval, route_eval, schedule_eval, conversation_eval, whatif_eval, availability_eval
-from eval.report import print_report
+from eval.report import print_report, save_report
 
 
 FIXTURE_DIR = os.path.join(os.path.dirname(__file__), "fixtures")
@@ -50,6 +50,8 @@ def main():
 
     print()
     print_report(results)
+    saved = save_report(results)
+    print(f"\nResults saved to: {saved}")
 
 
 if __name__ == "__main__":

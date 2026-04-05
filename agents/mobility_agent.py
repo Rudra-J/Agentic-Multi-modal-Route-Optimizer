@@ -203,7 +203,8 @@ class MobilityAgent:
 
     def _is_route_availability_question(self, message: str):
         text = (message or "").lower()
-        markers = ["is there", "are there", "do we have", "available", "can i take"]
+        markers = ["is there", "are there", "do we have", "available", "can i take",
+                   "does", "can i get", "do you have", "is it possible", "run between", "running"]
         if not any(marker in text for marker in markers):
             return False
         if " to " in text:
@@ -295,7 +296,7 @@ class MobilityAgent:
         if any(qm in text for qm in question_markers):
             return False
         mode = self._extract_mode(text)
-        markers = ["then", "that route", "that leg", "instead", "can i take",
+        markers = ["then", "that route", "that leg", "can i take",
                    "i'll take", "i will take", "can i use", "use that",
                    "take that", "do that", "let's do", "let's use",
                    "switch to that", "apply that", "go with that"]
@@ -378,11 +379,20 @@ class MobilityAgent:
 
     def _is_confirmation(self, message: str):
         text = (message or "").lower().strip()
-        return text in ["yes", "y", "yes please", "do it", "go ahead", "apply", "make the change"]
+        return text in {
+            "yes", "y", "yes please", "do it", "go ahead", "apply", "make the change",
+            "sure", "confirm", "confirmed", "sounds good", "ok", "okay", "absolutely",
+            "that works", "yes that works", "let's do it", "lets do it", "ok go ahead",
+            "apply it", "apply the change", "yep", "yup",
+        }
 
     def _is_rejection(self, message: str):
         text = (message or "").lower().strip()
-        return text in ["no", "n", "no thanks", "cancel", "leave it", "don\u2019t", "dont"]
+        return text in {
+            "no", "n", "no thanks", "cancel", "leave it", "don\u2019t", "dont",
+            "never mind", "nevermind", "keep the original", "cancel that",
+            "ignore that", "skip it", "forget it", "nope", "nah",
+        }
 
     def _build_what_if_preview(self, message, meetings):
         if not self._is_what_if_question(message):
@@ -471,6 +481,20 @@ class MobilityAgent:
             return {
                 "decision": {"action": "list_itinerary_mode_routes", "reason": "itinerary_mode_listing"},
                 "result": itinerary_mode_list,
+                "memory": {
+                    "avoid_modes": list(self.state.avoid_modes),
+                    "leg_overrides": self.state.leg_overrides,
+                    "leg_avoid_modes": self.state.leg_avoid_modes
+                }
+            }
+
+        # Check what-if BEFORE followup-apply so "what if I take X instead from A to B"
+        # is handled as a preview rather than an immediate apply (avoids "instead" conflict).
+        preview = self._build_what_if_preview(message, meetings)
+        if preview is not None:
+            return {
+                "decision": {"action": "what_if", "reason": "conversational_preview"},
+                "result": preview,
                 "memory": {
                     "avoid_modes": list(self.state.avoid_modes),
                     "leg_overrides": self.state.leg_overrides,
@@ -578,18 +602,6 @@ class MobilityAgent:
                         "leg_avoid_modes": self.state.leg_avoid_modes
                     }
                 }
-
-        preview = self._build_what_if_preview(message, meetings)
-        if preview is not None:
-            return {
-                "decision": {"action": "what_if", "reason": "conversational_preview"},
-                "result": preview,
-                "memory": {
-                    "avoid_modes": list(self.state.avoid_modes),
-                    "leg_overrides": self.state.leg_overrides,
-                    "leg_avoid_modes": self.state.leg_avoid_modes
-                }
-            }
 
         plan_leg_answer = self._build_current_plan_leg_answer(message)
         if plan_leg_answer is not None:

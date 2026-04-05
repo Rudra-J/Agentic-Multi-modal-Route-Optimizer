@@ -1,22 +1,4082 @@
 [
-  {"id": "ip_001", "input": "plan my day", "expected": {"action": "plan"}},
-  {"id": "ip_002", "input": "let's get the route sorted", "expected": {"action": "plan"}},
-  {"id": "ip_003", "input": "can you plan my schedule for today?", "expected": {"action": "plan"}},
-  {"id": "ip_004", "input": "replan", "expected": {"action": "replan"}},
-  {"id": "ip_005", "input": "recalculate everything", "expected": {"action": "replan"}},
-  {"id": "ip_006", "input": "redo the route please", "expected": {"action": "replan"}},
-  {"id": "ip_007", "input": "I hate buses", "expected": {"action": "update_preferences", "avoid_modes": ["bus"]}},
-  {"id": "ip_008", "input": "no trains for me today", "expected": {"action": "update_preferences", "avoid_modes": ["train"]}},
-  {"id": "ip_009", "input": "avoid all cabs", "expected": {"action": "update_preferences", "avoid_modes": ["cab"]}},
-  {"id": "ip_010", "input": "I'd rather not take the metro at all", "expected": {"action": "update_preferences", "avoid_modes": ["metro"]}},
-  {"id": "ip_011", "input": "I don't wanna take the train from Bandra to CST", "expected": {"action": "avoid_mode_on_leg", "from_location": "Bandra", "to_location": "CST", "avoid_modes": ["train"]}},
-  {"id": "ip_012", "input": "skip the bus between Powai and BKC", "expected": {"action": "avoid_mode_on_leg", "from_location": "Powai", "to_location": "BKC", "avoid_modes": ["bus"]}},
-  {"id": "ip_013", "input": "no metro on the Andheri to Dadar stretch", "expected": {"action": "avoid_mode_on_leg", "from_location": "Andheri", "to_location": "Dadar", "avoid_modes": ["metro"]}},
-  {"id": "ip_014", "input": "use metro from Andheri to BKC", "expected": {"action": "edit_leg", "from_location": "Andheri", "to_location": "BKC", "transport_mode": "metro"}},
-  {"id": "ip_015", "input": "I want to take a cab from BKC to Bandra", "expected": {"action": "edit_leg", "from_location": "BKC", "to_location": "Bandra", "transport_mode": "cab"}},
-  {"id": "ip_016", "input": "switch the Powai to BKC leg to bus", "expected": {"action": "edit_leg", "from_location": "Powai", "to_location": "BKC", "transport_mode": "bus"}},
-  {"id": "ip_017", "input": "clear override from Andheri to BKC", "expected": {"action": "clear_leg_override", "from_location": "Andheri", "to_location": "BKC"}},
-  {"id": "ip_018", "input": "remove powai to bkc preference", "expected": {"action": "clear_leg_preference", "from_location": "Powai", "to_location": "BKC"}},
-  {"id": "ip_019", "input": "why this route?", "expected": {"action": "explain"}},
-  {"id": "ip_020", "input": "are we using a cab from Powai to BKC?", "expected": {"action": "explain"}}
+  {
+    "id": "ip_001",
+    "input": "plan my day",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_002",
+    "input": "let's plan my route",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_003",
+    "input": "can you figure out my schedule?",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_004",
+    "input": "sort out my route for today",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_005",
+    "input": "help me plan",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_006",
+    "input": "make a plan for me",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_007",
+    "input": "set up my route",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_008",
+    "input": "organize my day",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_009",
+    "input": "create my travel plan",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_010",
+    "input": "I need a plan",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_011",
+    "input": "put together a route for me",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_012",
+    "input": "build my daily route",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_013",
+    "input": "what's my best route today?",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_014",
+    "input": "can you plan my journey?",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_015",
+    "input": "work out my schedule please",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_016",
+    "input": "figure out the best route for me",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_017",
+    "input": "lay out my day",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_018",
+    "input": "map out my route",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_019",
+    "input": "put together my schedule",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_020",
+    "input": "draw up a travel plan",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_021",
+    "input": "set up my day's travel",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_022",
+    "input": "I'd like a route planned",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_023",
+    "input": "get my route sorted",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_024",
+    "input": "can you set up the optimal plan?",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_025",
+    "input": "create an itinerary for me",
+    "expected": {
+      "action": "plan"
+    }
+  },
+  {
+    "id": "ip_026",
+    "input": "replan",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_027",
+    "input": "redo the route please",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_028",
+    "input": "recalculate everything",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_029",
+    "input": "update the plan",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_030",
+    "input": "refresh the route",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_031",
+    "input": "plan again",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_032",
+    "input": "can you replan?",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_033",
+    "input": "recalculate the route",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_034",
+    "input": "let's redo this",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_035",
+    "input": "start the plan over",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_036",
+    "input": "reconfigure my route",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_037",
+    "input": "rebuild the plan",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_038",
+    "input": "revise the route",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_039",
+    "input": "redo my schedule",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_040",
+    "input": "recalculate my journey",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_041",
+    "input": "re-optimize the route",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_042",
+    "input": "redo the planning",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_043",
+    "input": "update my route",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_044",
+    "input": "recalculate from scratch",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_045",
+    "input": "regenerate the plan",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_046",
+    "input": "redo everything",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_047",
+    "input": "recalculate and update",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_048",
+    "input": "re-do my travel plan",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_049",
+    "input": "give me a new plan",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_050",
+    "input": "refresh my route please",
+    "expected": {
+      "action": "replan"
+    }
+  },
+  {
+    "id": "ip_051",
+    "input": "why this route?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_052",
+    "input": "explain the plan",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_053",
+    "input": "how did you choose this?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_054",
+    "input": "what's the reasoning behind this route?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_055",
+    "input": "tell me why you picked this",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_056",
+    "input": "why did you choose these modes?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_057",
+    "input": "can you explain your choices?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_058",
+    "input": "walk me through the plan",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_059",
+    "input": "why metro and not train?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_060",
+    "input": "what logic did you use?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_061",
+    "input": "how was this route decided?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_062",
+    "input": "explain why you chose this path",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_063",
+    "input": "I want to understand the route",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_064",
+    "input": "why is the plan set up this way?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_065",
+    "input": "tell me more about this route",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_066",
+    "input": "how did you arrive at this schedule?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_067",
+    "input": "what made you pick these connections?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_068",
+    "input": "break down this route for me",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_069",
+    "input": "I don't understand the route — explain it",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_070",
+    "input": "can you justify this plan?",
+    "expected": {
+      "action": "explain"
+    }
+  },
+  {
+    "id": "ip_071",
+    "input": "avoid the metro",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_072",
+    "input": "no metro for me",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_073",
+    "input": "skip the metro",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_074",
+    "input": "don't use metro today",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_075",
+    "input": "I'd rather not take the metro",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_076",
+    "input": "keep me off the metro",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_077",
+    "input": "no metro please",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_078",
+    "input": "I hate the metro",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_079",
+    "input": "stay off metro",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_080",
+    "input": "metro is not an option",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_081",
+    "input": "avoid trains",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_082",
+    "input": "no trains for me",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_083",
+    "input": "skip trains today",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_084",
+    "input": "don't use trains",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_085",
+    "input": "I'd rather not take the train",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_086",
+    "input": "keep me off trains",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_087",
+    "input": "no train please",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_088",
+    "input": "I hate trains",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_089",
+    "input": "stay off the train",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_090",
+    "input": "trains are not an option",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_091",
+    "input": "avoid buses",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_092",
+    "input": "no buses for me",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_093",
+    "input": "skip the bus",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_094",
+    "input": "don't use buses today",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_095",
+    "input": "I'd rather not take the bus",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_096",
+    "input": "keep me off buses",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_097",
+    "input": "no bus please",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_098",
+    "input": "I hate buses",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_099",
+    "input": "stay off buses",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_100",
+    "input": "buses are not an option",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_101",
+    "input": "avoid cabs",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_102",
+    "input": "no cabs for me",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_103",
+    "input": "skip the cab",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_104",
+    "input": "don't use cabs today",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_105",
+    "input": "I'd rather not take a cab",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_106",
+    "input": "keep me off cabs",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_107",
+    "input": "no cab please",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_108",
+    "input": "I hate cabs",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_109",
+    "input": "stay off cabs",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_110",
+    "input": "cabs are not an option",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_111",
+    "input": "avoid trains and buses",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus",
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_112",
+    "input": "no metro or cab today",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_113",
+    "input": "skip both train and cab",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab",
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_114",
+    "input": "I don't want buses or metro",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_115",
+    "input": "avoid metro and train",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro",
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_116",
+    "input": "no cabs or buses for me",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_117",
+    "input": "skip the metro and bus",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_118",
+    "input": "don't use trains or cabs",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "cab",
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_119",
+    "input": "I hate metro and bus",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "bus",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_120",
+    "input": "no train or metro please",
+    "expected": {
+      "action": "update_preferences",
+      "avoid_modes": [
+        "metro",
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_121",
+    "input": "skip the metro from Andheri to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_122",
+    "input": "no metro on the Andheri to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_123",
+    "input": "skip the metro from Malad to Bandra",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_124",
+    "input": "no metro on the Malad to Bandra leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_125",
+    "input": "skip the metro from Borivali to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_126",
+    "input": "no metro on the Borivali to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_127",
+    "input": "skip the metro from BKC to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_128",
+    "input": "no metro on the BKC to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_129",
+    "input": "skip the metro from Powai to Lower Parel",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_130",
+    "input": "no metro on the Powai to Lower Parel leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_131",
+    "input": "skip the metro from Bandra to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_132",
+    "input": "no metro on the Bandra to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_133",
+    "input": "skip the metro from Dadar to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_134",
+    "input": "no metro on the Dadar to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_135",
+    "input": "skip the metro from CST to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_136",
+    "input": "no metro on the CST to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_137",
+    "input": "skip the metro from Colaba to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_138",
+    "input": "no metro on the Colaba to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_139",
+    "input": "skip the metro from Thane to Powai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_140",
+    "input": "no metro on the Thane to Powai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_141",
+    "input": "skip the metro from Navi Mumbai to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_142",
+    "input": "no metro on the Navi Mumbai to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_143",
+    "input": "skip the metro from Lower Parel to Borivali",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_144",
+    "input": "no metro on the Lower Parel to Borivali leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_145",
+    "input": "skip the metro from Andheri to Malad",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_146",
+    "input": "no metro on the Andheri to Malad leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_147",
+    "input": "skip the metro from Malad to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_148",
+    "input": "no metro on the Malad to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_149",
+    "input": "skip the metro from Borivali to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_150",
+    "input": "no metro on the Borivali to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_151",
+    "input": "skip the metro from Bandra to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_152",
+    "input": "no metro on the Bandra to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_153",
+    "input": "skip the metro from Powai to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_154",
+    "input": "no metro on the Powai to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_155",
+    "input": "skip the metro from Lower Parel to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_156",
+    "input": "no metro on the Lower Parel to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_157",
+    "input": "skip the metro from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_158",
+    "input": "no metro on the Dadar to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_159",
+    "input": "skip the metro from CST to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_160",
+    "input": "no metro on the CST to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ip_161",
+    "input": "skip the train from Andheri to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_162",
+    "input": "no train on the Andheri to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_163",
+    "input": "skip the train from Malad to Bandra",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_164",
+    "input": "no train on the Malad to Bandra leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_165",
+    "input": "skip the train from Borivali to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_166",
+    "input": "no train on the Borivali to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_167",
+    "input": "skip the train from BKC to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_168",
+    "input": "no train on the BKC to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_169",
+    "input": "skip the train from Powai to Lower Parel",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_170",
+    "input": "no train on the Powai to Lower Parel leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_171",
+    "input": "skip the train from Bandra to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_172",
+    "input": "no train on the Bandra to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_173",
+    "input": "skip the train from Dadar to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_174",
+    "input": "no train on the Dadar to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_175",
+    "input": "skip the train from CST to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_176",
+    "input": "no train on the CST to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_177",
+    "input": "skip the train from Colaba to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_178",
+    "input": "no train on the Colaba to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_179",
+    "input": "skip the train from Thane to Powai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_180",
+    "input": "no train on the Thane to Powai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_181",
+    "input": "skip the train from Navi Mumbai to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_182",
+    "input": "no train on the Navi Mumbai to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_183",
+    "input": "skip the train from Lower Parel to Borivali",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_184",
+    "input": "no train on the Lower Parel to Borivali leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_185",
+    "input": "skip the train from Andheri to Malad",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_186",
+    "input": "no train on the Andheri to Malad leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_187",
+    "input": "skip the train from Malad to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_188",
+    "input": "no train on the Malad to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_189",
+    "input": "skip the train from Borivali to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_190",
+    "input": "no train on the Borivali to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_191",
+    "input": "skip the train from Bandra to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_192",
+    "input": "no train on the Bandra to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_193",
+    "input": "skip the train from Powai to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_194",
+    "input": "no train on the Powai to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_195",
+    "input": "skip the train from Lower Parel to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_196",
+    "input": "no train on the Lower Parel to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_197",
+    "input": "skip the train from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_198",
+    "input": "no train on the Dadar to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_199",
+    "input": "skip the train from CST to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_200",
+    "input": "no train on the CST to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ip_201",
+    "input": "skip the bus from Andheri to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_202",
+    "input": "no bus on the Andheri to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_203",
+    "input": "skip the bus from Malad to Bandra",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_204",
+    "input": "no bus on the Malad to Bandra leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_205",
+    "input": "skip the bus from Borivali to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_206",
+    "input": "no bus on the Borivali to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_207",
+    "input": "skip the bus from BKC to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_208",
+    "input": "no bus on the BKC to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_209",
+    "input": "skip the bus from Powai to Lower Parel",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_210",
+    "input": "no bus on the Powai to Lower Parel leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_211",
+    "input": "skip the bus from Bandra to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_212",
+    "input": "no bus on the Bandra to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_213",
+    "input": "skip the bus from Dadar to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_214",
+    "input": "no bus on the Dadar to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_215",
+    "input": "skip the bus from CST to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_216",
+    "input": "no bus on the CST to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_217",
+    "input": "skip the bus from Colaba to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_218",
+    "input": "no bus on the Colaba to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_219",
+    "input": "skip the bus from Thane to Powai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_220",
+    "input": "no bus on the Thane to Powai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_221",
+    "input": "skip the bus from Navi Mumbai to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_222",
+    "input": "no bus on the Navi Mumbai to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_223",
+    "input": "skip the bus from Lower Parel to Borivali",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_224",
+    "input": "no bus on the Lower Parel to Borivali leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_225",
+    "input": "skip the bus from Andheri to Malad",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_226",
+    "input": "no bus on the Andheri to Malad leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_227",
+    "input": "skip the bus from Malad to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_228",
+    "input": "no bus on the Malad to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_229",
+    "input": "skip the bus from Borivali to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_230",
+    "input": "no bus on the Borivali to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_231",
+    "input": "skip the bus from Bandra to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_232",
+    "input": "no bus on the Bandra to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_233",
+    "input": "skip the bus from Powai to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_234",
+    "input": "no bus on the Powai to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_235",
+    "input": "skip the bus from Lower Parel to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_236",
+    "input": "no bus on the Lower Parel to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_237",
+    "input": "skip the bus from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_238",
+    "input": "no bus on the Dadar to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_239",
+    "input": "skip the bus from CST to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_240",
+    "input": "no bus on the CST to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ip_241",
+    "input": "skip the cab from Andheri to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_242",
+    "input": "no cab on the Andheri to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_243",
+    "input": "skip the cab from Malad to Bandra",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_244",
+    "input": "no cab on the Malad to Bandra leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "Bandra",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_245",
+    "input": "skip the cab from Borivali to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_246",
+    "input": "no cab on the Borivali to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_247",
+    "input": "skip the cab from BKC to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_248",
+    "input": "no cab on the BKC to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "BKC",
+      "to_location": "CST",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_249",
+    "input": "skip the cab from Powai to Lower Parel",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_250",
+    "input": "no cab on the Powai to Lower Parel leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Lower Parel",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_251",
+    "input": "skip the cab from Bandra to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_252",
+    "input": "no cab on the Bandra to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_253",
+    "input": "skip the cab from Dadar to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_254",
+    "input": "no cab on the Dadar to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_255",
+    "input": "skip the cab from CST to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_256",
+    "input": "no cab on the CST to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_257",
+    "input": "skip the cab from Colaba to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_258",
+    "input": "no cab on the Colaba to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Colaba",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_259",
+    "input": "skip the cab from Thane to Powai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_260",
+    "input": "no cab on the Thane to Powai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Thane",
+      "to_location": "Powai",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_261",
+    "input": "skip the cab from Navi Mumbai to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_262",
+    "input": "no cab on the Navi Mumbai to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Navi Mumbai",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_263",
+    "input": "skip the cab from Lower Parel to Borivali",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_264",
+    "input": "no cab on the Lower Parel to Borivali leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Borivali",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_265",
+    "input": "skip the cab from Andheri to Malad",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_266",
+    "input": "no cab on the Andheri to Malad leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Andheri",
+      "to_location": "Malad",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_267",
+    "input": "skip the cab from Malad to CST",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_268",
+    "input": "no cab on the Malad to CST leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Malad",
+      "to_location": "CST",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_269",
+    "input": "skip the cab from Borivali to BKC",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_270",
+    "input": "no cab on the Borivali to BKC leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Borivali",
+      "to_location": "BKC",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_271",
+    "input": "skip the cab from Bandra to Dadar",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_272",
+    "input": "no cab on the Bandra to Dadar leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Bandra",
+      "to_location": "Dadar",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_273",
+    "input": "skip the cab from Powai to Thane",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_274",
+    "input": "no cab on the Powai to Thane leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Powai",
+      "to_location": "Thane",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_275",
+    "input": "skip the cab from Lower Parel to Colaba",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_276",
+    "input": "no cab on the Lower Parel to Colaba leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_277",
+    "input": "skip the cab from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_278",
+    "input": "no cab on the Dadar to Navi Mumbai leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_279",
+    "input": "skip the cab from CST to Andheri",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_280",
+    "input": "no cab on the CST to Andheri leg",
+    "expected": {
+      "action": "avoid_mode_on_leg",
+      "from_location": "CST",
+      "to_location": "Andheri",
+      "avoid_modes": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ip_281",
+    "input": "use metro from Andheri to BKC",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_282",
+    "input": "switch the Andheri to BKC leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_283",
+    "input": "use metro from Malad to Dadar",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_284",
+    "input": "switch the Malad to Dadar leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_285",
+    "input": "use metro from Borivali to Lower Parel",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_286",
+    "input": "switch the Borivali to Lower Parel leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_287",
+    "input": "use metro from BKC to Colaba",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_288",
+    "input": "switch the BKC to Colaba leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_289",
+    "input": "use metro from Powai to CST",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_290",
+    "input": "switch the Powai to CST leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_291",
+    "input": "use metro from Bandra to Thane",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_292",
+    "input": "switch the Bandra to Thane leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_293",
+    "input": "use metro from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_294",
+    "input": "switch the Dadar to Navi Mumbai leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_295",
+    "input": "use metro from CST to Bandra",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_296",
+    "input": "switch the CST to Bandra leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_297",
+    "input": "use metro from Colaba to Borivali",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_298",
+    "input": "switch the Colaba to Borivali leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_299",
+    "input": "use metro from Thane to Andheri",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_300",
+    "input": "switch the Thane to Andheri leg to metro",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "metro"
+    }
+  },
+  {
+    "id": "ip_301",
+    "input": "use train from Andheri to BKC",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_302",
+    "input": "switch the Andheri to BKC leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_303",
+    "input": "use train from Malad to Dadar",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_304",
+    "input": "switch the Malad to Dadar leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_305",
+    "input": "use train from Borivali to Lower Parel",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_306",
+    "input": "switch the Borivali to Lower Parel leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_307",
+    "input": "use train from BKC to Colaba",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_308",
+    "input": "switch the BKC to Colaba leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_309",
+    "input": "use train from Powai to CST",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_310",
+    "input": "switch the Powai to CST leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_311",
+    "input": "use train from Bandra to Thane",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_312",
+    "input": "switch the Bandra to Thane leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_313",
+    "input": "use train from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_314",
+    "input": "switch the Dadar to Navi Mumbai leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_315",
+    "input": "use train from CST to Bandra",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_316",
+    "input": "switch the CST to Bandra leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_317",
+    "input": "use train from Colaba to Borivali",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_318",
+    "input": "switch the Colaba to Borivali leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_319",
+    "input": "use train from Thane to Andheri",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_320",
+    "input": "switch the Thane to Andheri leg to train",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "train"
+    }
+  },
+  {
+    "id": "ip_321",
+    "input": "use bus from Andheri to BKC",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_322",
+    "input": "switch the Andheri to BKC leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_323",
+    "input": "use bus from Malad to Dadar",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_324",
+    "input": "switch the Malad to Dadar leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_325",
+    "input": "use bus from Borivali to Lower Parel",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_326",
+    "input": "switch the Borivali to Lower Parel leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_327",
+    "input": "use bus from BKC to Colaba",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_328",
+    "input": "switch the BKC to Colaba leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_329",
+    "input": "use bus from Powai to CST",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_330",
+    "input": "switch the Powai to CST leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_331",
+    "input": "use bus from Bandra to Thane",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_332",
+    "input": "switch the Bandra to Thane leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_333",
+    "input": "use bus from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_334",
+    "input": "switch the Dadar to Navi Mumbai leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_335",
+    "input": "use bus from CST to Bandra",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_336",
+    "input": "switch the CST to Bandra leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_337",
+    "input": "use bus from Colaba to Borivali",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_338",
+    "input": "switch the Colaba to Borivali leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_339",
+    "input": "use bus from Thane to Andheri",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_340",
+    "input": "switch the Thane to Andheri leg to bus",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "bus"
+    }
+  },
+  {
+    "id": "ip_341",
+    "input": "use cab from Andheri to BKC",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_342",
+    "input": "switch the Andheri to BKC leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Andheri",
+      "to_location": "BKC",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_343",
+    "input": "use cab from Malad to Dadar",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_344",
+    "input": "switch the Malad to Dadar leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Malad",
+      "to_location": "Dadar",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_345",
+    "input": "use cab from Borivali to Lower Parel",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_346",
+    "input": "switch the Borivali to Lower Parel leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Borivali",
+      "to_location": "Lower Parel",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_347",
+    "input": "use cab from BKC to Colaba",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_348",
+    "input": "switch the BKC to Colaba leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "BKC",
+      "to_location": "Colaba",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_349",
+    "input": "use cab from Powai to CST",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_350",
+    "input": "switch the Powai to CST leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Powai",
+      "to_location": "CST",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_351",
+    "input": "use cab from Bandra to Thane",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_352",
+    "input": "switch the Bandra to Thane leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Bandra",
+      "to_location": "Thane",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_353",
+    "input": "use cab from Dadar to Navi Mumbai",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_354",
+    "input": "switch the Dadar to Navi Mumbai leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_355",
+    "input": "use cab from CST to Bandra",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_356",
+    "input": "switch the CST to Bandra leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "CST",
+      "to_location": "Bandra",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_357",
+    "input": "use cab from Colaba to Borivali",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_358",
+    "input": "switch the Colaba to Borivali leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Colaba",
+      "to_location": "Borivali",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_359",
+    "input": "use cab from Thane to Andheri",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_360",
+    "input": "switch the Thane to Andheri leg to cab",
+    "expected": {
+      "action": "edit_leg",
+      "from_location": "Thane",
+      "to_location": "Andheri",
+      "transport_mode": "cab"
+    }
+  },
+  {
+    "id": "ip_361",
+    "input": "clear override from Andheri to BKC",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Andheri",
+      "to_location": "BKC"
+    }
+  },
+  {
+    "id": "ip_362",
+    "input": "remove the Andheri to BKC override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Andheri",
+      "to_location": "BKC"
+    }
+  },
+  {
+    "id": "ip_363",
+    "input": "clear override from Malad to Bandra",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Malad",
+      "to_location": "Bandra"
+    }
+  },
+  {
+    "id": "ip_364",
+    "input": "remove the Malad to Bandra override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Malad",
+      "to_location": "Bandra"
+    }
+  },
+  {
+    "id": "ip_365",
+    "input": "clear override from Borivali to Dadar",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Borivali",
+      "to_location": "Dadar"
+    }
+  },
+  {
+    "id": "ip_366",
+    "input": "remove the Borivali to Dadar override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Borivali",
+      "to_location": "Dadar"
+    }
+  },
+  {
+    "id": "ip_367",
+    "input": "clear override from BKC to CST",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "BKC",
+      "to_location": "CST"
+    }
+  },
+  {
+    "id": "ip_368",
+    "input": "remove the BKC to CST override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "BKC",
+      "to_location": "CST"
+    }
+  },
+  {
+    "id": "ip_369",
+    "input": "clear override from Powai to Lower Parel",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Powai",
+      "to_location": "Lower Parel"
+    }
+  },
+  {
+    "id": "ip_370",
+    "input": "remove the Powai to Lower Parel override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Powai",
+      "to_location": "Lower Parel"
+    }
+  },
+  {
+    "id": "ip_371",
+    "input": "clear override from Bandra to Colaba",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Bandra",
+      "to_location": "Colaba"
+    }
+  },
+  {
+    "id": "ip_372",
+    "input": "remove the Bandra to Colaba override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Bandra",
+      "to_location": "Colaba"
+    }
+  },
+  {
+    "id": "ip_373",
+    "input": "clear override from Dadar to Thane",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Dadar",
+      "to_location": "Thane"
+    }
+  },
+  {
+    "id": "ip_374",
+    "input": "remove the Dadar to Thane override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Dadar",
+      "to_location": "Thane"
+    }
+  },
+  {
+    "id": "ip_375",
+    "input": "clear override from CST to Navi Mumbai",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "ip_376",
+    "input": "remove the CST to Navi Mumbai override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "CST",
+      "to_location": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "ip_377",
+    "input": "clear override from Colaba to Andheri",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Colaba",
+      "to_location": "Andheri"
+    }
+  },
+  {
+    "id": "ip_378",
+    "input": "remove the Colaba to Andheri override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Colaba",
+      "to_location": "Andheri"
+    }
+  },
+  {
+    "id": "ip_379",
+    "input": "clear override from Thane to Powai",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Thane",
+      "to_location": "Powai"
+    }
+  },
+  {
+    "id": "ip_380",
+    "input": "remove the Thane to Powai override",
+    "expected": {
+      "action": "clear_leg_override",
+      "from_location": "Thane",
+      "to_location": "Powai"
+    }
+  },
+  {
+    "id": "ip_381",
+    "input": "remove Andheri to Malad preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Andheri",
+      "to_location": "Malad"
+    }
+  },
+  {
+    "id": "ip_382",
+    "input": "clear preference for Andheri to Malad",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Andheri",
+      "to_location": "Malad"
+    }
+  },
+  {
+    "id": "ip_383",
+    "input": "remove Malad to CST preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Malad",
+      "to_location": "CST"
+    }
+  },
+  {
+    "id": "ip_384",
+    "input": "clear preference for Malad to CST",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Malad",
+      "to_location": "CST"
+    }
+  },
+  {
+    "id": "ip_385",
+    "input": "remove Borivali to BKC preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Borivali",
+      "to_location": "BKC"
+    }
+  },
+  {
+    "id": "ip_386",
+    "input": "clear preference for Borivali to BKC",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Borivali",
+      "to_location": "BKC"
+    }
+  },
+  {
+    "id": "ip_387",
+    "input": "remove BKC to Bandra preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "BKC",
+      "to_location": "Bandra"
+    }
+  },
+  {
+    "id": "ip_388",
+    "input": "clear preference for BKC to Bandra",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "BKC",
+      "to_location": "Bandra"
+    }
+  },
+  {
+    "id": "ip_389",
+    "input": "remove Powai to Thane preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Powai",
+      "to_location": "Thane"
+    }
+  },
+  {
+    "id": "ip_390",
+    "input": "clear preference for Powai to Thane",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Powai",
+      "to_location": "Thane"
+    }
+  },
+  {
+    "id": "ip_391",
+    "input": "remove Lower Parel to Colaba preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba"
+    }
+  },
+  {
+    "id": "ip_392",
+    "input": "clear preference for Lower Parel to Colaba",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Lower Parel",
+      "to_location": "Colaba"
+    }
+  },
+  {
+    "id": "ip_393",
+    "input": "remove Bandra to Dadar preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Bandra",
+      "to_location": "Dadar"
+    }
+  },
+  {
+    "id": "ip_394",
+    "input": "clear preference for Bandra to Dadar",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Bandra",
+      "to_location": "Dadar"
+    }
+  },
+  {
+    "id": "ip_395",
+    "input": "remove Dadar to Navi Mumbai preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "ip_396",
+    "input": "clear preference for Dadar to Navi Mumbai",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Dadar",
+      "to_location": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "ip_397",
+    "input": "remove CST to Andheri preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "CST",
+      "to_location": "Andheri"
+    }
+  },
+  {
+    "id": "ip_398",
+    "input": "clear preference for CST to Andheri",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "CST",
+      "to_location": "Andheri"
+    }
+  },
+  {
+    "id": "ip_399",
+    "input": "remove Colaba to Borivali preference",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Colaba",
+      "to_location": "Borivali"
+    }
+  },
+  {
+    "id": "ip_400",
+    "input": "clear preference for Colaba to Borivali",
+    "expected": {
+      "action": "clear_leg_preference",
+      "from_location": "Colaba",
+      "to_location": "Borivali"
+    }
+  }
 ]

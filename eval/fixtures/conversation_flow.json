@@ -1,111 +1,4862 @@
 [
   {
     "id": "cf_001",
-    "description": "Global avoid persists into plan",
+    "description": "Avoid metro \u2192 plan: no metro in Andheri\u2192BKC",
     "turns": [
-      {"message": "avoid trains today"},
-      {"message": "plan my day"}
+      {
+        "message": "avoid metro today"
+      },
+      {
+        "message": "plan my day"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"plan_modes_absent": ["train"]}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
   },
   {
     "id": "cf_002",
-    "description": "Leg override persists into replan",
+    "description": "Avoid metro \u2192 plan: no metro in Andheri\u2192Dadar",
     "turns": [
-      {"message": "use cab from Andheri to BKC"},
-      {"message": "replan"}
+      {
+        "message": "no metro for me"
+      },
+      {
+        "message": "set up my route"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"leg_mode": {"from": "Andheri", "to": "BKC", "mode": "cab"}}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
   },
   {
     "id": "cf_003",
-    "description": "Clearing preference removes it from subsequent plan",
+    "description": "Avoid metro \u2192 plan: no metro in Bandra\u2192Dadar",
     "turns": [
-      {"message": "use cab from Andheri to BKC"},
-      {"message": "remove the Andheri to BKC preference"},
-      {"message": "plan my day"}
+      {
+        "message": "skip the metro"
+      },
+      {
+        "message": "let's plan"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"leg_override_absent": {"from": "Andheri", "to": "BKC"}}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
   },
   {
     "id": "cf_004",
-    "description": "Multiple constraints stack correctly",
+    "description": "Avoid metro \u2192 plan: no metro in Dadar\u2192CST",
     "turns": [
-      {"message": "avoid trains today"},
-      {"message": "avoid buses today"},
-      {"message": "plan my day"}
+      {
+        "message": "I don't want metro"
+      },
+      {
+        "message": "make a plan"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"plan_modes_absent": ["train", "bus"]}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
   },
   {
     "id": "cf_005",
-    "description": "Conflict: global avoid train then force train on one leg — conflict detected",
+    "description": "Avoid metro \u2192 plan: no metro in CST\u2192Colaba",
     "turns": [
-      {"message": "avoid trains today"},
-      {"message": "use train from Andheri to Dadar"}
+      {
+        "message": "keep me off metro"
+      },
+      {
+        "message": "plan the route"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"leg_override_absent": {"from": "Andheri", "to": "Dadar"}}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
   },
   {
     "id": "cf_006",
-    "description": "What-if triggers proposal_preview status",
+    "description": "Avoid metro \u2192 plan: no metro in BKC\u2192Powai",
     "turns": [
-      {"message": "plan my day"},
-      {"message": "what if I take cab instead of metro from Andheri to BKC?"}
+      {
+        "message": "no metro today"
+      },
+      {
+        "message": "plan everything"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"last_result_status": "proposal_preview"}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
   },
   {
     "id": "cf_007",
-    "description": "Clearing a global avoid removes it and plan can use that mode again",
+    "description": "Avoid metro \u2192 plan: no metro in Lower Parel\u2192Bandra",
     "turns": [
-      {"message": "avoid trains today"},
-      {"message": "remove train from avoid list"},
-      {"message": "plan my day"}
+      {
+        "message": "avoid using metro"
+      },
+      {
+        "message": "sort out my day"
+      }
     ],
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "Dadar", "start_time": "12:00", "duration_minutes": 60}
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"avoid_modes_empty": true}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
   },
   {
     "id": "cf_008",
-    "description": "Three global constraints stack (avoid train, metro, bus → only cab)",
+    "description": "Avoid metro \u2192 plan: no metro in Andheri\u2192Malad",
     "turns": [
-      {"message": "avoid trains"},
-      {"message": "avoid metro"},
-      {"message": "avoid buses"},
-      {"message": "plan my day"}
+      {
+        "message": "metro is out"
+      },
+      {
+        "message": "optimize my day"
+      }
     ],
     "meetings": [
-      {"location": "Bandra", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "CST", "start_time": "11:00", "duration_minutes": 30}
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
-    "expected": {"plan_modes_absent": ["train", "metro", "bus"]}
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_009",
+    "description": "Avoid metro \u2192 plan: no metro in Malad\u2192Borivali",
+    "turns": [
+      {
+        "message": "no metro lines please"
+      },
+      {
+        "message": "figure out my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_010",
+    "description": "Avoid metro \u2192 plan: no metro in Andheri\u2192Borivali",
+    "turns": [
+      {
+        "message": "I'd rather not take the metro"
+      },
+      {
+        "message": "create my itinerary"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_011",
+    "description": "Avoid metro \u2192 plan: no metro in Powai\u2192Thane",
+    "turns": [
+      {
+        "message": "don't use metro"
+      },
+      {
+        "message": "get me a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_012",
+    "description": "Avoid metro \u2192 plan: no metro in Thane\u2192Navi Mumbai",
+    "turns": [
+      {
+        "message": "metro-free today"
+      },
+      {
+        "message": "route my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_013",
+    "description": "Avoid metro \u2192 plan: no metro in BKC\u2192Lower Parel",
+    "turns": [
+      {
+        "message": "avoid metro today"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_014",
+    "description": "Avoid train \u2192 plan: no train in Andheri\u2192BKC",
+    "turns": [
+      {
+        "message": "avoid trains today"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_015",
+    "description": "Avoid train \u2192 plan: no train in Andheri\u2192Dadar",
+    "turns": [
+      {
+        "message": "no trains for me"
+      },
+      {
+        "message": "set up my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_016",
+    "description": "Avoid train \u2192 plan: no train in Bandra\u2192Dadar",
+    "turns": [
+      {
+        "message": "skip the train"
+      },
+      {
+        "message": "let's plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_017",
+    "description": "Avoid train \u2192 plan: no train in Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "I don't want trains"
+      },
+      {
+        "message": "make a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_018",
+    "description": "Avoid train \u2192 plan: no train in CST\u2192Colaba",
+    "turns": [
+      {
+        "message": "keep me off trains"
+      },
+      {
+        "message": "plan the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_019",
+    "description": "Avoid train \u2192 plan: no train in BKC\u2192Powai",
+    "turns": [
+      {
+        "message": "no train today"
+      },
+      {
+        "message": "plan everything"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_020",
+    "description": "Avoid train \u2192 plan: no train in Lower Parel\u2192Bandra",
+    "turns": [
+      {
+        "message": "avoid using train"
+      },
+      {
+        "message": "sort out my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_021",
+    "description": "Avoid train \u2192 plan: no train in Andheri\u2192Malad",
+    "turns": [
+      {
+        "message": "trains are out"
+      },
+      {
+        "message": "optimize my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_022",
+    "description": "Avoid train \u2192 plan: no train in Malad\u2192Borivali",
+    "turns": [
+      {
+        "message": "no local trains please"
+      },
+      {
+        "message": "figure out my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_023",
+    "description": "Avoid train \u2192 plan: no train in Andheri\u2192Borivali",
+    "turns": [
+      {
+        "message": "I'd rather not take the train"
+      },
+      {
+        "message": "create my itinerary"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_024",
+    "description": "Avoid train \u2192 plan: no train in Powai\u2192Thane",
+    "turns": [
+      {
+        "message": "don't use trains"
+      },
+      {
+        "message": "get me a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_025",
+    "description": "Avoid train \u2192 plan: no train in Thane\u2192Navi Mumbai",
+    "turns": [
+      {
+        "message": "train-free today"
+      },
+      {
+        "message": "route my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "cf_026",
+    "description": "Avoid bus \u2192 plan: no bus in Andheri\u2192BKC",
+    "turns": [
+      {
+        "message": "avoid buses today"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_027",
+    "description": "Avoid bus \u2192 plan: no bus in Andheri\u2192Dadar",
+    "turns": [
+      {
+        "message": "no buses for me"
+      },
+      {
+        "message": "set up my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_028",
+    "description": "Avoid bus \u2192 plan: no bus in Bandra\u2192Dadar",
+    "turns": [
+      {
+        "message": "skip the bus"
+      },
+      {
+        "message": "let's plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_029",
+    "description": "Avoid bus \u2192 plan: no bus in Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "I don't want buses"
+      },
+      {
+        "message": "make a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_030",
+    "description": "Avoid bus \u2192 plan: no bus in CST\u2192Colaba",
+    "turns": [
+      {
+        "message": "keep me off buses"
+      },
+      {
+        "message": "plan the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_031",
+    "description": "Avoid bus \u2192 plan: no bus in BKC\u2192Powai",
+    "turns": [
+      {
+        "message": "no bus today"
+      },
+      {
+        "message": "plan everything"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_032",
+    "description": "Avoid bus \u2192 plan: no bus in Lower Parel\u2192Bandra",
+    "turns": [
+      {
+        "message": "avoid using bus"
+      },
+      {
+        "message": "sort out my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_033",
+    "description": "Avoid bus \u2192 plan: no bus in Andheri\u2192Malad",
+    "turns": [
+      {
+        "message": "buses are out"
+      },
+      {
+        "message": "optimize my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_034",
+    "description": "Avoid bus \u2192 plan: no bus in Malad\u2192Borivali",
+    "turns": [
+      {
+        "message": "no BEST buses"
+      },
+      {
+        "message": "figure out my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_035",
+    "description": "Avoid bus \u2192 plan: no bus in Andheri\u2192Borivali",
+    "turns": [
+      {
+        "message": "I'd rather not take the bus"
+      },
+      {
+        "message": "create my itinerary"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_036",
+    "description": "Avoid bus \u2192 plan: no bus in Powai\u2192Thane",
+    "turns": [
+      {
+        "message": "don't use buses"
+      },
+      {
+        "message": "get me a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_037",
+    "description": "Avoid bus \u2192 plan: no bus in Thane\u2192Navi Mumbai",
+    "turns": [
+      {
+        "message": "bus-free today"
+      },
+      {
+        "message": "route my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_038",
+    "description": "Avoid bus \u2192 plan: no bus in BKC\u2192Lower Parel",
+    "turns": [
+      {
+        "message": "avoid buses today"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_039",
+    "description": "Avoid cab \u2192 plan: no cab in Andheri\u2192BKC",
+    "turns": [
+      {
+        "message": "avoid cabs today"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_040",
+    "description": "Avoid cab \u2192 plan: no cab in Andheri\u2192Dadar",
+    "turns": [
+      {
+        "message": "no cabs for me"
+      },
+      {
+        "message": "set up my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_041",
+    "description": "Avoid cab \u2192 plan: no cab in Bandra\u2192Dadar",
+    "turns": [
+      {
+        "message": "skip the cab"
+      },
+      {
+        "message": "let's plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_042",
+    "description": "Avoid cab \u2192 plan: no cab in Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "I don't want cabs"
+      },
+      {
+        "message": "make a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_043",
+    "description": "Avoid cab \u2192 plan: no cab in CST\u2192Colaba",
+    "turns": [
+      {
+        "message": "keep me off cabs"
+      },
+      {
+        "message": "plan the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_044",
+    "description": "Avoid cab \u2192 plan: no cab in BKC\u2192Powai",
+    "turns": [
+      {
+        "message": "no cabs today"
+      },
+      {
+        "message": "plan everything"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_045",
+    "description": "Avoid cab \u2192 plan: no cab in Lower Parel\u2192Bandra",
+    "turns": [
+      {
+        "message": "avoid using cab"
+      },
+      {
+        "message": "sort out my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_046",
+    "description": "Avoid cab \u2192 plan: no cab in Andheri\u2192Malad",
+    "turns": [
+      {
+        "message": "cabs are out"
+      },
+      {
+        "message": "optimize my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_047",
+    "description": "Avoid cab \u2192 plan: no cab in Malad\u2192Borivali",
+    "turns": [
+      {
+        "message": "no Uber today"
+      },
+      {
+        "message": "figure out my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_048",
+    "description": "Avoid cab \u2192 plan: no cab in Andheri\u2192Borivali",
+    "turns": [
+      {
+        "message": "I'd rather not take a cab"
+      },
+      {
+        "message": "create my itinerary"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_049",
+    "description": "Avoid cab \u2192 plan: no cab in Powai\u2192Thane",
+    "turns": [
+      {
+        "message": "don't use cabs"
+      },
+      {
+        "message": "get me a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_050",
+    "description": "Avoid cab \u2192 plan: no cab in Thane\u2192Navi Mumbai",
+    "turns": [
+      {
+        "message": "cab-free today"
+      },
+      {
+        "message": "route my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_051",
+    "description": "Override metro on Andheri\u2192BKC persists into replan",
+    "turns": [
+      {
+        "message": "use metro from Andheri to BKC"
+      },
+      {
+        "message": "replan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_052",
+    "description": "Override metro on Bandra\u2192Dadar persists into replan",
+    "turns": [
+      {
+        "message": "take metro for the Bandra to Dadar leg"
+      },
+      {
+        "message": "redo the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_053",
+    "description": "Override metro on Dadar\u2192CST persists into replan",
+    "turns": [
+      {
+        "message": "I want metro from Dadar to CST"
+      },
+      {
+        "message": "recalculate"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_054",
+    "description": "Override metro on CST\u2192Colaba persists into replan",
+    "turns": [
+      {
+        "message": "set metro from CST to Colaba"
+      },
+      {
+        "message": "update the plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_055",
+    "description": "Override metro on BKC\u2192Powai persists into replan",
+    "turns": [
+      {
+        "message": "force metro on BKC to Powai"
+      },
+      {
+        "message": "plan again"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_056",
+    "description": "Override metro on BKC\u2192Lower Parel persists into replan",
+    "turns": [
+      {
+        "message": "use metro from BKC to Lower Parel"
+      },
+      {
+        "message": "refresh my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Lower Parel",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_057",
+    "description": "Override metro on Lower Parel\u2192Bandra persists into replan",
+    "turns": [
+      {
+        "message": "take metro for the Lower Parel to Bandra leg"
+      },
+      {
+        "message": "reoptimize"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Lower Parel",
+        "to": "Bandra",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_058",
+    "description": "Override metro on Andheri\u2192Malad persists into replan",
+    "turns": [
+      {
+        "message": "I want metro from Andheri to Malad"
+      },
+      {
+        "message": "replan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Malad",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_059",
+    "description": "Override metro on Malad\u2192Borivali persists into replan",
+    "turns": [
+      {
+        "message": "set metro from Malad to Borivali"
+      },
+      {
+        "message": "redo the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Malad",
+        "to": "Borivali",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "cf_060",
+    "description": "Override train on Andheri\u2192Dadar persists into replan",
+    "turns": [
+      {
+        "message": "force train on Andheri to Dadar"
+      },
+      {
+        "message": "recalculate"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Dadar",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "cf_061",
+    "description": "Override train on Dadar\u2192CST persists into replan",
+    "turns": [
+      {
+        "message": "use train from Dadar to CST"
+      },
+      {
+        "message": "update the plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "cf_062",
+    "description": "Override train on Andheri\u2192Borivali persists into replan",
+    "turns": [
+      {
+        "message": "take train for the Andheri to Borivali leg"
+      },
+      {
+        "message": "plan again"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Borivali",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "cf_063",
+    "description": "Override train on Borivali\u2192Thane persists into replan",
+    "turns": [
+      {
+        "message": "I want train from Borivali to Thane"
+      },
+      {
+        "message": "refresh my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Borivali",
+        "to": "Thane",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "cf_064",
+    "description": "Override train on Powai\u2192Thane persists into replan",
+    "turns": [
+      {
+        "message": "set train from Powai to Thane"
+      },
+      {
+        "message": "reoptimize"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Powai",
+        "to": "Thane",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "cf_065",
+    "description": "Override train on Thane\u2192Navi Mumbai persists into replan",
+    "turns": [
+      {
+        "message": "force train on Thane to Navi Mumbai"
+      },
+      {
+        "message": "replan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Thane",
+        "to": "Navi Mumbai",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "cf_066",
+    "description": "Override bus on Andheri\u2192BKC persists into replan",
+    "turns": [
+      {
+        "message": "use bus from Andheri to BKC"
+      },
+      {
+        "message": "redo the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "cf_067",
+    "description": "Override bus on Bandra\u2192Dadar persists into replan",
+    "turns": [
+      {
+        "message": "take bus for the Bandra to Dadar leg"
+      },
+      {
+        "message": "recalculate"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "cf_068",
+    "description": "Override bus on Dadar\u2192CST persists into replan",
+    "turns": [
+      {
+        "message": "I want bus from Dadar to CST"
+      },
+      {
+        "message": "update the plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "cf_069",
+    "description": "Override bus on CST\u2192Colaba persists into replan",
+    "turns": [
+      {
+        "message": "set bus from CST to Colaba"
+      },
+      {
+        "message": "plan again"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "cf_070",
+    "description": "Override bus on BKC\u2192Powai persists into replan",
+    "turns": [
+      {
+        "message": "force bus on BKC to Powai"
+      },
+      {
+        "message": "refresh my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "cf_071",
+    "description": "Override bus on Powai\u2192Thane persists into replan",
+    "turns": [
+      {
+        "message": "use bus from Powai to Thane"
+      },
+      {
+        "message": "reoptimize"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Powai",
+        "to": "Thane",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "cf_072",
+    "description": "Override bus on Andheri\u2192Malad persists into replan",
+    "turns": [
+      {
+        "message": "take bus for the Andheri to Malad leg"
+      },
+      {
+        "message": "replan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Malad",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "cf_073",
+    "description": "Override cab on Andheri\u2192BKC persists into replan",
+    "turns": [
+      {
+        "message": "I want cab from Andheri to BKC"
+      },
+      {
+        "message": "redo the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_074",
+    "description": "Override cab on Bandra\u2192Dadar persists into replan",
+    "turns": [
+      {
+        "message": "set cab from Bandra to Dadar"
+      },
+      {
+        "message": "recalculate"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_075",
+    "description": "Override cab on Dadar\u2192CST persists into replan",
+    "turns": [
+      {
+        "message": "force cab on Dadar to CST"
+      },
+      {
+        "message": "update the plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_076",
+    "description": "Override cab on CST\u2192Colaba persists into replan",
+    "turns": [
+      {
+        "message": "use cab from CST to Colaba"
+      },
+      {
+        "message": "plan again"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_077",
+    "description": "Override cab on BKC\u2192Powai persists into replan",
+    "turns": [
+      {
+        "message": "take cab for the BKC to Powai leg"
+      },
+      {
+        "message": "refresh my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_078",
+    "description": "Override cab on BKC\u2192Lower Parel persists into replan",
+    "turns": [
+      {
+        "message": "I want cab from BKC to Lower Parel"
+      },
+      {
+        "message": "reoptimize"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Lower Parel",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_079",
+    "description": "Override cab on Lower Parel\u2192Bandra persists into replan",
+    "turns": [
+      {
+        "message": "set cab from Lower Parel to Bandra"
+      },
+      {
+        "message": "replan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Lower Parel",
+        "to": "Bandra",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_080",
+    "description": "Override cab on Andheri\u2192Powai persists into replan",
+    "turns": [
+      {
+        "message": "force cab on Andheri to Powai"
+      },
+      {
+        "message": "redo the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Powai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_081",
+    "description": "Override cab on Andheri\u2192Borivali persists into replan",
+    "turns": [
+      {
+        "message": "use cab from Andheri to Borivali"
+      },
+      {
+        "message": "recalculate"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Borivali",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_082",
+    "description": "Override cab on Borivali\u2192Thane persists into replan",
+    "turns": [
+      {
+        "message": "take cab for the Borivali to Thane leg"
+      },
+      {
+        "message": "update the plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Borivali",
+        "to": "Thane",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_083",
+    "description": "Override cab on Powai\u2192Thane persists into replan",
+    "turns": [
+      {
+        "message": "I want cab from Powai to Thane"
+      },
+      {
+        "message": "plan again"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Powai",
+        "to": "Thane",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_084",
+    "description": "Override cab on Thane\u2192Navi Mumbai persists into replan",
+    "turns": [
+      {
+        "message": "set cab from Thane to Navi Mumbai"
+      },
+      {
+        "message": "refresh my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Thane",
+        "to": "Navi Mumbai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_085",
+    "description": "Override cab on Malad\u2192Borivali persists into replan",
+    "turns": [
+      {
+        "message": "force cab on Malad to Borivali"
+      },
+      {
+        "message": "reoptimize"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_mode": {
+        "from": "Malad",
+        "to": "Borivali",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "cf_086",
+    "description": "Set then clear override on Andheri\u2192BKC",
+    "turns": [
+      {
+        "message": "use cab from Andheri to BKC"
+      },
+      {
+        "message": "remove the Andheri to BKC preference"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "BKC"
+      }
+    }
+  },
+  {
+    "id": "cf_087",
+    "description": "Set then clear override on Bandra\u2192Dadar",
+    "turns": [
+      {
+        "message": "use metro from Bandra to Dadar"
+      },
+      {
+        "message": "clear the Bandra to Dadar override"
+      },
+      {
+        "message": "set up my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Bandra",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_088",
+    "description": "Set then clear override on Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "use bus from Dadar to CST"
+      },
+      {
+        "message": "remove Dadar to CST constraint"
+      },
+      {
+        "message": "let's plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Dadar",
+        "to": "CST"
+      }
+    }
+  },
+  {
+    "id": "cf_089",
+    "description": "Set then clear override on CST\u2192Colaba",
+    "turns": [
+      {
+        "message": "use train from CST to Colaba"
+      },
+      {
+        "message": "clear my CST to Colaba preference"
+      },
+      {
+        "message": "make a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "CST",
+        "to": "Colaba"
+      }
+    }
+  },
+  {
+    "id": "cf_090",
+    "description": "Set then clear override on BKC\u2192Powai",
+    "turns": [
+      {
+        "message": "use cab from BKC to Powai"
+      },
+      {
+        "message": "reset the BKC to Powai leg preference"
+      },
+      {
+        "message": "plan the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "BKC",
+        "to": "Powai"
+      }
+    }
+  },
+  {
+    "id": "cf_091",
+    "description": "Set then clear override on Lower Parel\u2192Bandra",
+    "turns": [
+      {
+        "message": "use metro from Lower Parel to Bandra"
+      },
+      {
+        "message": "remove the Lower Parel to Bandra preference"
+      },
+      {
+        "message": "plan everything"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Lower Parel",
+        "to": "Bandra"
+      }
+    }
+  },
+  {
+    "id": "cf_092",
+    "description": "Set then clear override on Andheri\u2192Dadar",
+    "turns": [
+      {
+        "message": "use bus from Andheri to Dadar"
+      },
+      {
+        "message": "clear the Andheri to Dadar override"
+      },
+      {
+        "message": "sort out my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_093",
+    "description": "Set then clear override on BKC\u2192Lower Parel",
+    "turns": [
+      {
+        "message": "use train from BKC to Lower Parel"
+      },
+      {
+        "message": "remove BKC to Lower Parel constraint"
+      },
+      {
+        "message": "optimize my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "BKC",
+        "to": "Lower Parel"
+      }
+    }
+  },
+  {
+    "id": "cf_094",
+    "description": "Set then clear override on Andheri\u2192Malad",
+    "turns": [
+      {
+        "message": "use cab from Andheri to Malad"
+      },
+      {
+        "message": "clear my Andheri to Malad preference"
+      },
+      {
+        "message": "figure out my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "Malad"
+      }
+    }
+  },
+  {
+    "id": "cf_095",
+    "description": "Set then clear override on Malad\u2192Borivali",
+    "turns": [
+      {
+        "message": "use metro from Malad to Borivali"
+      },
+      {
+        "message": "reset the Malad to Borivali leg preference"
+      },
+      {
+        "message": "create my itinerary"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Malad",
+        "to": "Borivali"
+      }
+    }
+  },
+  {
+    "id": "cf_096",
+    "description": "Set then clear override on Borivali\u2192Thane",
+    "turns": [
+      {
+        "message": "use bus from Borivali to Thane"
+      },
+      {
+        "message": "remove the Borivali to Thane preference"
+      },
+      {
+        "message": "get me a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Borivali",
+        "to": "Thane"
+      }
+    }
+  },
+  {
+    "id": "cf_097",
+    "description": "Set then clear override on Powai\u2192Thane",
+    "turns": [
+      {
+        "message": "use train from Powai to Thane"
+      },
+      {
+        "message": "clear the Powai to Thane override"
+      },
+      {
+        "message": "route my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Powai",
+        "to": "Thane"
+      }
+    }
+  },
+  {
+    "id": "cf_098",
+    "description": "Set then clear override on Andheri\u2192Borivali",
+    "turns": [
+      {
+        "message": "use cab from Andheri to Borivali"
+      },
+      {
+        "message": "remove Andheri to Borivali constraint"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "Borivali"
+      }
+    }
+  },
+  {
+    "id": "cf_099",
+    "description": "Set then clear override on Thane\u2192Navi Mumbai",
+    "turns": [
+      {
+        "message": "use metro from Thane to Navi Mumbai"
+      },
+      {
+        "message": "clear my Thane to Navi Mumbai preference"
+      },
+      {
+        "message": "set up my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Thane",
+        "to": "Navi Mumbai"
+      }
+    }
+  },
+  {
+    "id": "cf_100",
+    "description": "Set then clear override on Andheri\u2192Powai",
+    "turns": [
+      {
+        "message": "use bus from Andheri to Powai"
+      },
+      {
+        "message": "reset the Andheri to Powai leg preference"
+      },
+      {
+        "message": "let's plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "Powai"
+      }
+    }
+  },
+  {
+    "id": "cf_101",
+    "description": "Set then clear override on Dadar\u2192Colaba",
+    "turns": [
+      {
+        "message": "use train from Dadar to Colaba"
+      },
+      {
+        "message": "remove the Dadar to Colaba preference"
+      },
+      {
+        "message": "make a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Dadar",
+        "to": "Colaba"
+      }
+    }
+  },
+  {
+    "id": "cf_102",
+    "description": "Set then clear override on Andheri\u2192CST",
+    "turns": [
+      {
+        "message": "use cab from Andheri to CST"
+      },
+      {
+        "message": "clear the Andheri to CST override"
+      },
+      {
+        "message": "plan the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "CST"
+      }
+    }
+  },
+  {
+    "id": "cf_103",
+    "description": "Set then clear override on BKC\u2192Dadar",
+    "turns": [
+      {
+        "message": "use metro from BKC to Dadar"
+      },
+      {
+        "message": "remove BKC to Dadar constraint"
+      },
+      {
+        "message": "plan everything"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "BKC",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_104",
+    "description": "Set then clear override on Bandra\u2192CST",
+    "turns": [
+      {
+        "message": "use bus from Bandra to CST"
+      },
+      {
+        "message": "clear my Bandra to CST preference"
+      },
+      {
+        "message": "sort out my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Bandra",
+        "to": "CST"
+      }
+    }
+  },
+  {
+    "id": "cf_105",
+    "description": "Set then clear override on Lower Parel\u2192Dadar",
+    "turns": [
+      {
+        "message": "use train from Lower Parel to Dadar"
+      },
+      {
+        "message": "reset the Lower Parel to Dadar leg preference"
+      },
+      {
+        "message": "optimize my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Lower Parel",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_106",
+    "description": "Stack avoids train+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "avoid trains today"
+      },
+      {
+        "message": "no buses for me"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_107",
+    "description": "Stack avoids metro+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "no metro for me"
+      },
+      {
+        "message": "skip the bus"
+      },
+      {
+        "message": "set up my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_108",
+    "description": "Stack avoids train+metro \u2192 both absent",
+    "turns": [
+      {
+        "message": "skip the train"
+      },
+      {
+        "message": "I don't want metro"
+      },
+      {
+        "message": "let's plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_109",
+    "description": "Stack avoids bus+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "I don't want buses"
+      },
+      {
+        "message": "keep me off cabs"
+      },
+      {
+        "message": "make a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_110",
+    "description": "Stack avoids metro+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "keep me off metro"
+      },
+      {
+        "message": "no cabs today"
+      },
+      {
+        "message": "plan the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_111",
+    "description": "Stack avoids train+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "no train today"
+      },
+      {
+        "message": "avoid using bus"
+      },
+      {
+        "message": "plan everything"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_112",
+    "description": "Stack avoids metro+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "avoid using metro"
+      },
+      {
+        "message": "buses are out"
+      },
+      {
+        "message": "sort out my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_113",
+    "description": "Stack avoids train+metro \u2192 both absent",
+    "turns": [
+      {
+        "message": "trains are out"
+      },
+      {
+        "message": "no metro lines please"
+      },
+      {
+        "message": "optimize my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_114",
+    "description": "Stack avoids bus+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "no BEST buses"
+      },
+      {
+        "message": "I'd rather not take a cab"
+      },
+      {
+        "message": "figure out my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_115",
+    "description": "Stack avoids metro+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "I'd rather not take the metro"
+      },
+      {
+        "message": "don't use cabs"
+      },
+      {
+        "message": "create my itinerary"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_116",
+    "description": "Stack avoids train+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "don't use trains"
+      },
+      {
+        "message": "bus-free today"
+      },
+      {
+        "message": "get me a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_117",
+    "description": "Stack avoids metro+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "metro-free today"
+      },
+      {
+        "message": "avoid buses today"
+      },
+      {
+        "message": "route my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_118",
+    "description": "Stack avoids train+metro \u2192 both absent",
+    "turns": [
+      {
+        "message": "avoid trains today"
+      },
+      {
+        "message": "no metro for me"
+      },
+      {
+        "message": "plan my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_119",
+    "description": "Stack avoids bus+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "no buses for me"
+      },
+      {
+        "message": "skip the cab"
+      },
+      {
+        "message": "set up my route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_120",
+    "description": "Stack avoids metro+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "skip the metro"
+      },
+      {
+        "message": "I don't want cabs"
+      },
+      {
+        "message": "let's plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_121",
+    "description": "Stack avoids train+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "I don't want trains"
+      },
+      {
+        "message": "keep me off buses"
+      },
+      {
+        "message": "make a plan"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_122",
+    "description": "Stack avoids metro+bus \u2192 both absent",
+    "turns": [
+      {
+        "message": "keep me off metro"
+      },
+      {
+        "message": "no bus today"
+      },
+      {
+        "message": "plan the route"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "cf_123",
+    "description": "Stack avoids train+metro \u2192 both absent",
+    "turns": [
+      {
+        "message": "no train today"
+      },
+      {
+        "message": "avoid using metro"
+      },
+      {
+        "message": "plan everything"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "train",
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "cf_124",
+    "description": "Stack avoids bus+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "avoid using bus"
+      },
+      {
+        "message": "cabs are out"
+      },
+      {
+        "message": "sort out my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "bus",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_125",
+    "description": "Stack avoids metro+cab \u2192 both absent",
+    "turns": [
+      {
+        "message": "metro is out"
+      },
+      {
+        "message": "no Uber today"
+      },
+      {
+        "message": "optimize my day"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "plan_modes_absent": [
+        "metro",
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "cf_126",
+    "description": "Conflict: avoid metro blocks force metro on Andheri\u2192BKC",
+    "turns": [
+      {
+        "message": "avoid metro today"
+      },
+      {
+        "message": "use metro from Andheri to BKC"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "BKC"
+      }
+    }
+  },
+  {
+    "id": "cf_127",
+    "description": "Conflict: avoid train blocks force train on Andheri\u2192Dadar",
+    "turns": [
+      {
+        "message": "no trains for me"
+      },
+      {
+        "message": "use train from Andheri to Dadar"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_128",
+    "description": "Conflict: avoid bus blocks force bus on Andheri\u2192BKC",
+    "turns": [
+      {
+        "message": "skip the bus"
+      },
+      {
+        "message": "use bus from Andheri to BKC"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "BKC"
+      }
+    }
+  },
+  {
+    "id": "cf_129",
+    "description": "Conflict: avoid cab blocks force cab on Andheri\u2192BKC",
+    "turns": [
+      {
+        "message": "I don't want cabs"
+      },
+      {
+        "message": "use cab from Andheri to BKC"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "BKC"
+      }
+    }
+  },
+  {
+    "id": "cf_130",
+    "description": "Conflict: avoid metro blocks force metro on Bandra\u2192Dadar",
+    "turns": [
+      {
+        "message": "keep me off metro"
+      },
+      {
+        "message": "use metro from Bandra to Dadar"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Bandra",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_131",
+    "description": "Conflict: avoid train blocks force train on Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "no train today"
+      },
+      {
+        "message": "use train from Dadar to CST"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Dadar",
+        "to": "CST"
+      }
+    }
+  },
+  {
+    "id": "cf_132",
+    "description": "Conflict: avoid bus blocks force bus on Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "avoid using bus"
+      },
+      {
+        "message": "use bus from Dadar to CST"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Dadar",
+        "to": "CST"
+      }
+    }
+  },
+  {
+    "id": "cf_133",
+    "description": "Conflict: avoid cab blocks force cab on Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "cabs are out"
+      },
+      {
+        "message": "use cab from Dadar to CST"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Dadar",
+        "to": "CST"
+      }
+    }
+  },
+  {
+    "id": "cf_134",
+    "description": "Conflict: avoid metro blocks force metro on Dadar\u2192CST",
+    "turns": [
+      {
+        "message": "no metro lines please"
+      },
+      {
+        "message": "use metro from Dadar to CST"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Dadar",
+        "to": "CST"
+      }
+    }
+  },
+  {
+    "id": "cf_135",
+    "description": "Conflict: avoid train blocks force train on Andheri\u2192Borivali",
+    "turns": [
+      {
+        "message": "I'd rather not take the train"
+      },
+      {
+        "message": "use train from Andheri to Borivali"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Andheri",
+        "to": "Borivali"
+      }
+    }
+  },
+  {
+    "id": "cf_136",
+    "description": "Conflict: avoid bus blocks force bus on Bandra\u2192Dadar",
+    "turns": [
+      {
+        "message": "don't use buses"
+      },
+      {
+        "message": "use bus from Bandra to Dadar"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Bandra",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_137",
+    "description": "Conflict: avoid cab blocks force cab on Bandra\u2192Dadar",
+    "turns": [
+      {
+        "message": "cab-free today"
+      },
+      {
+        "message": "use cab from Bandra to Dadar"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Bandra",
+        "to": "Dadar"
+      }
+    }
+  },
+  {
+    "id": "cf_138",
+    "description": "Conflict: avoid metro blocks force metro on CST\u2192Colaba",
+    "turns": [
+      {
+        "message": "avoid metro today"
+      },
+      {
+        "message": "use metro from CST to Colaba"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "CST",
+        "to": "Colaba"
+      }
+    }
+  },
+  {
+    "id": "cf_139",
+    "description": "Conflict: avoid train blocks force train on Powai\u2192Thane",
+    "turns": [
+      {
+        "message": "no trains for me"
+      },
+      {
+        "message": "use train from Powai to Thane"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Powai",
+        "to": "Thane"
+      }
+    }
+  },
+  {
+    "id": "cf_140",
+    "description": "Conflict: avoid bus blocks force bus on CST\u2192Colaba",
+    "turns": [
+      {
+        "message": "skip the bus"
+      },
+      {
+        "message": "use bus from CST to Colaba"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "CST",
+        "to": "Colaba"
+      }
+    }
+  },
+  {
+    "id": "cf_141",
+    "description": "Conflict: avoid cab blocks force cab on CST\u2192Colaba",
+    "turns": [
+      {
+        "message": "I don't want cabs"
+      },
+      {
+        "message": "use cab from CST to Colaba"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "CST",
+        "to": "Colaba"
+      }
+    }
+  },
+  {
+    "id": "cf_142",
+    "description": "Conflict: avoid metro blocks force metro on BKC\u2192Powai",
+    "turns": [
+      {
+        "message": "keep me off metro"
+      },
+      {
+        "message": "use metro from BKC to Powai"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "BKC",
+        "to": "Powai"
+      }
+    }
+  },
+  {
+    "id": "cf_143",
+    "description": "Conflict: avoid train blocks force train on Borivali\u2192Thane",
+    "turns": [
+      {
+        "message": "no train today"
+      },
+      {
+        "message": "use train from Borivali to Thane"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "Borivali",
+        "to": "Thane"
+      }
+    }
+  },
+  {
+    "id": "cf_144",
+    "description": "Conflict: avoid bus blocks force bus on BKC\u2192Powai",
+    "turns": [
+      {
+        "message": "avoid using bus"
+      },
+      {
+        "message": "use bus from BKC to Powai"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "BKC",
+        "to": "Powai"
+      }
+    }
+  },
+  {
+    "id": "cf_145",
+    "description": "Conflict: avoid cab blocks force cab on BKC\u2192Powai",
+    "turns": [
+      {
+        "message": "cabs are out"
+      },
+      {
+        "message": "use cab from BKC to Powai"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "leg_override_absent": {
+        "from": "BKC",
+        "to": "Powai"
+      }
+    }
+  },
+  {
+    "id": "cf_146",
+    "description": "What-if cab on Andheri\u2192BKC triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead from Andheri to BKC?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_147",
+    "description": "What-if metro on Bandra\u2192Dadar triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use metro from Bandra to Dadar?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_148",
+    "description": "What-if bus on Dadar\u2192CST triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take bus instead of the current option from Dadar to CST?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_149",
+    "description": "What-if train on Andheri\u2192Dadar triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used train for the Andheri to Dadar leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_150",
+    "description": "What-if cab on Dadar\u2192CST triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Dadar to CST?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_151",
+    "description": "What-if metro on CST\u2192Colaba triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead from CST to Colaba?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_152",
+    "description": "What-if bus on CST\u2192Colaba triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use bus from CST to Colaba?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_153",
+    "description": "What-if cab on BKC\u2192Powai triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take cab instead of the current option from BKC to Powai?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_154",
+    "description": "What-if metro on BKC\u2192Lower Parel triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used metro for the BKC to Lower Parel leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_155",
+    "description": "What-if cab on Lower Parel\u2192Bandra triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Lower Parel to Bandra?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_156",
+    "description": "What-if train on Dadar\u2192CST triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take train instead from Dadar to CST?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_157",
+    "description": "What-if cab on Andheri\u2192Powai triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I use cab from Andheri to Powai?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_158",
+    "description": "What-if metro on Andheri\u2192BKC triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I take metro instead of the current option from Andheri to BKC?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_159",
+    "description": "What-if bus on Andheri\u2192BKC triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what would happen if I used bus for the Andheri to BKC leg?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
+  },
+  {
+    "id": "cf_160",
+    "description": "What-if cab on Bandra\u2192Dadar triggers proposal_preview",
+    "turns": [
+      {
+        "message": "plan my day"
+      },
+      {
+        "message": "what if I switch to cab from Bandra to Dadar?"
+      }
+    ],
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "expected": {
+      "last_result_status": "proposal_preview"
+    }
   }
 ]

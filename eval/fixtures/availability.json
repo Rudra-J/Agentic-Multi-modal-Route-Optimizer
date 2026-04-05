@@ -1,8 +1,60 @@
 [
   {
     "id": "av_001",
-    "description": "Is there a metro from Andheri to BKC? — yes",
-    "message": "Is there a metro from Andheri to BKC?",
+    "description": "metro Andheri\u2192Malad: available",
+    "message": "Is there a metro from Andheri to Malad?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Andheri",
+      "to": "Malad"
+    }
+  },
+  {
+    "id": "av_002",
+    "description": "metro Malad\u2192Andheri: available",
+    "message": "Can I take metro from Malad to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Malad",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_003",
+    "description": "metro Malad\u2192Borivali: available",
+    "message": "Does a metro run between Malad and Borivali?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Malad",
+      "to": "Borivali"
+    }
+  },
+  {
+    "id": "av_004",
+    "description": "metro Borivali\u2192Malad: available",
+    "message": "Is there a direct metro connection from Borivali to Malad?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Borivali",
+      "to": "Malad"
+    }
+  },
+  {
+    "id": "av_005",
+    "description": "metro Andheri\u2192BKC: available",
+    "message": "Can I get a metro from Andheri to BKC?",
     "meetings": [],
     "expected": {
       "status": "route_check",
@@ -13,8 +65,723 @@
     }
   },
   {
-    "id": "av_002",
-    "description": "Is there a train from Andheri to BKC? — no direct train",
+    "id": "av_006",
+    "description": "metro BKC\u2192Andheri: available",
+    "message": "Is there a metro from BKC to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "BKC",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_007",
+    "description": "metro Andheri\u2192Powai: available",
+    "message": "Can I take metro from Andheri to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Andheri",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_008",
+    "description": "metro Powai\u2192Andheri: available",
+    "message": "Does a metro run between Powai and Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Powai",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_009",
+    "description": "metro BKC\u2192Powai: available",
+    "message": "Is there a direct metro connection from BKC to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "BKC",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_010",
+    "description": "metro Powai\u2192BKC: available",
+    "message": "Can I get a metro from Powai to BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Powai",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_011",
+    "description": "metro BKC\u2192Lower Parel: available",
+    "message": "Is there a metro from BKC to Lower Parel?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "BKC",
+      "to": "Lower Parel"
+    }
+  },
+  {
+    "id": "av_012",
+    "description": "metro Lower Parel\u2192BKC: available",
+    "message": "Can I take metro from Lower Parel to BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Lower Parel",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_013",
+    "description": "metro Lower Parel\u2192Bandra: available",
+    "message": "Does a metro run between Lower Parel and Bandra?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Lower Parel",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_014",
+    "description": "metro Bandra\u2192Lower Parel: available",
+    "message": "Is there a direct metro connection from Bandra to Lower Parel?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Bandra",
+      "to": "Lower Parel"
+    }
+  },
+  {
+    "id": "av_015",
+    "description": "metro Bandra\u2192Dadar: available",
+    "message": "Can I get a metro from Bandra to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Bandra",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_016",
+    "description": "metro Dadar\u2192Bandra: available",
+    "message": "Is there a metro from Dadar to Bandra?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Dadar",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_017",
+    "description": "metro Dadar\u2192CST: available",
+    "message": "Can I take metro from Dadar to CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "Dadar",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_018",
+    "description": "metro CST\u2192Dadar: available",
+    "message": "Does a metro run between CST and Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "metro",
+      "from": "CST",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_019",
+    "description": "train Andheri\u2192Dadar: available",
+    "message": "Is there a direct train connection from Andheri to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Andheri",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_020",
+    "description": "train Dadar\u2192Andheri: available",
+    "message": "Can I get a train from Dadar to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Dadar",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_021",
+    "description": "train Dadar\u2192CST: available",
+    "message": "Is there a train from Dadar to CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Dadar",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_022",
+    "description": "train CST\u2192Dadar: available",
+    "message": "Can I take train from CST to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "CST",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_023",
+    "description": "train Powai\u2192Thane: available",
+    "message": "Does a train run between Powai and Thane?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Powai",
+      "to": "Thane"
+    }
+  },
+  {
+    "id": "av_024",
+    "description": "train Thane\u2192Powai: available",
+    "message": "Is there a direct train connection from Thane to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Thane",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_025",
+    "description": "train Thane\u2192Navi Mumbai: available",
+    "message": "Can I get a train from Thane to Navi Mumbai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Thane",
+      "to": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "av_026",
+    "description": "train Navi Mumbai\u2192Thane: available",
+    "message": "Is there a train from Navi Mumbai to Thane?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Navi Mumbai",
+      "to": "Thane"
+    }
+  },
+  {
+    "id": "av_027",
+    "description": "train CST\u2192Navi Mumbai: available",
+    "message": "Can I take train from CST to Navi Mumbai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "CST",
+      "to": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "av_028",
+    "description": "train Navi Mumbai\u2192CST: available",
+    "message": "Does a train run between Navi Mumbai and CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Navi Mumbai",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_029",
+    "description": "train Andheri\u2192Borivali: available",
+    "message": "Is there a direct train connection from Andheri to Borivali?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Andheri",
+      "to": "Borivali"
+    }
+  },
+  {
+    "id": "av_030",
+    "description": "train Borivali\u2192Andheri: available",
+    "message": "Can I get a train from Borivali to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "train",
+      "from": "Borivali",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_031",
+    "description": "bus Andheri\u2192BKC: available",
+    "message": "Is there a bus from Andheri to BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Andheri",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_032",
+    "description": "bus BKC\u2192Andheri: available",
+    "message": "Can I take bus from BKC to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "BKC",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_033",
+    "description": "bus Andheri\u2192Malad: available",
+    "message": "Does a bus run between Andheri and Malad?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Andheri",
+      "to": "Malad"
+    }
+  },
+  {
+    "id": "av_034",
+    "description": "bus Malad\u2192Andheri: available",
+    "message": "Is there a direct bus connection from Malad to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Malad",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_035",
+    "description": "bus BKC\u2192Powai: available",
+    "message": "Can I get a bus from BKC to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "BKC",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_036",
+    "description": "bus Powai\u2192BKC: available",
+    "message": "Is there a bus from Powai to BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Powai",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_037",
+    "description": "bus Powai\u2192Thane: available",
+    "message": "Can I take bus from Powai to Thane?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Powai",
+      "to": "Thane"
+    }
+  },
+  {
+    "id": "av_038",
+    "description": "bus Thane\u2192Powai: available",
+    "message": "Does a bus run between Thane and Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Thane",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_039",
+    "description": "bus Bandra\u2192Dadar: available",
+    "message": "Is there a direct bus connection from Bandra to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Bandra",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_040",
+    "description": "bus Dadar\u2192Bandra: available",
+    "message": "Can I get a bus from Dadar to Bandra?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Dadar",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_041",
+    "description": "bus Dadar\u2192CST: available",
+    "message": "Is there a bus from Dadar to CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "Dadar",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_042",
+    "description": "bus CST\u2192Dadar: available",
+    "message": "Can I take bus from CST to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "bus",
+      "from": "CST",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_043",
+    "description": "cab Andheri\u2192BKC: available",
+    "message": "Does a cab run between Andheri and BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Andheri",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_044",
+    "description": "cab BKC\u2192Andheri: available",
+    "message": "Is there a direct cab connection from BKC to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "BKC",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_045",
+    "description": "cab Andheri\u2192Powai: available",
+    "message": "Can I get a cab from Andheri to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Andheri",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_046",
+    "description": "cab Powai\u2192Andheri: available",
+    "message": "Is there a cab from Powai to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Powai",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_047",
+    "description": "cab BKC\u2192Powai: available",
+    "message": "Can I take cab from BKC to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "BKC",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_048",
+    "description": "cab Powai\u2192BKC: available",
+    "message": "Does a cab run between Powai and BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Powai",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_049",
+    "description": "cab BKC\u2192Lower Parel: available",
+    "message": "Is there a direct cab connection from BKC to Lower Parel?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "BKC",
+      "to": "Lower Parel"
+    }
+  },
+  {
+    "id": "av_050",
+    "description": "cab Lower Parel\u2192BKC: available",
+    "message": "Can I get a cab from Lower Parel to BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Lower Parel",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_051",
+    "description": "cab Lower Parel\u2192Bandra: available",
+    "message": "Is there a cab from Lower Parel to Bandra?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Lower Parel",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_052",
+    "description": "cab Bandra\u2192Lower Parel: available",
+    "message": "Can I take cab from Bandra to Lower Parel?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Bandra",
+      "to": "Lower Parel"
+    }
+  },
+  {
+    "id": "av_053",
+    "description": "cab Bandra\u2192Dadar: available",
+    "message": "Does a cab run between Bandra and Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Bandra",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_054",
+    "description": "cab Dadar\u2192Bandra: available",
+    "message": "Is there a direct cab connection from Dadar to Bandra?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Dadar",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_055",
+    "description": "cab Dadar\u2192CST: available",
+    "message": "Can I get a cab from Dadar to CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Dadar",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_056",
+    "description": "cab CST\u2192Dadar: available",
+    "message": "Is there a cab from CST to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "CST",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_057",
+    "description": "cab CST\u2192Colaba: available",
+    "message": "Can I take cab from CST to Colaba?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "CST",
+      "to": "Colaba"
+    }
+  },
+  {
+    "id": "av_058",
+    "description": "cab Colaba\u2192CST: available",
+    "message": "Does a cab run between Colaba and CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Colaba",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_059",
+    "description": "cab Andheri\u2192Borivali: available",
+    "message": "Is there a direct cab connection from Andheri to Borivali?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Andheri",
+      "to": "Borivali"
+    }
+  },
+  {
+    "id": "av_060",
+    "description": "cab Borivali\u2192Andheri: available",
+    "message": "Can I get a cab from Borivali to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": true,
+      "mode": "cab",
+      "from": "Borivali",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_061",
+    "description": "train Andheri\u2192BKC: not available",
     "message": "Is there a train from Andheri to BKC?",
     "meetings": [],
     "expected": {
@@ -26,37 +793,510 @@
     }
   },
   {
-    "id": "av_003",
-    "description": "Can I take cab from Bandra to Dadar? — yes",
-    "message": "Can I take cab from Bandra to Dadar?",
+    "id": "av_062",
+    "description": "train BKC\u2192Andheri: not available",
+    "message": "Can I take train from BKC to Andheri?",
     "meetings": [],
     "expected": {
       "status": "route_check",
-      "available": true,
+      "available": false,
+      "mode": "train",
+      "from": "BKC",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_063",
+    "description": "train Andheri\u2192Malad: not available",
+    "message": "Does a train run between Andheri and Malad?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Andheri",
+      "to": "Malad"
+    }
+  },
+  {
+    "id": "av_064",
+    "description": "cab Andheri\u2192Malad: not available",
+    "message": "Is there a direct cab connection from Andheri to Malad?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
       "mode": "cab",
+      "from": "Andheri",
+      "to": "Malad"
+    }
+  },
+  {
+    "id": "av_065",
+    "description": "metro Andheri\u2192Dadar: not available",
+    "message": "Can I get a metro from Andheri to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Andheri",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_066",
+    "description": "bus Andheri\u2192Dadar: not available",
+    "message": "Is there a bus from Andheri to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Andheri",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_067",
+    "description": "cab Andheri\u2192Dadar: not available",
+    "message": "Can I take cab from Andheri to Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "cab",
+      "from": "Andheri",
+      "to": "Dadar"
+    }
+  },
+  {
+    "id": "av_068",
+    "description": "train Andheri\u2192Powai: not available",
+    "message": "Does a train run between Andheri and Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Andheri",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_069",
+    "description": "bus Andheri\u2192Powai: not available",
+    "message": "Is there a direct bus connection from Andheri to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Andheri",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_070",
+    "description": "train BKC\u2192Lower Parel: not available",
+    "message": "Can I get a train from BKC to Lower Parel?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "BKC",
+      "to": "Lower Parel"
+    }
+  },
+  {
+    "id": "av_071",
+    "description": "bus BKC\u2192Lower Parel: not available",
+    "message": "Is there a bus from BKC to Lower Parel?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "BKC",
+      "to": "Lower Parel"
+    }
+  },
+  {
+    "id": "av_072",
+    "description": "metro Andheri\u2192Borivali: not available",
+    "message": "Can I take metro from Andheri to Borivali?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Andheri",
+      "to": "Borivali"
+    }
+  },
+  {
+    "id": "av_073",
+    "description": "bus Andheri\u2192Borivali: not available",
+    "message": "Does a bus run between Andheri and Borivali?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Andheri",
+      "to": "Borivali"
+    }
+  },
+  {
+    "id": "av_074",
+    "description": "metro Borivali\u2192Thane: not available",
+    "message": "Is there a direct metro connection from Borivali to Thane?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Borivali",
+      "to": "Thane"
+    }
+  },
+  {
+    "id": "av_075",
+    "description": "bus Borivali\u2192Thane: not available",
+    "message": "Can I get a bus from Borivali to Thane?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Borivali",
+      "to": "Thane"
+    }
+  },
+  {
+    "id": "av_076",
+    "description": "metro CST\u2192Navi Mumbai: not available",
+    "message": "Is there a metro from CST to Navi Mumbai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "CST",
+      "to": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "av_077",
+    "description": "bus CST\u2192Navi Mumbai: not available",
+    "message": "Can I take bus from CST to Navi Mumbai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "CST",
+      "to": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "av_078",
+    "description": "cab CST\u2192Navi Mumbai: not available",
+    "message": "Does a cab run between CST and Navi Mumbai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "cab",
+      "from": "CST",
+      "to": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "av_079",
+    "description": "metro Thane\u2192Navi Mumbai: not available",
+    "message": "Is there a direct metro connection from Thane to Navi Mumbai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Thane",
+      "to": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "av_080",
+    "description": "bus Thane\u2192Navi Mumbai: not available",
+    "message": "Can I get a bus from Thane to Navi Mumbai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Thane",
+      "to": "Navi Mumbai"
+    }
+  },
+  {
+    "id": "av_081",
+    "description": "train Malad\u2192Borivali: not available",
+    "message": "Is there a train from Malad to Borivali?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Malad",
+      "to": "Borivali"
+    }
+  },
+  {
+    "id": "av_082",
+    "description": "bus Malad\u2192Borivali: not available",
+    "message": "Can I take bus from Malad to Borivali?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Malad",
+      "to": "Borivali"
+    }
+  },
+  {
+    "id": "av_083",
+    "description": "train Bandra\u2192Dadar: not available",
+    "message": "Does a train run between Bandra and Dadar?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
       "from": "Bandra",
       "to": "Dadar"
     }
   },
   {
-    "id": "av_004",
-    "description": "Are there any routes from CST to Colaba? — yes with alternatives",
-    "message": "Is there a direct connection from CST to Colaba?",
-    "meetings": [],
-    "expected": {
-      "status": "route_check",
-      "available": true
-    }
-  },
-  {
-    "id": "av_005",
-    "description": "Is there a bus from Andheri to Powai? — no direct bus",
-    "message": "Is there a bus from Andheri to Powai?",
+    "id": "av_084",
+    "description": "train Dadar\u2192Bandra: not available",
+    "message": "Is there a direct train connection from Dadar to Bandra?",
     "meetings": [],
     "expected": {
       "status": "route_check",
       "available": false,
-      "mode": "bus"
+      "mode": "train",
+      "from": "Dadar",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_085",
+    "description": "train CST\u2192Colaba: not available",
+    "message": "Can I get a train from CST to Colaba?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "CST",
+      "to": "Colaba"
+    }
+  },
+  {
+    "id": "av_086",
+    "description": "train Colaba\u2192CST: not available",
+    "message": "Is there a train from Colaba to CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Colaba",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_087",
+    "description": "train BKC\u2192Powai: not available",
+    "message": "Can I take train from BKC to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "BKC",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_088",
+    "description": "train Powai\u2192BKC: not available",
+    "message": "Does a train run between Powai and BKC?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Powai",
+      "to": "BKC"
+    }
+  },
+  {
+    "id": "av_089",
+    "description": "metro Powai\u2192Thane: not available",
+    "message": "Is there a direct metro connection from Powai to Thane?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Powai",
+      "to": "Thane"
+    }
+  },
+  {
+    "id": "av_090",
+    "description": "metro Thane\u2192Powai: not available",
+    "message": "Can I get a metro from Thane to Powai?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Thane",
+      "to": "Powai"
+    }
+  },
+  {
+    "id": "av_091",
+    "description": "train Lower Parel\u2192Bandra: not available",
+    "message": "Is there a train from Lower Parel to Bandra?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Lower Parel",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_092",
+    "description": "bus Lower Parel\u2192Bandra: not available",
+    "message": "Can I take bus from Lower Parel to Bandra?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Lower Parel",
+      "to": "Bandra"
+    }
+  },
+  {
+    "id": "av_093",
+    "description": "train Malad\u2192Andheri: not available",
+    "message": "Does a train run between Malad and Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "train",
+      "from": "Malad",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_094",
+    "description": "cab Malad\u2192Andheri: not available",
+    "message": "Is there a direct cab connection from Malad to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "cab",
+      "from": "Malad",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_095",
+    "description": "metro Dadar\u2192Andheri: not available",
+    "message": "Can I get a metro from Dadar to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Dadar",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_096",
+    "description": "bus Dadar\u2192Andheri: not available",
+    "message": "Is there a bus from Dadar to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Dadar",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_097",
+    "description": "cab Dadar\u2192Andheri: not available",
+    "message": "Can I take cab from Dadar to Andheri?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "cab",
+      "from": "Dadar",
+      "to": "Andheri"
+    }
+  },
+  {
+    "id": "av_098",
+    "description": "metro Navi Mumbai\u2192CST: not available",
+    "message": "Does a metro run between Navi Mumbai and CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "metro",
+      "from": "Navi Mumbai",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_099",
+    "description": "bus Navi Mumbai\u2192CST: not available",
+    "message": "Is there a direct bus connection from Navi Mumbai to CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "bus",
+      "from": "Navi Mumbai",
+      "to": "CST"
+    }
+  },
+  {
+    "id": "av_100",
+    "description": "cab Navi Mumbai\u2192CST: not available",
+    "message": "Can I get a cab from Navi Mumbai to CST?",
+    "meetings": [],
+    "expected": {
+      "status": "route_check",
+      "available": false,
+      "mode": "cab",
+      "from": "Navi Mumbai",
+      "to": "CST"
     }
   }
 ]

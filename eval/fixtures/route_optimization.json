@@ -1,137 +1,5987 @@
 [
   {
     "id": "ro_001",
-    "description": "Basic two-meeting plan returns a valid route",
+    "description": "Basic 2-meeting Andheri\u2192BKC",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 45},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 60}
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
     ],
     "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "success", "has_route": true}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_002",
-    "description": "Global avoid train — no train in any leg",
+    "description": "Basic 2-meeting Andheri\u2192Dadar",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30}
+      {
+        "location": "Andheri",
+        "start_time": "09:30",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 45
+      }
     ],
-    "avoid_modes": ["train"],
+    "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "success", "modes_absent": ["train"]}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_003",
-    "description": "Global avoid all public modes — only cab available",
+    "description": "Basic 2-meeting Bandra\u2192Dadar",
     "meetings": [
-      {"location": "Bandra", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "CST", "start_time": "11:00", "duration_minutes": 30}
+      {
+        "location": "Bandra",
+        "start_time": "10:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Dadar",
+        "start_time": "12:30",
+        "duration_minutes": 30
+      }
     ],
-    "avoid_modes": ["train", "metro", "bus"],
+    "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "success", "all_legs_mode": "cab"}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_004",
-    "description": "Leg override forces cab on Andheri->BKC",
+    "description": "Basic 2-meeting Dadar\u2192CST",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "BKC", "start_time": "11:00", "duration_minutes": 30}
+      {
+        "location": "Dadar",
+        "start_time": "08:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "10:30",
+        "duration_minutes": 60
+      }
     ],
     "avoid_modes": [],
-    "leg_overrides": {"andheri->bkc": {"mode": "cab", "reason": "test"}},
+    "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "success", "leg_mode": {"from": "Andheri", "to": "BKC", "mode": "cab"}}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_005",
-    "description": "Leg avoid bus on Bandra->CST — bus absent on that leg",
+    "description": "Basic 2-meeting CST\u2192Colaba",
     "meetings": [
-      {"location": "Bandra", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "CST", "start_time": "11:00", "duration_minutes": 30}
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      }
     ],
     "avoid_modes": [],
     "leg_overrides": {},
-    "leg_avoid_modes": {"bandra->cst": {"avoid": ["bus"], "reason": "test"}},
-    "expected": {"status": "success", "leg_mode_absent": {"from": "Bandra", "to": "CST", "mode": "bus"}}
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_006",
-    "description": "Three meetings — plan covers two legs",
+    "description": "Basic 2-meeting BKC\u2192Powai",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30},
-      {"location": "CST", "start_time": "13:00", "duration_minutes": 30}
+      {
+        "location": "BKC",
+        "start_time": "10:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "12:30",
+        "duration_minutes": 60
+      }
     ],
     "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "success", "leg_count": 2}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_007",
-    "description": "Impossible time window returns failed status",
+    "description": "Basic 2-meeting Andheri\u2192Borivali",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 60},
-      {"location": "Navi Mumbai", "start_time": "09:05", "duration_minutes": 30}
+      {
+        "location": "Andheri",
+        "start_time": "08:30",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 45
+      }
     ],
     "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "failed"}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_008",
-    "description": "Single meeting returns empty itinerary (no legs needed)",
+    "description": "Basic 2-meeting Powai\u2192Thane",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 60}
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 30
+      }
     ],
     "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "success", "leg_count": 0}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_009",
-    "description": "Four-meeting plan covers three legs",
+    "description": "Basic 2-meeting Thane\u2192Navi Mumbai",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30},
-      {"location": "CST", "start_time": "13:00", "duration_minutes": 30},
-      {"location": "Colaba", "start_time": "15:00", "duration_minutes": 30}
+      {
+        "location": "Thane",
+        "start_time": "10:30",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "13:00",
+        "duration_minutes": 45
+      }
     ],
     "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "success", "leg_count": 3}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
   },
   {
     "id": "ro_010",
-    "description": "All modes avoided except cab — every leg must use cab",
+    "description": "Basic 2-meeting Lower Parel\u2192Bandra",
     "meetings": [
-      {"location": "Andheri", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "Dadar", "start_time": "11:00", "duration_minutes": 30},
-      {"location": "CST", "start_time": "13:00", "duration_minutes": 30}
-    ],
-    "avoid_modes": ["train", "metro", "bus"],
-    "leg_overrides": {},
-    "leg_avoid_modes": {},
-    "expected": {"status": "success", "all_legs_mode": "cab"}
-  },
-  {
-    "id": "ro_011",
-    "description": "Unknown location not in graph — planner returns failed status gracefully",
-    "meetings": [
-      {"location": "Unknown Place", "start_time": "09:00", "duration_minutes": 30},
-      {"location": "Andheri", "start_time": "11:00", "duration_minutes": 30}
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Bandra",
+        "start_time": "12:00",
+        "duration_minutes": 30
+      }
     ],
     "avoid_modes": [],
     "leg_overrides": {},
     "leg_avoid_modes": {},
-    "expected": {"status": "failed"}
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_011",
+    "description": "Basic 2-meeting BKC\u2192Lower Parel",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "08:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "10:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_012",
+    "description": "Basic 2-meeting Malad\u2192Borivali",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:30",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "12:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_013",
+    "description": "Basic 2-meeting Andheri\u2192Malad",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "10:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Malad",
+        "start_time": "12:30",
+        "duration_minutes": 45
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_014",
+    "description": "Basic 2-meeting Borivali\u2192Thane",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "12:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_015",
+    "description": "Basic 2-meeting CST\u2192Navi Mumbai",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "08:30",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_016",
+    "description": "Basic 2-meeting BKC\u2192Dadar",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 45
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_017",
+    "description": "Basic 2-meeting Andheri\u2192CST",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "10:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_018",
+    "description": "Basic 2-meeting Bandra\u2192CST",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:30",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "12:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_019",
+    "description": "Basic 2-meeting Dadar\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "08:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 45
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_020",
+    "description": "Basic 2-meeting Andheri\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Colaba",
+        "start_time": "12:30",
+        "duration_minutes": 45
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_021",
+    "description": "Basic 2-meeting BKC\u2192CST",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "10:30",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_022",
+    "description": "Basic 2-meeting Powai\u2192CST",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "12:00",
+        "duration_minutes": 45
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_023",
+    "description": "Basic 2-meeting Andheri\u2192Lower Parel",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "08:30",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "12:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_024",
+    "description": "Basic 2-meeting Malad\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:30",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "12:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_025",
+    "description": "Basic 2-meeting Borivali\u2192CST",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "10:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "13:00",
+        "duration_minutes": 45
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_026",
+    "description": "Basic 2-meeting Andheri\u2192Thane",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "12:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_027",
+    "description": "Basic 2-meeting BKC\u2192Thane",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "08:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 45
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_028",
+    "description": "Basic 2-meeting Bandra\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:30",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Colaba",
+        "start_time": "12:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_029",
+    "description": "Basic 2-meeting Lower Parel\u2192CST",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "10:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_030",
+    "description": "Basic 2-meeting Powai\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "has_route": true
+    }
+  },
+  {
+    "id": "ro_031",
+    "description": "Avoid train: no train in Andheri\u2192BKC plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ro_032",
+    "description": "Avoid bus: no bus in Andheri\u2192Dadar plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_033",
+    "description": "Avoid train: no train in Bandra\u2192Dadar plan",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ro_034",
+    "description": "Avoid bus: no bus in Dadar\u2192CST plan",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_035",
+    "description": "Avoid train: no train in CST\u2192Colaba plan",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ro_036",
+    "description": "Avoid train: no train in BKC\u2192Powai plan",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ro_037",
+    "description": "Avoid bus: no bus in Andheri\u2192Borivali plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_038",
+    "description": "Avoid train: no train in Lower Parel\u2192Bandra plan",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "train"
+      ]
+    }
+  },
+  {
+    "id": "ro_039",
+    "description": "Avoid metro: no metro in Andheri\u2192BKC plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_040",
+    "description": "Avoid metro: no metro in Bandra\u2192Dadar plan",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_041",
+    "description": "Avoid metro: no metro in Dadar\u2192CST plan",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_042",
+    "description": "Avoid metro: no metro in CST\u2192Colaba plan",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_043",
+    "description": "Avoid metro: no metro in BKC\u2192Powai plan",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_044",
+    "description": "Avoid metro: no metro in BKC\u2192Lower Parel plan",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_045",
+    "description": "Avoid metro: no metro in Andheri\u2192Malad plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_046",
+    "description": "Avoid metro: no metro in Malad\u2192Borivali plan",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "metro"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "metro"
+      ]
+    }
+  },
+  {
+    "id": "ro_047",
+    "description": "Avoid cab: no cab in Andheri\u2192Dadar plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_048",
+    "description": "Avoid cab: no cab in Dadar\u2192CST plan",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_049",
+    "description": "Avoid cab: no cab in Powai\u2192Thane plan",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_050",
+    "description": "Avoid cab: no cab in Thane\u2192Navi Mumbai plan",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_051",
+    "description": "Avoid cab: no cab in CST\u2192Navi Mumbai plan",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_052",
+    "description": "Avoid cab: no cab in Andheri\u2192Borivali plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_053",
+    "description": "Avoid cab: no cab in Borivali\u2192Thane plan",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_054",
+    "description": "Avoid cab: no cab in Malad\u2192Borivali plan",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "cab"
+      ]
+    }
+  },
+  {
+    "id": "ro_055",
+    "description": "Avoid bus: no bus in Andheri\u2192BKC plan",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_056",
+    "description": "Avoid bus: no bus in BKC\u2192Powai plan",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_057",
+    "description": "Avoid bus: no bus in Powai\u2192Thane plan",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_058",
+    "description": "Avoid bus: no bus in Bandra\u2192Dadar plan",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_059",
+    "description": "Avoid bus: no bus in Dadar\u2192CST plan",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_060",
+    "description": "Avoid bus: no bus in CST\u2192Colaba plan",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "modes_absent": [
+        "bus"
+      ]
+    }
+  },
+  {
+    "id": "ro_061",
+    "description": "Avoid train+metro+bus: Andheri\u2192BKC uses cab",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_062",
+    "description": "Avoid train+metro+bus: Bandra\u2192Dadar uses cab",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_063",
+    "description": "Avoid train+metro+bus: Dadar\u2192CST uses cab",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_064",
+    "description": "Avoid train+metro+bus: CST\u2192Colaba uses cab",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_065",
+    "description": "Avoid train+metro+bus: BKC\u2192Powai uses cab",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_066",
+    "description": "Avoid train+metro+bus: BKC\u2192Lower Parel uses cab",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_067",
+    "description": "Avoid train+metro+bus: Lower Parel\u2192Bandra uses cab",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_068",
+    "description": "Avoid train+metro+bus: Andheri\u2192Powai uses cab",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_069",
+    "description": "Avoid train+metro+bus: Andheri\u2192Borivali uses cab",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_070",
+    "description": "Avoid train+metro+bus: Borivali\u2192Thane uses cab",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_071",
+    "description": "Avoid train+metro+bus: Powai\u2192Thane uses cab",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_072",
+    "description": "Avoid train+metro+bus: Thane\u2192Navi Mumbai uses cab",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_073",
+    "description": "Avoid train+metro+bus: Malad\u2192Borivali uses cab",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_074",
+    "description": "Avoid train+metro+bus: Andheri\u2192Malad uses cab",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_075",
+    "description": "Avoid train+metro+bus: Andheri\u2192Dadar uses cab",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_076",
+    "description": "Avoid train+metro+bus: Dadar\u2192CST uses cab",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_077",
+    "description": "Avoid train+metro+bus: Bandra\u2192CST uses cab",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_078",
+    "description": "Avoid train+metro+bus: Andheri\u2192CST uses cab",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_079",
+    "description": "Avoid train+metro+bus: BKC\u2192CST uses cab",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_080",
+    "description": "Avoid train+metro+bus: Andheri\u2192Lower Parel uses cab",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "all_legs_mode": "cab"
+    }
+  },
+  {
+    "id": "ro_081",
+    "description": "Override metro on Andheri\u2192BKC",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->bkc": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_082",
+    "description": "Override metro on Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bandra->dadar": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_083",
+    "description": "Override metro on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "dadar->cst": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_084",
+    "description": "Override metro on CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "cst->colaba": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_085",
+    "description": "Override metro on BKC\u2192Lower Parel",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bkc->lower parel": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Lower Parel",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_086",
+    "description": "Override metro on Lower Parel\u2192Bandra",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "lower parel->bandra": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Lower Parel",
+        "to": "Bandra",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_087",
+    "description": "Override metro on BKC\u2192Powai",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bkc->powai": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_088",
+    "description": "Override metro on Andheri\u2192Powai",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->powai": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Powai",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_089",
+    "description": "Override train on Andheri\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->dadar": {
+        "mode": "train",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Dadar",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "ro_090",
+    "description": "Override train on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "dadar->cst": {
+        "mode": "train",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "ro_091",
+    "description": "Override bus on Andheri\u2192BKC",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->bkc": {
+        "mode": "bus",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_092",
+    "description": "Override bus on Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bandra->dadar": {
+        "mode": "bus",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_093",
+    "description": "Override bus on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "dadar->cst": {
+        "mode": "bus",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_094",
+    "description": "Override bus on CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "cst->colaba": {
+        "mode": "bus",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_095",
+    "description": "Override bus on BKC\u2192Powai",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bkc->powai": {
+        "mode": "bus",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_096",
+    "description": "Override cab on Andheri\u2192BKC",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->bkc": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_097",
+    "description": "Override cab on Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bandra->dadar": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_098",
+    "description": "Override cab on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "dadar->cst": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_099",
+    "description": "Override cab on CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "cst->colaba": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_100",
+    "description": "Override cab on BKC\u2192Powai",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bkc->powai": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_101",
+    "description": "Override cab on BKC\u2192Lower Parel",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "bkc->lower parel": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "BKC",
+        "to": "Lower Parel",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_102",
+    "description": "Override cab on Lower Parel\u2192Bandra",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "lower parel->bandra": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Lower Parel",
+        "to": "Bandra",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_103",
+    "description": "Override cab on Andheri\u2192Powai",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->powai": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Powai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_104",
+    "description": "Override cab on Andheri\u2192Borivali",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->borivali": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Borivali",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_105",
+    "description": "Override cab on Borivali\u2192Thane",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "borivali->thane": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Borivali",
+        "to": "Thane",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_106",
+    "description": "Override cab on Powai\u2192Thane",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "powai->thane": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Powai",
+        "to": "Thane",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_107",
+    "description": "Override cab on Thane\u2192Navi Mumbai",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "thane->navi mumbai": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Thane",
+        "to": "Navi Mumbai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_108",
+    "description": "Override cab on Malad\u2192Borivali",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "malad->borivali": {
+        "mode": "cab",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Malad",
+        "to": "Borivali",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_109",
+    "description": "Override metro on Malad\u2192Borivali",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "malad->borivali": {
+        "mode": "metro",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Malad",
+        "to": "Borivali",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_110",
+    "description": "Override train on Andheri\u2192Borivali",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {
+      "andheri->borivali": {
+        "mode": "train",
+        "reason": "test"
+      }
+    },
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_mode": {
+        "from": "Andheri",
+        "to": "Borivali",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "ro_111",
+    "description": "Leg avoid bus on Andheri\u2192BKC",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "andheri->bkc": {
+        "avoid": [
+          "bus"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_112",
+    "description": "Leg avoid bus on Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "bandra->dadar": {
+        "avoid": [
+          "bus"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_113",
+    "description": "Leg avoid bus on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "dadar->cst": {
+        "avoid": [
+          "bus"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_114",
+    "description": "Leg avoid bus on CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "cst->colaba": {
+        "avoid": [
+          "bus"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_115",
+    "description": "Leg avoid bus on BKC\u2192Powai",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "bkc->powai": {
+        "avoid": [
+          "bus"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_116",
+    "description": "Leg avoid metro on Andheri\u2192BKC",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "andheri->bkc": {
+        "avoid": [
+          "metro"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_117",
+    "description": "Leg avoid metro on Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "bandra->dadar": {
+        "avoid": [
+          "metro"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_118",
+    "description": "Leg avoid metro on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "dadar->cst": {
+        "avoid": [
+          "metro"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_119",
+    "description": "Leg avoid metro on CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "cst->colaba": {
+        "avoid": [
+          "metro"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "CST",
+        "to": "Colaba",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_120",
+    "description": "Leg avoid metro on BKC\u2192Powai",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "bkc->powai": {
+        "avoid": [
+          "metro"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "BKC",
+        "to": "Powai",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_121",
+    "description": "Leg avoid train on Andheri\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "andheri->dadar": {
+        "avoid": [
+          "train"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Andheri",
+        "to": "Dadar",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "ro_122",
+    "description": "Leg avoid train on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "dadar->cst": {
+        "avoid": [
+          "train"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "train"
+      }
+    }
+  },
+  {
+    "id": "ro_123",
+    "description": "Leg avoid cab on Andheri\u2192BKC",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "andheri->bkc": {
+        "avoid": [
+          "cab"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Andheri",
+        "to": "BKC",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_124",
+    "description": "Leg avoid cab on Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "bandra->dadar": {
+        "avoid": [
+          "cab"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Bandra",
+        "to": "Dadar",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_125",
+    "description": "Leg avoid cab on Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "dadar->cst": {
+        "avoid": [
+          "cab"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Dadar",
+        "to": "CST",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_126",
+    "description": "Leg avoid metro on Andheri\u2192Malad",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "andheri->malad": {
+        "avoid": [
+          "metro"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Andheri",
+        "to": "Malad",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_127",
+    "description": "Leg avoid bus on Andheri\u2192Malad",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "andheri->malad": {
+        "avoid": [
+          "bus"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Andheri",
+        "to": "Malad",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_128",
+    "description": "Leg avoid bus on Powai\u2192Thane",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "powai->thane": {
+        "avoid": [
+          "bus"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Powai",
+        "to": "Thane",
+        "mode": "bus"
+      }
+    }
+  },
+  {
+    "id": "ro_129",
+    "description": "Leg avoid cab on Andheri\u2192Powai",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "andheri->powai": {
+        "avoid": [
+          "cab"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "Andheri",
+        "to": "Powai",
+        "mode": "cab"
+      }
+    }
+  },
+  {
+    "id": "ro_130",
+    "description": "Leg avoid metro on BKC\u2192Lower Parel",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:30",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {
+      "bkc->lower parel": {
+        "avoid": [
+          "metro"
+        ],
+        "reason": "test"
+      }
+    },
+    "expected": {
+      "status": "success",
+      "leg_mode_absent": {
+        "from": "BKC",
+        "to": "Lower Parel",
+        "mode": "metro"
+      }
+    }
+  },
+  {
+    "id": "ro_131",
+    "description": "3 meetings: Andheri\u2192BKC\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Dadar",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_132",
+    "description": "3 meetings: Bandra\u2192Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_133",
+    "description": "3 meetings: CST\u2192Colaba\u2192Bandra",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Bandra",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_134",
+    "description": "3 meetings: Andheri\u2192Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_135",
+    "description": "3 meetings: BKC\u2192Lower Parel\u2192Bandra",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Bandra",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_136",
+    "description": "3 meetings: Andheri\u2192BKC\u2192Powai",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Powai",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_137",
+    "description": "3 meetings: Powai\u2192Thane\u2192Navi Mumbai",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_138",
+    "description": "3 meetings: Andheri\u2192Malad\u2192Borivali",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Borivali",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_139",
+    "description": "3 meetings: Dadar\u2192CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Colaba",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_140",
+    "description": "3 meetings: Andheri\u2192Borivali\u2192Thane",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Thane",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_141",
+    "description": "3 meetings: BKC\u2192Powai\u2192Thane",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Thane",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_142",
+    "description": "3 meetings: Lower Parel\u2192Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Dadar",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_143",
+    "description": "3 meetings: Malad\u2192Borivali\u2192Thane",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Thane",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_144",
+    "description": "3 meetings: CST\u2192Colaba\u2192Bandra",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Bandra",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_145",
+    "description": "3 meetings: Andheri\u2192BKC\u2192Lower Parel",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_146",
+    "description": "3 meetings: Bandra\u2192Dadar\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Colaba",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_147",
+    "description": "3 meetings: Andheri\u2192Dadar\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Colaba",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_148",
+    "description": "3 meetings: BKC\u2192Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_149",
+    "description": "3 meetings: Andheri\u2192CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Colaba",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_150",
+    "description": "3 meetings: Powai\u2192BKC\u2192Bandra",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Bandra",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_151",
+    "description": "3 meetings: Lower Parel\u2192Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_152",
+    "description": "3 meetings: Andheri\u2192Bandra\u2192CST",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_153",
+    "description": "3 meetings: BKC\u2192Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Dadar",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_154",
+    "description": "3 meetings: Malad\u2192Andheri\u2192BKC",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "BKC",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_155",
+    "description": "3 meetings: Thane\u2192Powai\u2192BKC",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "BKC",
+        "start_time": "13:30",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 2
+    }
+  },
+  {
+    "id": "ro_156",
+    "description": "4 meetings: Andheri\u2192BKC\u2192Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_157",
+    "description": "4 meetings: Bandra\u2192Dadar\u2192CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Colaba",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_158",
+    "description": "4 meetings: Andheri\u2192Malad\u2192Borivali\u2192Thane",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Malad",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Borivali",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Thane",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_159",
+    "description": "4 meetings: Andheri\u2192BKC\u2192Lower Parel\u2192Bandra",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Bandra",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_160",
+    "description": "4 meetings: Powai\u2192BKC\u2192Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Bandra",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_161",
+    "description": "4 meetings: Andheri\u2192Dadar\u2192CST\u2192Colaba",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Colaba",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_162",
+    "description": "4 meetings: Lower Parel\u2192Bandra\u2192Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_163",
+    "description": "4 meetings: BKC\u2192Powai\u2192Thane\u2192Navi Mumbai",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Thane",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_164",
+    "description": "4 meetings: Andheri\u2192Borivali\u2192Thane\u2192Navi Mumbai",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Thane",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_165",
+    "description": "4 meetings: Malad\u2192Andheri\u2192BKC\u2192Powai",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "BKC",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Powai",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_166",
+    "description": "4 meetings: Andheri\u2192BKC\u2192Powai\u2192Thane",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Powai",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Thane",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_167",
+    "description": "4 meetings: Bandra\u2192CST\u2192Colaba\u2192Bandra",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Colaba",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Bandra",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_168",
+    "description": "4 meetings: Dadar\u2192CST\u2192Colaba\u2192Bandra",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Colaba",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Bandra",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_169",
+    "description": "4 meetings: Andheri\u2192Bandra\u2192Dadar\u2192CST",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "CST",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_170",
+    "description": "4 meetings: BKC\u2192Lower Parel\u2192Bandra\u2192Dadar",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Lower Parel",
+        "start_time": "11:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Bandra",
+        "start_time": "13:00",
+        "duration_minutes": 30
+      },
+      {
+        "location": "Dadar",
+        "start_time": "15:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 3
+    }
+  },
+  {
+    "id": "ro_171",
+    "description": "Single meeting at Andheri \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_172",
+    "description": "Single meeting at BKC \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_173",
+    "description": "Single meeting at Dadar \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_174",
+    "description": "Single meeting at CST \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_175",
+    "description": "Single meeting at Colaba \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Colaba",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_176",
+    "description": "Single meeting at Powai \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_177",
+    "description": "Single meeting at Bandra \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_178",
+    "description": "Single meeting at Thane \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_179",
+    "description": "Single meeting at Malad \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_180",
+    "description": "Single meeting at Borivali \u2192 0 legs",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "success",
+      "leg_count": 0
+    }
+  },
+  {
+    "id": "ro_181",
+    "description": "Impossible window: Andheri ends 09:00+60min, Navi Mumbai at 10:05",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_182",
+    "description": "Impossible window: Colaba ends 09:00+60min, Borivali at 10:05",
+    "meetings": [
+      {
+        "location": "Colaba",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Borivali",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_183",
+    "description": "Impossible window: Colaba ends 09:00+60min, Thane at 10:10",
+    "meetings": [
+      {
+        "location": "Colaba",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Thane",
+        "start_time": "10:10",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_184",
+    "description": "Impossible window: Navi Mumbai ends 09:00+60min, Andheri at 10:05",
+    "meetings": [
+      {
+        "location": "Navi Mumbai",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Andheri",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_185",
+    "description": "Impossible window: Andheri ends 09:00+60min, Colaba at 09:10",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Colaba",
+        "start_time": "09:10",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_186",
+    "description": "Impossible window: Borivali ends 09:00+60min, CST at 10:05",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_187",
+    "description": "Impossible window: Thane ends 09:00+60min, Andheri at 10:00",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Andheri",
+        "start_time": "10:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_188",
+    "description": "Impossible window: Navi Mumbai ends 09:00+60min, Bandra at 10:05",
+    "meetings": [
+      {
+        "location": "Navi Mumbai",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Bandra",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_189",
+    "description": "Impossible window: Malad ends 09:00+60min, CST at 09:15",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "09:15",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_190",
+    "description": "Impossible window: Colaba ends 09:00+60min, Powai at 10:05",
+    "meetings": [
+      {
+        "location": "Colaba",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Powai",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_191",
+    "description": "Impossible window: Andheri ends 10:00+60min, Navi Mumbai at 11:05",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "10:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_192",
+    "description": "Impossible window: CST ends 09:00+45min, Borivali at 09:55",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "09:55",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_193",
+    "description": "Impossible window: Bandra ends 09:00+60min, Thane at 10:10",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Thane",
+        "start_time": "10:10",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_194",
+    "description": "Impossible window: Colaba ends 09:00+45min, Navi Mumbai at 10:00",
+    "meetings": [
+      {
+        "location": "Colaba",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "10:00",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_195",
+    "description": "Impossible window: Andheri ends 09:00+45min, Colaba at 09:55",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "09:55",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_196",
+    "description": "Impossible window: Thane ends 09:00+60min, Colaba at 10:05",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Colaba",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_197",
+    "description": "Impossible window: Navi Mumbai ends 09:00+60min, CST at 10:05",
+    "meetings": [
+      {
+        "location": "Navi Mumbai",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "CST",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_198",
+    "description": "Impossible window: Borivali ends 09:00+60min, Navi Mumbai at 10:05",
+    "meetings": [
+      {
+        "location": "Borivali",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_199",
+    "description": "Impossible window: Andheri ends 08:00+60min, Navi Mumbai at 09:05",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "08:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "09:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_200",
+    "description": "Impossible window: CST ends 09:00+60min, Thane at 10:05",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 60
+      },
+      {
+        "location": "Thane",
+        "start_time": "10:05",
+        "duration_minutes": 30
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_201",
+    "description": "Unknown location: Unknown Place",
+    "meetings": [
+      {
+        "location": "Unknown Place",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_202",
+    "description": "Unknown location: XYZ Station",
+    "meetings": [
+      {
+        "location": "XYZ Station",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_203",
+    "description": "Unknown location: Nowhere",
+    "meetings": [
+      {
+        "location": "Nowhere",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_204",
+    "description": "Unknown location: Fake City",
+    "meetings": [
+      {
+        "location": "Fake City",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_205",
+    "description": "Unknown location: Test Location",
+    "meetings": [
+      {
+        "location": "Test Location",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_206",
+    "description": "Unknown location: Invalid Stop",
+    "meetings": [
+      {
+        "location": "Invalid Stop",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_207",
+    "description": "Unknown location: Atlantis",
+    "meetings": [
+      {
+        "location": "Atlantis",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_208",
+    "description": "Unknown location: Gotham",
+    "meetings": [
+      {
+        "location": "Gotham",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_209",
+    "description": "Unknown location: Springfield",
+    "meetings": [
+      {
+        "location": "Springfield",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_210",
+    "description": "Unknown location: Neverland",
+    "meetings": [
+      {
+        "location": "Neverland",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Andheri",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_211",
+    "description": "Avoid all modes: Andheri\u2192BKC infeasible",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "BKC",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_212",
+    "description": "Avoid all modes: Bandra\u2192Dadar infeasible",
+    "meetings": [
+      {
+        "location": "Bandra",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_213",
+    "description": "Avoid all modes: Dadar\u2192CST infeasible",
+    "meetings": [
+      {
+        "location": "Dadar",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "CST",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_214",
+    "description": "Avoid all modes: CST\u2192Colaba infeasible",
+    "meetings": [
+      {
+        "location": "CST",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Colaba",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_215",
+    "description": "Avoid all modes: BKC\u2192Powai infeasible",
+    "meetings": [
+      {
+        "location": "BKC",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Powai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_216",
+    "description": "Avoid all modes: Lower Parel\u2192Bandra infeasible",
+    "meetings": [
+      {
+        "location": "Lower Parel",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Bandra",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_217",
+    "description": "Avoid all modes: Andheri\u2192Dadar infeasible",
+    "meetings": [
+      {
+        "location": "Andheri",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Dadar",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_218",
+    "description": "Avoid all modes: Malad\u2192Borivali infeasible",
+    "meetings": [
+      {
+        "location": "Malad",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Borivali",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_219",
+    "description": "Avoid all modes: Powai\u2192Thane infeasible",
+    "meetings": [
+      {
+        "location": "Powai",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Thane",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
+  },
+  {
+    "id": "ro_220",
+    "description": "Avoid all modes: Thane\u2192Navi Mumbai infeasible",
+    "meetings": [
+      {
+        "location": "Thane",
+        "start_time": "09:00",
+        "duration_minutes": 45
+      },
+      {
+        "location": "Navi Mumbai",
+        "start_time": "11:00",
+        "duration_minutes": 60
+      }
+    ],
+    "avoid_modes": [
+      "train",
+      "metro",
+      "bus",
+      "cab"
+    ],
+    "leg_overrides": {},
+    "leg_avoid_modes": {},
+    "expected": {
+      "status": "failed"
+    }
   }
 ]
